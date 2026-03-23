@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgb(255, 245, 238);
+    line-height: 1.6;
+}
+
+.content-container {
+    background-color: rgb(255, 245, 238);
+    min-height: 80vh;
+    margin: 0 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    font-family: 'Merriweather', serif;
+    background: #2e2e2e;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    border-radius: 3px;
+    transition: background 0.3s;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.nav a:hover {
+    background: #3a3a3a;
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-family: 'Merriweather', serif;
+    margin: 20px 0;
+    color: #2e2e2e;
+}
+
+.hat img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.introduce {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 30px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.introduce h3 {
+    font-family: 'Merriweather', serif;
+    color: #2e2e2e;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.introduce p {
+    font-family: 'Open Sans', sans-serif;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.8;
+}
