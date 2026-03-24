@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-*{
-    box-sizing: border-box;
-}
-
-body{
-    background: rgb(255, 245, 238);
-}
-
-.content-container{
-=======
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,187 +10,146 @@ body {
     line-height: 1.6;
 }
 
+/* ===== ХЕДЕР ===== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #2c2c2c;
+    padding: 15px 30px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: #e0a96d;
+    font-family: 'Merriweather', serif;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.nav a.active {
+    color: #e0a96d;
+    font-weight: bold;
+    border-bottom: 2px solid #e0a96d;
+}
+
+.nav a:hover {
+    color: #e0a96d;
+}
+
+/* ===== ГЕРОЙ (фон с изображением и градиентом) ===== */
+.hero {
+    position: relative;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.1) 60%,
+        rgb(255, 245, 238) 100%
+      ),
+      url('media/hat.jpg') center / cover no-repeat;
+    background-attachment: scroll;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 0;
+    margin-top: 0; /* убираем margin-top: -1px */
+}
+
+.hero h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 3.5rem;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    margin: 0;
+    background: transparent;
+    border: none;
+    letter-spacing: 2px;
+    max-width: 90%;
+}
+
+/* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
 .content-container {
->>>>>>> 0e2d63e (new_version)
-    background-color: rgb(255, 245, 238);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 20px 20px 20px; /* верхний отступ равен высоте хедера (~70px) + запас */
+    background-color: transparent;
     min-height: 80vh;
-    margin: 0 5%;
     display: flex;
     flex-direction: column;
 }
 
-.header {
-<<<<<<< HEAD
-    font-family: Futura;
-=======
-    font-family: 'Merriweather', serif;
->>>>>>> 0e2d63e (new_version)
-    background: #2e2e2e;
-    color: white;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.nav a {
-    color: white;
-    text-decoration: none;
-<<<<<<< HEAD
-    padding: 5px 10px;
-    border-radius: 3px;
-    transition: background 0.3s;
-}
-
-.nav a:hover{
-    background: #3a3a3a;
-}
-
-h1{
-    text-align: center;
-    font-size: 28px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-.slider{
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.slides{
-    display: flex;
-    width: 100%;
-    transition: transform 0.5s ease-in-out;
-}
-
-.slide{
-    max-width: 100%;
-    max-height: 400px;
-    height: auto;
-    flex-shrink: 0;
-    margin-bottom: 10px;
-    object-fit: contain;
-}
-
-input[type="radio"]{
-    display: none;
-}
-
-#slide1:checked ~ .slides { transform: translateX(0%); }  
-#slide2:checked ~ .slides { transform: translateX(-100%); }
-#slide3:checked ~ .slides { transform: translateX(-200%); }
-#slide4:checked ~ .slides { transform: translateX(-300%); }
-
-.slides img{
-    width: 100%;
-}
-
-.controls{
-    text-align: center;
-    margin-top: 10px;
-}
-
-.controls label{
-    display: inline-block;
-    width: 15px; 
-    height: 15px;
-    background: gray; 
-    border-radius: 50%; 
-    margin: 5px;
-    cursor: pointer;
-}
-
-input:checked + label {
-    background: black;
-}
-
-.footer{
-    background: #2e2e2e;
-    color: rgba(181, 181, 181, 0.75);
-    padding: 20px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.ABOH{
-    text-align: center;
-    padding: 25px;
-    max-height: 85x;
-    border-right: 2px solid 
-}
-
-.footer a{
-    color: rgba(181, 181, 181, 0.75);
-=======
-    padding: 5px 15px;
-    border-radius: 3px;
-    transition: background 0.3s;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.nav a:hover {
-    background: #3a3a3a;
-}
-
-h1 {
-    text-align: center;
-    font-size: 32px;
-    font-family: 'Merriweather', serif;
-    margin: 20px 0;
-    color: #2e2e2e;
-}
-
-.hat img {
-    width: 100%;
-    height: auto;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
+/* ===== БЛОК "О ЧЁМ ЭТОТ САЙТ?" ===== */
 .introduce {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 25px;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px 30px;
+    border-radius: 16px;
     margin: 30px 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #e0a96d;
+    position: relative;
+    z-index: 1;
 }
 
 .introduce h3 {
     font-family: 'Merriweather', serif;
     color: #2e2e2e;
+    font-size: 1.8rem;
     margin-bottom: 15px;
-    font-size: 24px;
 }
 
 .introduce p {
     font-family: 'Open Sans', sans-serif;
     color: #555;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.8;
 }
 
+/* ===== СЛАЙДЕР (горизонтальное расположение) ===== */
 .slider-section {
-    width: 100%;
     margin: 40px 0;
 }
 
-.slider {
-    width: 100%;
-    position: relative;
+.slider-wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: stretch;
+    background: #fffef9;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    margin-bottom: 20px;
+}
+
+.slider-image-container {
+    flex: 1.2;
+    position: relative;
+    background: #f5f0ea;
+    min-height: 400px;
 }
 
 .slides-container {
-    width: 100%;
-    height: 1000px;
     position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
 }
 
 .slide {
@@ -211,7 +159,11 @@ h1 {
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f0ea;
 }
 
 .slide.active {
@@ -220,21 +172,21 @@ h1 {
 }
 
 .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     display: block;
 }
 
-/* Контейнер для текста под слайдером */
 .slider-text-container {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 12px;
+    flex: 0.8;
+    background: #fffef9;
     padding: 30px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    position: relative;
-    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .slide-text {
@@ -251,8 +203,8 @@ h1 {
 .slide-text h3 {
     font-family: 'Merriweather', serif;
     color: #2e2e2e;
-    margin-bottom: 15px;
-    font-size: 24px;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
     border-bottom: 2px solid #e0a96d;
     padding-bottom: 10px;
 }
@@ -260,148 +212,115 @@ h1 {
 .slide-text p {
     font-family: 'Open Sans', sans-serif;
     color: #555;
-    font-size: 18px;
+    font-size: 1rem;
     line-height: 1.7;
 }
 
-/* Кнопки навигации (если раскомментировали в JS) */
-.slide-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 10;
-    transition: background 0.3s;
-}
-
-.slide-btn:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-.slide-btn.prev {
-    left: 10px;
-    border-radius: 0 5px 5px 0;
-}
-
-.slide-btn.next {
-    right: 10px;
-    border-radius: 5px 0 0 5px;
-}
-
-/* Футер */
+/* ===== ФУТЕР ===== */
 .footer {
-    background: #2e2e2e;
-    color: rgba(181, 181, 181, 0.75);
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 25px;
-    margin-top: 40px;
-}
-
-.ABOH {
+    background: #2c2c2c;
+    color: #aaa;
     text-align: center;
-    padding-right: 20px;
-    border-right: 2px solid rgba(181, 181, 181, 0.3);
-    font-family: 'Open Sans', sans-serif;
+    padding: 20px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .ABOH p {
     margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .footer a {
-    color: rgba(181, 181, 181, 0.75);
-    font-size: 24px;
-    transition: color 0.3s;
+    color: #e0a96d;
+    font-size: 28px;
+    transition: 0.3s;
 }
 
 .footer a:hover {
-    color: white;
+    color: #fff;
 }
 
-/* Адаптивность */
+/* ===== АДАПТИВНОСТЬ ===== */
 @media (max-width: 992px) {
+    .slider-image-container,
     .slides-container {
-        height: 400px;
-    }
-    
-    .slider-text-container {
-        padding: 25px;
-    }
-    
-    .slide-text h3 {
-        font-size: 22px;
-    }
-    
-    .slide-text p {
-        font-size: 17px;
+        min-height: 350px;
     }
 }
 
 @media (max-width: 768px) {
-    .content-container {
-        margin: 0 3%;
-    }
-    
     .header {
         flex-direction: column;
         text-align: center;
         gap: 15px;
     }
-    
+
     .nav {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
         justify-content: center;
     }
-    
-    h1 {
-        font-size: 28px;
+
+    .nav a {
+        margin-left: 0;
     }
-    
+
+    .hero {
+        min-height: 350px;
+    }
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .slider-wrapper {
+        flex-direction: column;
+    }
+
+    .slider-image-container,
     .slides-container {
-        height: 300px;
+        min-height: 300px;
     }
-    
+
     .slider-text-container {
-        padding: 20px;
-        min-height: 150px;
+        padding: 25px;
     }
-    
+
     .slide-text h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
+        font-size: 1.3rem;
     }
-    
-    .slide-text p {
-        font-size: 16px;
-        line-height: 1.6;
+
+    .introduce h3 {
+        font-size: 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
+    .hero {
+        min-height: 280px;
+    }
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .slider-image-container,
     .slides-container {
-        height: 250px;
+        min-height: 250px;
     }
-    
+
     .slider-text-container {
-        padding: 15px;
-        min-height: 120px;
+        padding: 20px;
     }
-    
+
     .slide-text h3 {
-        font-size: 18px;
+        font-size: 1.2rem;
     }
-    
+
     .slide-text p {
-        font-size: 15px;
+        font-size: 0.9rem;
     }
->>>>>>> 0e2d63e (new_version)
 }
