@@ -17,10 +17,10 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 ## Install (Cannon instance)
 
-Copy the built JAR into your mods folder (remove any older `cannon_territory_bridge-1.0.0*.jar` first):
+Copy the built JAR into your mods folder (remove any older `cannon_territory_bridge-1.0.*.jar` first):
 
 ```
-C:\Users\dkras\curseforge\minecraft\Instances\Cannon ______\mods\cannon_territory_bridge-1.0.1.jar
+C:\Users\dkras\curseforge\minecraft\Instances\Cannon ______\mods\cannon_territory_bridge-1.0.2.jar
 ```
 
 ## Recruits config (recommended)
@@ -40,8 +40,8 @@ The bridge mod blocks entities and UI even without these, but the config avoids 
 
 ## In-game flow
 
-1. **R → Faction** — create/join faction, diplomacy
-2. **Map key** — buy and manage claims
+1. **U → Faction** — create/join faction, diplomacy (`R` is intentionally blocked — command screen)
+2. **M → Claim map** — buy and manage claims (Overworld only)
 3. **HYW** — build settlement, hire army, fight with RTS
 4. Mark enemy faction → bring **10+ HYW soldiers** into enemy claim for **10 minutes** → claim captured
 
@@ -60,4 +60,4 @@ cd cannon-territory-bridge
 ./gradlew build
 ```
 
-Output: `build/libs/cannon_territory_bridge-1.0.0.jar`
+Output: `build/libs/cannon_territory_bridge-1.0.2.jar`

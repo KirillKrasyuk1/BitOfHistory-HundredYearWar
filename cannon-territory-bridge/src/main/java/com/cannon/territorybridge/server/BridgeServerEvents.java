@@ -4,7 +4,6 @@ import com.cannon.territorybridge.config.BridgeConfig;
 import com.talhanation.recruits.DiplomacyEvent;
 import com.talhanation.recruits.FactionEvent;
 import com.talhanation.recruits.RecruitEvent;
-import com.talhanation.recruits.entities.AbstractRecruitEntity;
 import com.talhanation.recruits.world.RecruitsDiplomacyManager;
 import com.talhanation.recruits.world.RecruitsFaction;
 import net.minecraft.server.level.ServerLevel;
@@ -42,10 +41,19 @@ public final class BridgeServerEvents {
         if (event.getLevel().isClientSide()) {
             return;
         }
-        Entity entity = event.getEntity();
-        if (entity instanceof AbstractRecruitEntity) {
-            entity.discard();
+        if (isRecruitsNpc(event.getEntity())) {
+            event.setCanceled(true);
         }
+    }
+
+    /** Recruits mod NPCs (recruits, nobles, assassins, captains, etc.) — not HYW armies. */
+    static boolean isRecruitsNpc(Entity entity) {
+        if (!(entity instanceof LivingEntity)) {
+            return false;
+        }
+        String className = entity.getClass().getName();
+        return className.startsWith("com.talhanation.recruits.entities.")
+                && !className.contains(".ai.");
     }
 
     @SubscribeEvent
