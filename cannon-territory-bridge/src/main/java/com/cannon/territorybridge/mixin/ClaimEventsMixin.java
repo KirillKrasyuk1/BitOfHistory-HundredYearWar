@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = ClaimEvents.class, remap = false)
 public abstract class ClaimEventsMixin {
     @Inject(method = "takeOverVillager", at = @At("HEAD"), cancellable = true, remap = false)
-    private static void cannon$skipVillagerTakeover(ServerLevel level, RecruitsClaim claim, LivingEntity livingEntity, CallbackInfo ci) {
+    private void cannon$skipVillagerTakeover(ServerLevel level, RecruitsClaim claim, LivingEntity livingEntity, CallbackInfo ci) {
         if (BridgeServerEvents.shouldBlockVillagerClaimTakeover()) {
             ci.cancel();
         }
