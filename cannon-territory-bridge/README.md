@@ -17,10 +17,10 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 ## Install (Cannon instance)
 
-Copy the built JAR into your mods folder:
+Copy the built JAR into your mods folder (remove any older `cannon_territory_bridge-1.0.0*.jar` first):
 
 ```
-C:\Users\dkras\curseforge\minecraft\Instances\Cannon ______\mods\cannon_territory_bridge-1.0.0.jar
+C:\Users\dkras\curseforge\minecraft\Instances\Cannon ______\mods\cannon_territory_bridge-1.0.1.jar
 ```
 
 ## Recruits config (recommended)
