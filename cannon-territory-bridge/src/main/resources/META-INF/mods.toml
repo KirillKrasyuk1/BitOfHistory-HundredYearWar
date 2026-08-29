@@ -5,7 +5,7 @@ issueTrackerURL=""
 
 [[mods]]
 modId="cannon_territory_bridge"
-version="1.0.0"
+version="${mod_version}"
 displayName="Cannon Territory Bridge"
 description='''
 Integrates Hundred Years Warfare armies with Recruits territory claims and sieges.

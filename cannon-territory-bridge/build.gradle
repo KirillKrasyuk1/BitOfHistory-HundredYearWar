@@ -43,6 +43,16 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+processResources {
+    def replaceProperties = [
+            mod_version: mod_version
+    ]
+    inputs.properties replaceProperties
+    filesMatching('META-INF/mods.toml') {
+        expand replaceProperties
+    }
+}
+
 repositories {
     mavenCentral()
 }
