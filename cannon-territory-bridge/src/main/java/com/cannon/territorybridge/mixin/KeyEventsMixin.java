@@ -18,7 +18,7 @@ public abstract class KeyEventsMixin {
             ),
             remap = false
     )
-    private static void cannon$redirectCommandScreen(Player player) {
+    private void cannon$redirectCommandScreen(Player player) {
         if (!BridgeServerEvents.shouldBlockRecruitCommandUi()) {
             CommandEvents.openCommandScreen(player);
         }
