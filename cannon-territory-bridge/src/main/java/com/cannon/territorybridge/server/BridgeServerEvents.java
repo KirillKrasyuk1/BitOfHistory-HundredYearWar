@@ -1,5 +1,6 @@
 package com.cannon.territorybridge.server;
 
+import com.cannon.territorybridge.CannonTerritoryBridge;
 import com.cannon.territorybridge.config.BridgeConfig;
 import com.talhanation.recruits.DiplomacyEvent;
 import com.talhanation.recruits.FactionEvent;
@@ -7,10 +8,10 @@ import com.talhanation.recruits.RecruitEvent;
 import com.talhanation.recruits.world.RecruitsDiplomacyManager;
 import com.talhanation.recruits.world.RecruitsFaction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -34,26 +35,31 @@ public final class BridgeServerEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onRecruitsEntityJoin(EntityJoinLevelEvent event) {
-        if (!BridgeConfig.BLOCK_RECRUITS_ENTITIES.get()) {
-            return;
-        }
+    public void onEntityJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide()) {
             return;
         }
-        if (isRecruitsNpc(event.getEntity())) {
-            event.setCanceled(true);
-        }
-    }
+        Entity entity = event.getEntity();
 
-    /** Recruits mod NPCs (recruits, nobles, assassins, captains, etc.) — not HYW armies. */
-    static boolean isRecruitsNpc(Entity entity) {
-        if (!(entity instanceof LivingEntity)) {
-            return false;
+        if (isRecruitsNpc(entity)) {
+            if (BridgeConfig.BLOCK_RECRUITS_ENTITIES.get()) {
+                event.setCanceled(true);
+            }
+            return;
         }
-        String className = entity.getClass().getName();
-        return className.startsWith("com.talhanation.recruits.entities.")
-                && !className.contains(".ai.");
+
+        if (!BridgeConfig.SYNC_HYW_TEAMS.get() || !(entity instanceof BaseCombatEntity unit)) {
+            return;
+        }
+        if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && unit instanceof HywHorseEntity) {
+            return;
+        }
+        if (!(event.getLevel() instanceof ServerLevel level)) {
+            return;
+        }
+
+        // Defer team assignment until after spawn completes — avoids integrated-server stalls/crashes.
+        level.getServer().execute(() -> scheduleHywTeamSync(level, unit));
     }
 
     @SubscribeEvent
@@ -68,6 +74,14 @@ public final class BridgeServerEvents {
         UUID teamUuid = VanillaTeamUuidCache.get(faction.getStringID());
         String displayName = faction.getTeamDisplayName() != null ? faction.getTeamDisplayName() : faction.getStringID();
         RelationSystem.getOrCreateTeamRelationData(teamUuid, displayName);
+
+        UUID leaderId = faction.getTeamLeaderUUID();
+        if (leaderId != null && BridgeConfig.SYNC_HYW_TEAMS.get()) {
+            var server = net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();
+            if (server != null) {
+                server.execute(() -> syncHywUnitsForOwner(server, leaderId));
+            }
+        }
     }
 
     @SubscribeEvent
@@ -112,17 +126,43 @@ public final class BridgeServerEvents {
         teamSyncCooldown = BridgeConfig.TEAM_SYNC_INTERVAL_TICKS.get();
 
         var server = event.getServer();
-        if (server == null) {
+        if (server == null || server.getPlayerList().getPlayerCount() == 0) {
             return;
         }
 
         boolean countHorses = BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get();
-        for (ServerLevel level : server.getAllLevels()) {
-            AABB bounds = new AABB(-3.0E7, level.getMinBuildHeight(), -3.0E7, 3.0E7, level.getMaxBuildHeight(), 3.0E7);
+        int radius = BridgeConfig.TEAM_SYNC_RADIUS.get();
+
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            if (!(player.level() instanceof ServerLevel level)) {
+                continue;
+            }
+            AABB bounds = player.getBoundingBox().inflate(radius);
             for (BaseCombatEntity unit : level.getEntitiesOfClass(BaseCombatEntity.class, bounds, LivingEntity::isAlive)) {
                 if (!countHorses && unit instanceof HywHorseEntity) {
                     continue;
                 }
+                syncHywUnitTeam(level, unit);
+            }
+        }
+    }
+
+    private static void scheduleHywTeamSync(ServerLevel level, BaseCombatEntity unit) {
+        if (!unit.isAlive() || unit.level() != level) {
+            return;
+        }
+        syncHywUnitTeam(level, unit);
+    }
+
+    private static void syncHywUnitsForOwner(net.minecraft.server.MinecraftServer server, UUID ownerId) {
+        ServerPlayer owner = server.getPlayerList().getPlayer(ownerId);
+        if (owner == null || !(owner.level() instanceof ServerLevel level)) {
+            return;
+        }
+        int radius = BridgeConfig.TEAM_SYNC_RADIUS.get();
+        AABB bounds = owner.getBoundingBox().inflate(radius);
+        for (BaseCombatEntity unit : level.getEntitiesOfClass(BaseCombatEntity.class, bounds, LivingEntity::isAlive)) {
+            if (ownerId.equals(unit.getOwnerUUID())) {
                 syncHywUnitTeam(level, unit);
             }
         }
@@ -141,18 +181,32 @@ public final class BridgeServerEvents {
     }
 
     private static void applyOwnerTeam(ServerLevel level, LivingEntity entity, ServerPlayer owner) {
-        Team ownerTeam = owner.getTeam();
-        if (ownerTeam == null) {
-            return;
+        try {
+            Team ownerTeam = owner.getTeam();
+            if (ownerTeam == null) {
+                return;
+            }
+            Team entityTeam = entity.getTeam();
+            if (entityTeam == ownerTeam) {
+                return;
+            }
+            PlayerTeam playerTeam = level.getScoreboard().getPlayerTeam(ownerTeam.getName());
+            if (playerTeam != null) {
+                level.getScoreboard().addPlayerToTeam(entity.getStringUUID(), playerTeam);
+            }
+        } catch (RuntimeException e) {
+            CannonTerritoryBridge.LOGGER.warn("HYW team sync failed for {}: {}", entity.getStringUUID(), e.toString());
         }
-        Team entityTeam = entity.getTeam();
-        if (entityTeam == ownerTeam) {
-            return;
+    }
+
+    /** Recruits mod NPCs (recruits, nobles, assassins, captains, etc.) — not HYW armies. */
+    static boolean isRecruitsNpc(Entity entity) {
+        if (!(entity instanceof LivingEntity)) {
+            return false;
         }
-        PlayerTeam playerTeam = level.getScoreboard().getPlayerTeam(ownerTeam.getName());
-        if (playerTeam != null) {
-            level.getScoreboard().addPlayerToTeam(entity.getStringUUID(), playerTeam);
-        }
+        String className = entity.getClass().getName();
+        return className.startsWith("com.talhanation.recruits.entities.")
+                && !className.contains(".ai.");
     }
 
     private static RelationSystem.RelationType toHywRelation(RecruitsDiplomacyManager.DiplomacyStatus status) {

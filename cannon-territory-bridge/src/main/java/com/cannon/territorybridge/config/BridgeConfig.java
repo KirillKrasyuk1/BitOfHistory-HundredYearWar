@@ -7,6 +7,7 @@ public final class BridgeConfig {
 
     public static final ForgeConfigSpec.BooleanValue SYNC_HYW_TEAMS;
     public static final ForgeConfigSpec.IntValue TEAM_SYNC_INTERVAL_TICKS;
+    public static final ForgeConfigSpec.IntValue TEAM_SYNC_RADIUS;
     public static final ForgeConfigSpec.BooleanValue SYNC_DIPLOMACY_TO_HYW;
     public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUITS_ENTITIES;
     public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUIT_HIRE;
@@ -22,8 +23,11 @@ public final class BridgeConfig {
                 .comment("Assign HYW combat units to their owner's Recruits scoreboard team.")
                 .define("syncHywTeams", true);
         TEAM_SYNC_INTERVAL_TICKS = builder
-                .comment("How often (server ticks) to scan and sync HYW unit teams.")
-                .defineInRange("teamSyncIntervalTicks", 40, 5, 600);
+                .comment("How often (server ticks) to re-sync HYW units near online players.")
+                .defineInRange("teamSyncIntervalTicks", 200, 20, 1200);
+        TEAM_SYNC_RADIUS = builder
+                .comment("Block radius around each player for HYW team re-sync (smaller = less lag).")
+                .defineInRange("teamSyncRadius", 128, 32, 512);
         SYNC_DIPLOMACY_TO_HYW = builder
                 .comment("Mirror Recruits faction diplomacy into HYW RelationSystem.")
                 .define("syncDiplomacyToHyw", true);

@@ -1,0 +1,23 @@
+# Cannon Territory Bridge — recommended defaults (Forge copies on first run)
+
+[hyw_sync]
+	#Assign HYW combat units to their owner's Recruits scoreboard team.
+	syncHywTeams = true
+	#How often (server ticks) to re-sync HYW units near online players.
+	teamSyncIntervalTicks = 200
+	#Block radius around each player for HYW team re-sync (smaller = less lag).
+	teamSyncRadius = 128
+	#Mirror Recruits faction diplomacy into HYW RelationSystem.
+	syncDiplomacyToHyw = true
+	#If false, HywHorseEntity is not added to the faction team (rider still counts).
+	countMountedHorsesForSiege = false
+
+[recruits_strip]
+	#Prevent Recruits mod NPCs (recruits, nobles, patrols) from spawning.
+	blockRecruitsEntities = true
+	#Cancel hiring Recruits mod villagers.
+	blockRecruitHire = true
+	#Do not auto-assign vanilla villagers to claim owner faction.
+	blockVillagerClaimTakeover = true
+	#Block recruit command / hire screens on the client.
+	blockRecruitCommandUi = true
