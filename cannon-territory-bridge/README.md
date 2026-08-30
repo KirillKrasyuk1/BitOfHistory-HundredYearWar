@@ -4,20 +4,23 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 ## Install
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.23.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.25.jar
 
-Delete all older `cannon_territory_bridge-1.0.x.jar`, verify log: `cannon_territory_bridge 1.0.23`
+Delete all older `cannon_territory_bridge-1.0.x.jar`, verify log: `cannon_territory_bridge 1.0.25`
 
-## v1.0.23
+## v1.0.25
 
-- **Live force counts** — killed or removed units drop from totals immediately (death event + per-tick rescan)
-- **Removed sticky max()/ratio-lock** that froze counts and broke the timer overlay
-- **Unloaded garrison reserve** — only during active capture (HP draining), chunk-unloaded defenders still count until confirmed dead
-- **setHealth / setSiegeSuccess guards** — no instant transfer when ratio not met or reserved garrison remains
+- **Capture ratio 5:1** — siege timer / HP drain starts only when attackers are **5×** defenders (was 2:1)
 
-## v1.0.22
+If you already have a world config, edit `config/cannon_territory_bridge-common.toml`:
 
-- Fix launch crash from 1.0.21 (Mixin `@ModifyVariable` signature)
+```toml
+captureAdvantageRatio = 5.0
+```
+
+## v1.0.24
+
+- Defender UUID preservation during active capture, live vs ratio counts
 
 ## Build
 

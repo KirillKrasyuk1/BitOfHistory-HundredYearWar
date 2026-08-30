@@ -1,20 +1,30 @@
-# Cannon Territory Bridge 1.0.24 — установка
+# Cannon Territory Bridge 1.0.25 — установка
 =========================================
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.24.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.25.jar
 
-2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.24**
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.25**
 
-## Что исправлено (1.0.24)
+## Главное изменение (1.0.25)
 
-- **Мгновенный захват при выходе из claim при 2:1+** — UUID гарнизона сохраняются во время активного захвата (chunk unload больше не обнуляет commitment)
-- **Счётчик на экране** — показывает живых юнитов в загруженных чанках (может быть 0 когда ты ушёл)
-- **Таймер/урон** — считаются с учётом резерва выгруженного гарнизона; захват завершится только когда все защитники подтверждённо мертвы
+**Таймер захвата запускается только при соотношении 5 : 1** (раньше 2 : 1).
 
-## Ранее
+Пример: 10 защитников → нужно **50** атакующих, чтобы пошёл отсчёт и падала прочность клейма.
+Меньше 5 : 1 — осада может идти, но таймер стоит.
 
-- 1.0.23 — живой пересчёт сил, таймер
-- 1.0.22 — краш Mixin
+## Важно: уже существующий конфиг
 
-В логе: `cannon_territory_bridge 1.0.24`
+Forge **не перезаписывает** старый конфиг. Открой в инстансе Cannon:
+
+`config/cannon_territory_bridge-common.toml`
+
+и поставь:
+
+```toml
+captureAdvantageRatio = 5.0
+```
+
+Без этого в старом мире может остаться 2.0.
+
+В логе: `cannon_territory_bridge 1.0.25`

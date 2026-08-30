@@ -17,8 +17,8 @@
 	requireAttackerAdvantage = true
 	#Minimum attackers inside a claim to start or keep a siege.
 	minSiegeAttackers = 10
-	#Attackers must be at least this many times defenders for passive capture (2.0 = 2:1).
-	captureAdvantageRatio = 2.0
+	#Attackers must be at least this many times defenders for passive capture (5.0 = 5:1).
+	captureAdvantageRatio = 5.0
 	#Players on the claim do not count toward siege forces — only NPC armies.
 	countPlayersForSiege = false
 	#Keep NPC siege counts while units stay alive, even off-claim. Home garrison on the claim always counts.

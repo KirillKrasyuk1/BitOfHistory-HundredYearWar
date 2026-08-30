@@ -48,14 +48,14 @@ public final class BridgeConfig {
                 .comment("Apply Recruits attacker/defender ratio to siege damage (defenders slow capture; none = faster).")
                 .define("applySiegeSpeedToDamage", true);
         REQUIRE_ATTACKER_ADVANTAGE = builder
-                .comment("Claim HP only drops when attackers reach the capture ratio (default 2:1). Siege can still start without that ratio.")
+                .comment("Claim HP only drops when attackers reach the capture ratio (default 5:1). Siege can still start without that ratio.")
                 .define("requireAttackerAdvantage", true);
         MIN_SIEGE_ATTACKERS = builder
                 .comment("Minimum attackers inside a claim to start or keep a Recruits siege (overrides Recruits SiegeClaimsRecruitsAmount).")
                 .defineInRange("minSiegeAttackers", 10, 1, 200);
         CAPTURE_ADVANTAGE_RATIO = builder
-                .comment("Attackers must be at least this many times defenders for passive capture (2.0 = 2:1). Empty claims (0 defenders) still capture once the siege has started.")
-                .defineInRange("captureAdvantageRatio", 2.0, 1.0, 10.0);
+                .comment("Attackers must be at least this many times defenders for passive capture (5.0 = 5:1). Empty claims (0 defenders) still capture once the siege has started.")
+                .defineInRange("captureAdvantageRatio", 5.0, 1.0, 10.0);
         COUNT_PLAYERS_FOR_SIEGE = builder
                 .comment("If false, players on the claim do not count as attackers or defenders — only NPC armies (HYW units, etc.).")
                 .define("countPlayersForSiege", false);
