@@ -2,6 +2,9 @@ package com.cannon.territorybridge.server;
 
 import com.cannon.territorybridge.CannonTerritoryBridge;
 import com.cannon.territorybridge.config.BridgeConfig;
+import com.talhanation.recruits.FactionEvents;
+import com.talhanation.recruits.world.RecruitsFaction;
+import com.talhanation.recruits.world.RecruitsPlayerInfo;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,11 +40,17 @@ public final class HywSiegeHelper {
             if (ownerId == null) {
                 return null;
             }
-            ServerPlayer owner = level.getServer().getPlayerList().getPlayer(ownerId);
-            if (owner == null) {
+
+            ServerPlayer onlineOwner = level.getServer().getPlayerList().getPlayer(ownerId);
+            if (onlineOwner != null && onlineOwner.getTeam() != null) {
+                return onlineOwner.getTeam();
+            }
+
+            RecruitsFaction faction = findRecruitsFactionForOwner(ownerId);
+            if (faction == null) {
                 return null;
             }
-            return owner.getTeam();
+            return level.getScoreboard().getPlayerTeam(faction.getStringID());
         } catch (Throwable t) {
             CannonTerritoryBridge.LOGGER.warn(
                     "HYW siege team lookup failed for {}: {}",
@@ -50,5 +59,22 @@ public final class HywSiegeHelper {
             );
             return null;
         }
+    }
+
+    static RecruitsFaction findRecruitsFactionForOwner(UUID ownerId) {
+        if (FactionEvents.recruitsFactionManager == null) {
+            return null;
+        }
+        for (RecruitsFaction faction : FactionEvents.recruitsFactionManager.getFactions()) {
+            if (ownerId.equals(faction.getTeamLeaderUUID())) {
+                return faction;
+            }
+            for (RecruitsPlayerInfo member : faction.getMembers()) {
+                if (ownerId.equals(member.getUUID())) {
+                    return faction;
+                }
+            }
+        }
+        return null;
     }
 }

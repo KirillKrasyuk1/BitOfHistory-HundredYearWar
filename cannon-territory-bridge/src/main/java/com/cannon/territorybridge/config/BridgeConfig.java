@@ -12,6 +12,8 @@ public final class BridgeConfig {
     public static final ForgeConfigSpec.BooleanValue BLOCK_VILLAGER_CLAIM_TAKEOVER;
     public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUIT_COMMAND_UI;
     public static final ForgeConfigSpec.BooleanValue COUNT_MOUNTED_HORSES_FOR_SIEGE;
+    public static final ForgeConfigSpec.IntValue MIN_CAPTURE_MINUTES;
+    public static final ForgeConfigSpec.BooleanValue APPLY_SIEGE_SPEED_TO_DAMAGE;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -26,6 +28,12 @@ public final class BridgeConfig {
         COUNT_MOUNTED_HORSES_FOR_SIEGE = builder
                 .comment("If false, HywHorseEntity is not counted for sieges (rider still counts).")
                 .define("countMountedHorsesForSiege", false);
+        MIN_CAPTURE_MINUTES = builder
+                .comment("Minimum wall-clock minutes to capture a claim once a siege is active (Recruits ticks every 5 s).")
+                .defineInRange("minCaptureMinutes", 3, 1, 60);
+        APPLY_SIEGE_SPEED_TO_DAMAGE = builder
+                .comment("Apply Recruits attacker/defender ratio to siege damage (defenders slow capture; none = faster).")
+                .define("applySiegeSpeedToDamage", true);
         builder.pop();
 
         builder.comment("Strip Recruits settlement / army mechanics — keep claims + diplomacy only.").push("recruits_strip");

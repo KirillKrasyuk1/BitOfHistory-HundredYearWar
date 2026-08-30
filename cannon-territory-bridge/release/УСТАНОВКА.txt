@@ -1,24 +1,28 @@
-Cannon Territory Bridge 1.0.5 — установка
+# Cannon Territory Bridge 1.0.6 — установка
 =========================================
 
-Исправление: вылет при покупке первого claim после HYW-армии + Recruits-фракции.
+Исправление: HYW-гарнизон защищает клейм, когда владелец офлайн; минимальное время захвата.
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.5.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.6.jar
 
 2. CurseForge → Cannon → Открыть папку → mods
 
 3. Удали ВСЕ cannon_territory_bridge-1.0.x.jar
 
-4. Положи cannon_territory_bridge-1.0.5.jar
+4. Положи cannon_territory_bridge-1.0.6.jar
 
-5. config → удали cannon_territory_bridge-common.toml
+5. config → удали cannon_territory_bridge-common.toml (пересоздастся с новыми настройками)
 
 6. Запусти Cannon
+
+Настройки осады (config/cannon_territory_bridge-common.toml):
+- minCaptureMinutes = 3   — минимум ~3 минуты на захват
+- applySiegeSpeedToDamage = true — гарнизон замедляет осада
 
 Рекомендуемый порядок в игре:
 1. U → создать Recruits-фракцию
 2. M → купить claim
 3. HYW → пушка / солдаты / отряд
 
-В логе: cannon_territory_bridge 1.0.5
+В логе: cannon_territory_bridge 1.0.6

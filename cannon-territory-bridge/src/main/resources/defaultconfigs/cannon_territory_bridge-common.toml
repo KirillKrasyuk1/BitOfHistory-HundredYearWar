@@ -7,6 +7,10 @@
 	syncDiplomacyToHyw = true
 	#If false, HywHorseEntity is not counted for sieges (rider still counts).
 	countMountedHorsesForSiege = false
+	#Minimum minutes to capture a claim once siege damage starts (Recruits ticks every 5 s).
+	minCaptureMinutes = 3
+	#Scale siege damage by attacker/defender ratio (more defenders = slower capture).
+	applySiegeSpeedToDamage = true
 
 [recruits_strip]
 	blockRecruitsEntities = true

@@ -5,6 +5,7 @@ import com.talhanation.recruits.ClaimEvent;
 import com.talhanation.recruits.DiplomacyEvent;
 import com.talhanation.recruits.FactionEvent;
 import com.talhanation.recruits.RecruitEvent;
+import com.talhanation.recruits.SiegeEvent;
 import com.talhanation.recruits.world.RecruitsDiplomacyManager;
 import com.talhanation.recruits.world.RecruitsFaction;
 import com.talhanation.recruits.world.RecruitsClaim;
@@ -75,6 +76,47 @@ public final class BridgeServerEvents {
         UUID factionA = VanillaTeamUuidCache.get(event.getFactionA());
         UUID factionB = VanillaTeamUuidCache.get(event.getFactionB());
         HywRelationBridge.mirrorDiplomacy(factionA, factionB, toHywRelation(event.getNewStatus()));
+    }
+
+    /** Recruits sieges tick every 100 server ticks (~5 s). */
+    private static final int RECRUITS_SIEGE_TICKS_PER_MINUTE = 12;
+
+    @SubscribeEvent
+    public void onSiegeStart(SiegeEvent.Start event) {
+        RecruitsClaim claim = event.getClaim();
+        if (claim == null || event.getLevel().isClientSide()) {
+            return;
+        }
+        if (claim.getHealth() < claim.getMaxHealth()) {
+            claim.resetHealth();
+        }
+    }
+
+    @SubscribeEvent
+    public void onSiegeTick(SiegeEvent.Tick event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
+        RecruitsClaim claim = event.getClaim();
+        if (claim == null) {
+            return;
+        }
+
+        int damage = event.getDamage();
+        if (BridgeConfig.APPLY_SIEGE_SPEED_TO_DAMAGE.get()) {
+            float speed = claim.getSiegeSpeedPercent();
+            if (speed > 0.0f) {
+                damage = Math.max(1, Math.round(damage * speed));
+            }
+        }
+
+        int minMinutes = BridgeConfig.MIN_CAPTURE_MINUTES.get();
+        int maxHealth = claim.getMaxHealth();
+        int maxDamagePerTick = Math.max(
+                1,
+                (int) Math.ceil(maxHealth / (double) (minMinutes * RECRUITS_SIEGE_TICKS_PER_MINUTE))
+        );
+        event.setDamage(Math.min(damage, maxDamagePerTick));
     }
 
     private static ServerPlayer resolveClaimPlayer(ServerLevel level, RecruitsClaim claim) {
