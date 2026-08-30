@@ -129,7 +129,8 @@ public abstract class ClaimEventsMixin {
     private int cannon$bridgeAttackerListSize(List<?> ignored) {
         RecruitsClaim claim = ClaimSiegeTracker.activeTickClaim();
         if (claim != null && claim.isUnderSiege) {
-            return ClaimSiegeTracker.bridgeAttackerCount(claim);
+            ServerLevel level = ClaimEvents.server != null ? ClaimEvents.server.overworld() : null;
+            return ClaimSiegeTracker.ratioAttackerCount(claim, level);
         }
         return ignored.size();
     }
@@ -142,7 +143,8 @@ public abstract class ClaimEventsMixin {
     private int cannon$bridgeDefenderListSize(List<?> ignored) {
         RecruitsClaim claim = ClaimSiegeTracker.activeTickClaim();
         if (claim != null && claim.isUnderSiege) {
-            return ClaimSiegeTracker.bridgeDefenderCount(claim);
+            ServerLevel level = ClaimEvents.server != null ? ClaimEvents.server.overworld() : null;
+            return ClaimSiegeTracker.ratioDefenderCount(claim, level);
         }
         return ignored.size();
     }
@@ -158,8 +160,9 @@ public abstract class ClaimEventsMixin {
     private float cannon$bridgeSiegeSpeed(int attackerCount, int defenderCount) {
         RecruitsClaim claim = ClaimSiegeTracker.activeTickClaim();
         if (claim != null && claim.isUnderSiege) {
-            attackerCount = ClaimSiegeTracker.bridgeAttackerCount(claim);
-            defenderCount = ClaimSiegeTracker.bridgeDefenderCount(claim);
+            ServerLevel level = ClaimEvents.server != null ? ClaimEvents.server.overworld() : null;
+            attackerCount = ClaimSiegeTracker.ratioAttackerCount(claim, level);
+            defenderCount = ClaimSiegeTracker.ratioDefenderCount(claim, level);
         }
         return SiegeBalance.computeSpeedPercent(attackerCount, defenderCount);
     }

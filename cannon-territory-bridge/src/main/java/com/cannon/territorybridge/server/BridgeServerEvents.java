@@ -196,8 +196,8 @@ public final class BridgeServerEvents {
             return;
         }
 
-        int attackerCount = BridgeClaimHelper.attackerCount(claim);
-        int defenderCount = BridgeClaimHelper.defenderCount(claim);
+        int attackerCount = ClaimSiegeTracker.ratioAttackerCount(claim, event.getLevel());
+        int defenderCount = ClaimSiegeTracker.ratioDefenderCount(claim, event.getLevel());
         float speed = SiegeBalance.computeSpeedPercent(attackerCount, defenderCount);
 
         if (speed <= 0.0f) {
@@ -223,6 +223,8 @@ public final class BridgeServerEvents {
                 (int) Math.ceil(maxHealth / (double) (minMinutes * RECRUITS_SIEGE_TICKS_PER_MINUTE))
         );
         event.setDamage(Math.min(damage, maxDamagePerTick));
+
+        ClaimSiegeTracker.onCaptureDamageTick(claim, event.getLevel(), defenderCount);
 
         if (ClaimEvents.server != null) {
             SiegeForceBroadcaster.syncClaim(ClaimEvents.server, claim);

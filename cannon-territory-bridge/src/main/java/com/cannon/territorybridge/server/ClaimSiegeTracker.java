@@ -21,8 +21,9 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Siege force totals: live HYW units in the claim update every tick.
- * During active capture, chunk-unloaded garrison UUIDs still count until confirmed dead.
+ * Live HYW counts refresh every tick for the overlay.
+ * During active capture, defender UUIDs survive chunk-unload until confirmed dead —
+ * ratio/completion uses live + reserve, not zero just because the owner walked off.
  */
 public final class ClaimSiegeTracker {
     private static final Map<UUID, Commitment> COMMITMENTS = new ConcurrentHashMap<>();
@@ -110,52 +111,89 @@ public final class ClaimSiegeTracker {
         SiegeForceFilter.stripNonCountingForces(attackers, defenders);
 
         Commitment commitment = COMMITMENTS.computeIfAbsent(claim.getUUID(), ignored -> new Commitment());
-        rebuildCommitmentFromLists(commitment, attackers, defenders);
+        rebuildCommitmentFromLists(commitment, attackers, defenders, claim);
         pruneCommitment(level, claim, commitment);
 
-        int attackerCount = attackers.size();
-        int defenderCount = defenders.size();
-
-        if (BridgeConfig.STICKY_SIEGE_FORCES.get() && isCaptureInProgress(claim)) {
-            defenderCount += countUnloadedReserve(level, commitment.defenders);
-        }
-
-        syncBridgeCounts(claim, attackerCount, defenderCount);
+        int liveAttackers = attackers.size();
+        int liveDefenders = defenders.size();
+        syncBridgeCounts(claim, liveAttackers, liveDefenders);
     }
 
-    public static int bridgeAttackerCount(RecruitsClaim claim) {
+    /** Overlay / packet — units currently resolved in loaded chunks. */
+    public static int liveAttackerCount(RecruitsClaim claim) {
         return bridgeFieldCount(claim, true);
     }
 
-    public static int bridgeDefenderCount(RecruitsClaim claim) {
+    public static int liveDefenderCount(RecruitsClaim claim) {
         return bridgeFieldCount(claim, false);
+    }
+
+    /** Recruits ratio, damage, and capture completion — includes unloaded garrison during active capture. */
+    public static int ratioAttackerCount(RecruitsClaim claim, ServerLevel level) {
+        return liveAttackerCount(claim);
+    }
+
+    public static int ratioDefenderCount(RecruitsClaim claim, ServerLevel level) {
+        int live = liveDefenderCount(claim);
+        if (!BridgeConfig.STICKY_SIEGE_FORCES.get() || !isCaptureInProgress(claim)) {
+            return live;
+        }
+        Commitment commitment = COMMITMENTS.get(claim.getUUID());
+        if (commitment == null) {
+            return live;
+        }
+        return live + countUnloadedReserve(level, commitment.defenders);
     }
 
     public static boolean isCaptureInProgress(RecruitsClaim claim) {
         return claim != null && claim.isUnderSiege && claim.getHealth() < claim.getMaxHealth();
     }
 
-    public static boolean hasLiveOrReservedDefenders(RecruitsClaim claim, ServerLevel level) {
-        if (claim == null) {
+    /** Ownership transfer only when every committed defender is confirmed dead (or there never was a garrison). */
+    public static boolean canTransferOwnership(RecruitsClaim claim, ServerLevel level, int attackers, int defendersForRatio) {
+        if (!SiegeBalance.canProgressCapture(attackers, defendersForRatio)) {
             return false;
         }
-        Commitment commitment = COMMITMENTS.get(claim.getUUID());
+        Commitment commitment = claim != null ? COMMITMENTS.get(claim.getUUID()) : null;
+        if (commitment == null || !commitment.captureStarted || commitment.captureBaselineDefenders <= 0) {
+            return true;
+        }
+        return allDefendersConfirmedDead(claim, level);
+    }
+
+    public static void onCaptureDamageTick(RecruitsClaim claim, ServerLevel level, int ratioDefenders) {
+        if (claim == null || !claim.isUnderSiege) {
+            return;
+        }
+        Commitment commitment = COMMITMENTS.computeIfAbsent(claim.getUUID(), ignored -> new Commitment());
+        if (commitment.captureStarted) {
+            return;
+        }
+        commitment.captureStarted = true;
+        commitment.captureBaselineDefenders = Math.max(ratioDefenders, commitment.defenders.size());
+    }
+
+    public static boolean allDefendersConfirmedDead(RecruitsClaim claim, ServerLevel level) {
+        Commitment commitment = claim != null ? COMMITMENTS.get(claim.getUUID()) : null;
         if (commitment == null || commitment.defenders.isEmpty()) {
-            return false;
-        }
-        if (level == null) {
             return true;
         }
         for (UUID entityId : commitment.defenders) {
             if (CONFIRMED_DEAD.contains(entityId)) {
                 continue;
             }
+            if (level == null) {
+                return false;
+            }
             Entity entity = level.getEntity(entityId);
-            if (entity == null || (entity instanceof LivingEntity living && living.isAlive() && !living.isRemoved())) {
-                return true;
+            if (entity == null) {
+                return false;
+            }
+            if (entity instanceof LivingEntity living && living.isAlive() && !living.isRemoved()) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     private static void addClassifiedEntity(
@@ -181,12 +219,23 @@ public final class ClaimSiegeTracker {
     private static void rebuildCommitmentFromLists(
             Commitment commitment,
             List<LivingEntity> attackers,
-            List<LivingEntity> defenders
+            List<LivingEntity> defenders,
+            RecruitsClaim claim
     ) {
+        Set<UUID> previousDefenders = new HashSet<>(commitment.defenders);
+
         commitment.attackers.clear();
         commitment.defenders.clear();
         rememberEntities(commitment.attackers, attackers);
         rememberEntities(commitment.defenders, defenders);
+
+        if (isCaptureInProgress(claim) || commitment.captureStarted) {
+            for (UUID entityId : previousDefenders) {
+                if (!CONFIRMED_DEAD.contains(entityId)) {
+                    commitment.defenders.add(entityId);
+                }
+            }
+        }
     }
 
     private static int countUnloadedReserve(ServerLevel level, Set<UUID> defenderIds) {
@@ -329,5 +378,7 @@ public final class ClaimSiegeTracker {
     private static final class Commitment {
         private final Set<UUID> attackers = new HashSet<>();
         private final Set<UUID> defenders = new HashSet<>();
+        private boolean captureStarted;
+        private int captureBaselineDefenders;
     }
 }

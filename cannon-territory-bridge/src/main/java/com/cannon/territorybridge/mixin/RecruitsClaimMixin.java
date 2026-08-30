@@ -66,41 +66,30 @@ public class RecruitsClaimMixin implements BridgeClaimAccess {
         }
     }
 
-    /** Block claim HP from reaching zero unless army ratio rules allow capture. */
+    /** Block claim HP from reaching zero unless ratio rules allow and garrison is actually gone. */
     @ModifyVariable(method = "setHealth", at = @At("HEAD"), argsOnly = true, remap = false)
     private int cannon$clampZeroHealthWithoutRatio(int health) {
         RecruitsClaim self = (RecruitsClaim) (Object) this;
         if (!self.isUnderSiege || health > 0) {
             return health;
         }
-        int attackers = BridgeClaimHelper.attackerCount(self);
-        int defenders = BridgeClaimHelper.defenderCount(self);
-        if (!SiegeBalance.canProgressCapture(attackers, defenders)) {
-            return 1;
-        }
         ServerLevel level = ClaimEvents.server != null ? ClaimEvents.server.overworld() : null;
-        if (defenders <= 0 && ClaimSiegeTracker.hasLiveOrReservedDefenders(self, level)) {
+        int attackers = ClaimSiegeTracker.ratioAttackerCount(self, level);
+        int defenders = ClaimSiegeTracker.ratioDefenderCount(self, level);
+        if (!ClaimSiegeTracker.canTransferOwnership(self, level, attackers, defenders)) {
             return 1;
         }
         return health;
     }
 
-    /** Transfer ownership only when bridge army counts satisfy the ratio. */
+    /** Transfer ownership only when ratio is met and every committed defender is confirmed dead. */
     @Inject(method = "setSiegeSuccess", at = @At("HEAD"), cancellable = true, remap = false)
     private void cannon$guardInstantCapture(ServerLevel level, CallbackInfo ci) {
         RecruitsClaim self = (RecruitsClaim) (Object) this;
-        int attackers = BridgeClaimHelper.attackerCount(self);
-        int defenders = BridgeClaimHelper.defenderCount(self);
+        int attackers = ClaimSiegeTracker.ratioAttackerCount(self, level);
+        int defenders = ClaimSiegeTracker.ratioDefenderCount(self, level);
 
-        if (!SiegeBalance.canProgressCapture(attackers, defenders)) {
-            ci.cancel();
-            if (self.getHealth() <= 0) {
-                self.setHealth(1);
-            }
-            return;
-        }
-
-        if (defenders <= 0 && ClaimSiegeTracker.hasLiveOrReservedDefenders(self, level)) {
+        if (!ClaimSiegeTracker.canTransferOwnership(self, level, attackers, defenders)) {
             ci.cancel();
             if (self.getHealth() <= 0) {
                 self.setHealth(1);

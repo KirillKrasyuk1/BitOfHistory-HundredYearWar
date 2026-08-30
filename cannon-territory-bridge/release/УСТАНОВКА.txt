@@ -1,21 +1,20 @@
-# Cannon Territory Bridge 1.0.23 — установка
+# Cannon Territory Bridge 1.0.24 — установка
 =========================================
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.23.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.24.jar
 
-2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.23**
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.24**
 
-## Что исправлено (1.0.23)
+## Что исправлено (1.0.24)
 
-- **Счётчик бойцов** обновляется сразу при убийстве/выводе юнитов (убран «липкий max()» из 1.0.21–1.0.22)
-- **Таймер** снова считается от реального соотношения сил и HP
-- **Выход игрока из claim при 2:1+** — гарнизон не обнуляется мгновенно; резерв только для выгруженных, но живых защитников во время захвата
-- **Мгновенный захват** блокируется на уровне setHealth и setSiegeSuccess
+- **Мгновенный захват при выходе из claim при 2:1+** — UUID гарнизона сохраняются во время активного захвата (chunk unload больше не обнуляет commitment)
+- **Счётчик на экране** — показывает живых юнитов в загруженных чанках (может быть 0 когда ты ушёл)
+- **Таймер/урон** — считаются с учётом резерва выгруженного гарнизона; захват завершится только когда все защитники подтверждённо мертвы
 
 ## Ранее
 
-- 1.0.22 — краш Mixin при запуске
-- 1.0.20 — рабочий baseline до sticky/ratio-lock
+- 1.0.23 — живой пересчёт сил, таймер
+- 1.0.22 — краш Mixin
 
-В логе: `cannon_territory_bridge 1.0.23`
+В логе: `cannon_territory_bridge 1.0.24`
