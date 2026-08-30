@@ -1,0 +1,16 @@
+{
+  "weight": 8,
+  "biomes": ["minecraft:desert", "minecraft:badlands"],
+  "trades": [
+    {
+      "sell": { "item": "minecraft:gold_ingot", "count": 2 },
+      "buy": { "item": "minecraft:emerald", "count": 1 },
+      "max_uses": 12
+    },
+    {
+      "sell": { "item": "minecraft:iron_ingot", "count": 4 },
+      "buy": { "item": "minecraft:wheat", "count": 16 },
+      "max_uses": 16
+    }
+  ]
+}

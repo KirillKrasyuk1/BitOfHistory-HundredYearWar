@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="cannon_economy"
+version="${mod_version}"
+displayName="Cannon Economy"
+description='''
+Regional resources, admin-placed strategic deposits, biome-aware farming, and faction-aware trade routes for GoT-style gameplay.
+'''
+authors="Cannon Season I"
+
+[[dependencies.cannon_economy]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cannon_economy]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cannon_economy]]
+modId="recruits"
+mandatory=false
+versionRange="[1.0,)"
+ordering="AFTER"
+side="BOTH"

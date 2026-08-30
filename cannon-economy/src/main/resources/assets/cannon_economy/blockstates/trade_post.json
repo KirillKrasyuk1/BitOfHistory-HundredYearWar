@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,registered=false": { "model": "cannon_economy:block/trade_post" },
+    "facing=south,registered=false": { "model": "cannon_economy:block/trade_post", "y": 180 },
+    "facing=west,registered=false": { "model": "cannon_economy:block/trade_post", "y": 270 },
+    "facing=east,registered=false": { "model": "cannon_economy:block/trade_post", "y": 90 },
+    "facing=north,registered=true": { "model": "cannon_economy:block/trade_post" },
+    "facing=south,registered=true": { "model": "cannon_economy:block/trade_post", "y": 180 },
+    "facing=west,registered=true": { "model": "cannon_economy:block/trade_post", "y": 270 },
+    "facing=east,registered=true": { "model": "cannon_economy:block/trade_post", "y": 90 }
+  }
+}

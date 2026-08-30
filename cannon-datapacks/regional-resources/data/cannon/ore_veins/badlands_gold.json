@@ -1,0 +1,22 @@
+{
+  "type": "ore_veins:ore_vein",
+  "biomes": {
+    "type": "or",
+    "biomes": [
+      { "type": "tag", "biomes": "minecraft:is_badlands" },
+      "minecraft:badlands",
+      "minecraft:wooded_badlands",
+      "minecraft:eroded_badlands"
+    ]
+  },
+  "size": 24,
+  "radius": 8,
+  "min_y": -48,
+  "max_y": 32,
+  "density": 0.35,
+  "default_block": "minecraft:stone",
+  "blocks": [
+    { "block": "minecraft:gold_ore", "weight": 3 },
+    { "block": "minecraft:deepslate_gold_ore", "weight": 2 }
+  ]
+}
