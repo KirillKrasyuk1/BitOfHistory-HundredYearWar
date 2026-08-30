@@ -1,10 +1,10 @@
 {
   "chat.recruits.text.embargoBlocked": "%s: я не могу торговать с вами — наша фракция объявила вам эмбарго!",
   "chat.recruits.text.siegeBlockedOwnerOffline": "Осада «%s» заблокирована: владелец «%s» не в сети.",
-  "description.recruits.siege_engineer": "Осадный инженер — специалист средневековой войны.\nМожет управлять осадными орудиями.",
+  "description.recruits.siege_engineer": "Осадный инженер — сильный юнит для средневековых войн.\nМожет управлять осадными орудиями: катапульта, баллиста. Стреляет, чинит и перезаряжает машины. Настройка приоритетов целей делает его незаменимым при осаде.",
   "description.recruits.title.siege_engineer": "Осадный инженер",
   "entity.recruits.siege_engineer": "Осадный инженер",
-  "gui.recruits.command.text.hold_formation": "Стоять",
+  "gui.recruits.command.text.hold_formation": "Удерживать строй",
   "gui.recruits.command.tooltip.hold_formation": "Удерживать строй (рекруты не сходят с места).",
   "gui.recruits.embargo.add_title": "Добавить эмбарго",
   "gui.recruits.embargo.button_add": "Добавить",

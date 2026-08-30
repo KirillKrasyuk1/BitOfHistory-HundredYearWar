@@ -8,7 +8,7 @@ version="${mod_version}"
 displayName="Cannon Russian Langpack"
 description='''
 Russian (ru_ru) translations for Cannon modpack mods that ship without Russian language files.
-Currently: Hundred Years War 0.7.1 (full), Villager Recruits (gap-fill), Siege Weapons (full), Villager Workers (gap-fill).
+Currently: Hundred Years War 0.7.1 (quality ru, 2340 keys), Villager Recruits (gap-fill), Siege Weapons, Villager Workers.
 '''
 authors="Cannon Season I"
 
