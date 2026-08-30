@@ -22,13 +22,14 @@ public final class SiegeBalance {
         return (int) Math.ceil(defenderCount * captureRatio());
     }
 
-    /** Siege may exist, but claim HP only drops at this attacker:defender ratio (default 2:1). */
+    /**
+     * Claim HP only drops when attackers hold the ratio against defending NPCs.
+     * Zero defenders does NOT mean a free capture — that was Recruits default and caused
+     * instant wins when the defending player left but garrison was still on the claim.
+     */
     public static boolean canProgressCapture(int attackerCount, int defenderCount) {
-        if (attackerCount < minAttackersToStart()) {
+        if (attackerCount < minAttackersToStart() || defenderCount <= 0) {
             return false;
-        }
-        if (defenderCount <= 0) {
-            return true;
         }
         return attackerCount >= defenderCount * captureRatio();
     }

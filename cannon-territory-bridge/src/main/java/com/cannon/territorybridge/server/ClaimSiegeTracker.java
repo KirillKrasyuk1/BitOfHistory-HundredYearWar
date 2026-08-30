@@ -41,6 +41,43 @@ public final class ClaimSiegeTracker {
         }
     }
 
+    public static void supplementForcesInsideClaim(
+            ServerLevel level,
+            RecruitsClaim claim,
+            List<LivingEntity> attackers,
+            List<LivingEntity> defenders
+    ) {
+        if (claim == null || level == null || !claim.isUnderSiege) {
+            return;
+        }
+        for (net.minecraft.world.level.ChunkPos chunk : claim.getClaimedChunks()) {
+            int minX = chunk.getMinBlockX();
+            int minZ = chunk.getMinBlockZ();
+            AABB box = new AABB(
+                    minX,
+                    level.getMinBuildHeight(),
+                    minZ,
+                    chunk.getMaxBlockX() + 1,
+                    level.getMaxBuildHeight(),
+                    chunk.getMaxBlockZ() + 1
+            );
+            for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, box, Entity::isAlive)) {
+                if (!SiegeForceFilter.countsForSiege(entity)) {
+                    continue;
+                }
+                if (attackers.contains(entity) || defenders.contains(entity)) {
+                    continue;
+                }
+                HywSiegeClassifier.Role role = HywSiegeClassifier.classify(entity, claim);
+                if (role == HywSiegeClassifier.Role.ATTACKER) {
+                    attackers.add(entity);
+                } else if (role == HywSiegeClassifier.Role.DEFENDER) {
+                    defenders.add(entity);
+                }
+            }
+        }
+    }
+
     public static void applyStickyForces(
             ServerLevel level,
             RecruitsClaim claim,
@@ -111,6 +148,9 @@ public final class ClaimSiegeTracker {
         while (iterator.hasNext()) {
             UUID entityId = iterator.next();
             Entity entity = level.getEntity(entityId);
+            if (entity == null) {
+                continue;
+            }
             if (!(entity instanceof LivingEntity living) || !living.isAlive() || living.isRemoved()) {
                 iterator.remove();
                 continue;

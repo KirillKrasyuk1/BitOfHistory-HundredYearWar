@@ -60,6 +60,7 @@ public abstract class ClaimEventsMixin {
         SiegeForceFilter.stripNonCountingForces(attackers, defenders);
         ServerLevel level = resolveServerLevel(entities);
         if (level != null) {
+            ClaimSiegeTracker.supplementForcesInsideClaim(level, claim, attackers, defenders);
             ClaimSiegeTracker.applyStickyForces(level, claim, entities, attackers, defenders);
         }
     }
@@ -72,6 +73,21 @@ public abstract class ClaimEventsMixin {
         }
         MinecraftServer server = ClaimEvents.server;
         return server != null ? server.overworld() : null;
+    }
+
+    @Redirect(
+            method = "tickActiveSieges",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/talhanation/recruits/ClaimEvents;calculateSiegeSpeedPercent(II)F"
+            ),
+            remap = false
+    )
+    private static float cannon$siegeSpeedWhenNoDefenders(int attackerCount, int defenderCount) {
+        if (defenderCount <= 0) {
+            return 0.0f;
+        }
+        return ClaimEvents.calculateSiegeSpeedPercent(attackerCount, defenderCount);
     }
 
     @Redirect(

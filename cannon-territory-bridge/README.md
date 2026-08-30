@@ -13,16 +13,17 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 Download and replace JAR in `Cannon ______\mods\`:
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.16.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.17.jar
 
 1. Delete all older `cannon_territory_bridge-1.0.x.jar`
-2. Copy **1.0.16** into Cannon profile **mods** folder
-3. Launch — verify log line `cannon_territory_bridge 1.0.16`
+2. Copy **1.0.17** into Cannon profile **mods** folder
+3. Launch — verify log line `cannon_territory_bridge 1.0.17`
 
-## v1.0.16
+## v1.0.17
 
-- **Fix launch crash** from 1.0.15 — removed Recruits network protocol mixin; siege counts sync via dedicated packet instead
-- Sticky siege forces + live overlay unchanged from 1.0.15 intent
+- **Fix instant capture** when defending player leaves/dies but HYW garrison stays inside the claim
+- Zero defenders no longer triggers max capture speed (Recruits default)
+- HYW owned by claim owner faction always counts as defenders, regardless of player location
 
 ## Keys
 

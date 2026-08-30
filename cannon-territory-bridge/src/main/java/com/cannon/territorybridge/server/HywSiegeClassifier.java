@@ -5,6 +5,7 @@ import com.talhanation.recruits.FactionEvents;
 import com.talhanation.recruits.world.RecruitsClaim;
 import com.talhanation.recruits.world.RecruitsDiplomacyManager;
 import com.talhanation.recruits.world.RecruitsFaction;
+import com.talhanation.recruits.world.RecruitsPlayerInfo;
 import net.minecraft.world.entity.LivingEntity;
 import ydmsama.hundred_years_war.main.entity.entities.BaseCombatEntity;
 import ydmsama.hundred_years_war.main.entity.entities.HywHorseEntity;
@@ -68,6 +69,10 @@ public final class HywSiegeClassifier {
             return Role.NONE;
         }
 
+        if (isClaimOwnerOrMember(claim, ownerId)) {
+            return Role.DEFENDER;
+        }
+
         RecruitsFaction unitFaction = HywSiegeHelper.findRecruitsFactionForOwner(ownerId);
         if (unitFaction == null) {
             unitFaction = HywSiegeHelper.findRecruitsFactionByHywTeam(ownerId);
@@ -99,5 +104,23 @@ public final class HywSiegeClassifier {
             return Role.ATTACKER;
         }
         return Role.NONE;
+    }
+
+    /** Owner/player location does not matter — garrison belongs to the claim owner's faction. */
+    private static boolean isClaimOwnerOrMember(RecruitsClaim claim, UUID ownerId) {
+        RecruitsFaction ownerFaction = claim.getOwnerFaction();
+        if (ownerFaction == null) {
+            return false;
+        }
+        if (ownerId.equals(ownerFaction.getTeamLeaderUUID())) {
+            return true;
+        }
+        for (RecruitsPlayerInfo member : ownerFaction.getMembers()) {
+            if (ownerId.equals(member.getUUID())) {
+                return true;
+            }
+        }
+        RecruitsPlayerInfo claimPlayer = claim.getPlayerInfo();
+        return claimPlayer != null && ownerId.equals(claimPlayer.getUUID());
     }
 }
