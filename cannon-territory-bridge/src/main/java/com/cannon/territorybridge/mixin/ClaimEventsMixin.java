@@ -80,22 +80,43 @@ public abstract class ClaimEventsMixin {
 
     /**
      * Recruits only scans {@link net.minecraft.server.level.ServerPlayer} inside the claim.
-     * Replace with NPC armies (HYW) so player movement does not change force totals.
+     * Replace with HYW armies so player movement does not change force totals.
+     * Instance + static handlers are split — Mixin rejects one @Redirect for both contexts.
      */
+    private static List<LivingEntity> cannon$hywArmiesInClaim(Level level, RecruitsClaim claim) {
+        return ClaimUtil.getLivingEntitiesInClaim(level, claim, SiegeForceFilter::countsForSiege);
+    }
+
     @Redirect(
-            method = {"tickActiveSieges", "tickDetection", "onRelationChanged"},
+            method = {"tickActiveSieges", "tickDetection"},
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/talhanation/recruits/util/ClaimUtil;getLivingEntitiesInClaim(Lnet/minecraft/world/level/Level;Lcom/talhanation/recruits/world/RecruitsClaim;Ljava/util/function/Predicate;)Ljava/util/List;"
             ),
             remap = false
     )
-    private List<LivingEntity> cannon$scanNpcArmies(
+    private List<LivingEntity> cannon$scanHywArmiesInstance(
             Level level,
             RecruitsClaim claim,
             Predicate<LivingEntity> ignored
     ) {
-        return ClaimUtil.getLivingEntitiesInClaim(level, claim, SiegeForceFilter::countsForSiege);
+        return cannon$hywArmiesInClaim(level, claim);
+    }
+
+    @Redirect(
+            method = "onRelationChanged",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/talhanation/recruits/util/ClaimUtil;getLivingEntitiesInClaim(Lnet/minecraft/world/level/Level;Lcom/talhanation/recruits/world/RecruitsClaim;Ljava/util/function/Predicate;)Ljava/util/List;"
+            ),
+            remap = false
+    )
+    private static List<LivingEntity> cannon$scanHywArmiesStatic(
+            Level level,
+            RecruitsClaim claim,
+            Predicate<LivingEntity> ignored
+    ) {
+        return cannon$hywArmiesInClaim(level, claim);
     }
 
     @Redirect(

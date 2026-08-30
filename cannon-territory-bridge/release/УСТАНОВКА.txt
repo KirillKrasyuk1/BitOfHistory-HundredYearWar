@@ -1,15 +1,16 @@
-# Cannon Territory Bridge 1.0.19 — установка
+# Cannon Territory Bridge 1.0.20 — установка
 =========================================
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.19.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.20.jar
 
-2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.19**
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.20**
 
-## Что исправлено
+## Что исправлено (1.0.19 + 1.0.20)
 
-- Таймер показывает **оставшееся** время («До захвата: ~3:00»), а не полное
-- **Игроки не влияют** на осада — считаются только воины HYW
-- Уход игрока-защитника/атакующего из claim **не сбрасывает** осада и **не даёт** мгновенный захват, если армии HYW на месте
+- **1.0.20** — краш при запуске (Mixin static/instance)
+- Таймер **«До захвата»** — оставшееся время, не полное
+- **Игроки не влияют** — считаются только воины HYW
+- Уход игрока из claim не сбрасывает осада / не даёт мгновенный захват
 
-В логе: `cannon_territory_bridge 1.0.19`
+В логе: `cannon_territory_bridge 1.0.20`
