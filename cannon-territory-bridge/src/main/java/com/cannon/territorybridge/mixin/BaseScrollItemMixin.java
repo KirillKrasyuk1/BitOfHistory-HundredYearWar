@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ydmsama.hundred_years_war.main.item.ConquerorsStaffItem;
+import ydmsama.hundred_years_war.main.item.BaseScrollItem;
 
-@Mixin(value = ConquerorsStaffItem.class, remap = false)
-public abstract class ConquerorsStaffItemMixin {
+@Mixin(value = BaseScrollItem.class, remap = false)
+public abstract class BaseScrollItemMixin {
     @Inject(method = "m_7203_", at = @At("HEAD"), cancellable = true, remap = false)
-    private void cannon$guardRecruitmentOpen(
+    private void cannon$guardScrollSummon(
             Level level,
             Player player,
             InteractionHand hand,
@@ -29,7 +29,7 @@ public abstract class ConquerorsStaffItemMixin {
                 serverPlayer.getUUID(),
                 serverPlayer.blockPosition(),
                 serverPlayer,
-                "conquerorsStaff"
+                "scrollUse"
         );
         if (reason != null) {
             HywMobilizationGuard.denyMobilization(serverPlayer, reason);

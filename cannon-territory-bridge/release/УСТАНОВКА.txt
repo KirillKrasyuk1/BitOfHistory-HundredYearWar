@@ -1,29 +1,26 @@
-# Cannon Territory Bridge 1.0.11 — установка
+# Cannon Territory Bridge 1.0.12 — установка
 =========================================
 
-Исправлен краш при создании клейма (HYW 0.7.1) и вербовка только на своей территории.
+Вербовка HYW только на своём клейме, только с отрядом. Краш 0.7.1 уже исправлен.
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.11.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.12.jar
 
 2. CurseForge → Cannon → **mods**
 
 3. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`
 
-4. Положи `cannon_territory_bridge-1.0.11.jar`
+4. Положи `cannon_territory_bridge-1.0.12.jar`
 
-5. Запусти — в логе должно быть:
+5. Запусти — в логе:
    `Cannon Territory Bridge loaded`
-   и файл `config/cannon_territory_bridge-common.toml`
+   `[CTB-MOBILIZE] config requireOwnClaim=true requireSquad=true allowCreativeBypass=false`
 
-## Что в 1.0.11
+## Что в 1.0.12
 
-- **Краш исправлен** — совместимость с HundredYearsWar **0.7.1r-fix1** (`getOwnerUUID` → рефлексия)
-- Вербовка HYW (посох завоевателя) только при выполнении условий:
-  1. Есть **клейм** фракции
-  2. Создан **отряд** в меню HYW
-  3. Вы стоите **на своём** клейме
-- Гарнизон HYW считается защитником при осаде
-- Таймер осады на экране
+- Вербовка перехватывается в `RecruitmentOrderManager.createOrder` (настоящий найм HYW 0.7.1)
+- Посох завоевателя не открывает меню вне своего клейма
+- Креатив больше **не обходит** ограничения
+- Красные сообщения: нет клейма / нет отряда / не на своей территории
 
-В логе: `cannon_territory_bridge 1.0.11`
+В логе: `cannon_territory_bridge 1.0.12`

@@ -13,19 +13,19 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 Download and replace JAR in `Cannon ______\mods\`:
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.11.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.12.jar
 
 1. Delete all older `cannon_territory_bridge-1.0.x.jar`
-2. Copy **1.0.11** into Cannon profile **mods** folder
-3. Launch — verify log line `Cannon Territory Bridge loaded` and `config/cannon_territory_bridge-common.toml`
+2. Copy **1.0.12** into Cannon profile **mods** folder
+3. Launch — verify log line `Cannon Territory Bridge loaded` and `[CTB-MOBILIZE]`
 
-## v1.0.11
+## v1.0.12
 
-- **Fix crash** with HYW 0.7.1 (`NoSuchMethodError: getOwnerUUID` during siege tick)
-- HYW recruitment requires: **Recruits claim** + **HYW squad** + standing on **own claim**
-- Blocks recruitment wheel, orders, scrolls, and stray spawns outside allowed territory
-- HYW garrison counts as defenders by owner faction
-- On-screen siege timer
+- Block HYW recruitment at `RecruitmentOrderManager.createOrder` (the real 0.7.1 hire path)
+- Conqueror's Staff cannot open the recruitment UI off-claim
+- Require HYW squad + standing on own Recruits claim
+- Creative mode no longer bypasses restrictions
+- Diagnostic log tag `[CTB-MOBILIZE]`
 
 ## Keys
 

@@ -19,7 +19,8 @@ public abstract class RecruitmentOrderPacketMixin {
         HywMobilizationGuard.DenyReason reason = HywMobilizationGuard.evaluate(
                 player.getUUID(),
                 player.blockPosition(),
-                player
+                player,
+                "recruitmentOrderPacket"
         );
         if (reason != null) {
             HywMobilizationGuard.denyMobilization(player, reason);

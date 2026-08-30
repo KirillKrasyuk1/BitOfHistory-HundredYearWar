@@ -24,6 +24,11 @@ public class CannonTerritoryBridge {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Cannon Territory Bridge loaded — HYW armies + Recruits claims/diplomacy only.");
-        LOGGER.info("Config file: config/cannon_territory_bridge-common.toml (created on first launch if mod is active).");
+        LOGGER.info(
+                "[CTB-MOBILIZE] config requireOwnClaim={} requireSquad={} allowCreativeBypass={}",
+                BridgeConfig.REQUIRE_OWN_CLAIM_TO_MOBILIZE.get(),
+                BridgeConfig.REQUIRE_SQUAD_TO_MOBILIZE.get(),
+                BridgeConfig.ALLOW_CREATIVE_BYPASS.get()
+        );
     }
 }

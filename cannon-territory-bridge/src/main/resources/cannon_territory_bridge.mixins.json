@@ -8,8 +8,11 @@
     "ClaimEventsMixin",
     "CommandEventsMixin",
     "ConquerorsStaffItemMixin",
+    "BaseScrollItemMixin",
+    "OpenRecruitmentPacketMixin",
     "RecruitmentDataRequestPacketMixin",
-    "RecruitmentOrderPacketMixin"
+    "RecruitmentOrderPacketMixin",
+    "RecruitmentOrderManagerMixin"
   ],
   "client": [
     "KeyEventsMixin"

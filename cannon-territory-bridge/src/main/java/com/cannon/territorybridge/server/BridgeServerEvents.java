@@ -20,7 +20,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import ydmsama.hundred_years_war.main.entity.entities.BaseCombatEntity;
-import ydmsama.hundred_years_war.main.entity.entities.RecruitmentFlagEntity;
 import ydmsama.hundred_years_war.main.utils.RelationSystem;
 import ydmsama.hundred_years_war.main.utils.VanillaTeamUuidCache;
 
@@ -43,14 +42,11 @@ public final class BridgeServerEvents {
         if (!(event.getEntity() instanceof ServerPlayer player)) {
             return;
         }
-        ItemStack stack = event.getItem();
-        if (!HywMobilizationItems.isConquerorsStaff(stack)) {
-            return;
-        }
         HywMobilizationGuard.DenyReason reason = HywMobilizationGuard.evaluate(
                 player.getUUID(),
                 player.blockPosition(),
-                player
+                player,
+                "staffUseFinish"
         );
         if (reason != null) {
             HywMobilizationGuard.denyMobilization(player, reason);
@@ -58,7 +54,7 @@ public final class BridgeServerEvents {
         }
     }
 
-    /** Blocks HYW scroll use outside own claim (staff recruitment is handled via mixins). */
+    /** Blocks HYW staff / scroll use outside own claim. */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onHywMobilizationRightClick(PlayerInteractEvent.RightClickItem event) {
         if (event.getLevel().isClientSide()) {
@@ -68,13 +64,14 @@ public final class BridgeServerEvents {
             return;
         }
         ItemStack stack = event.getItemStack();
-        if (!HywMobilizationItems.isMobilizationItem(stack) || HywMobilizationItems.isConquerorsStaff(stack)) {
+        if (!HywMobilizationItems.isMobilizationItem(stack)) {
             return;
         }
         HywMobilizationGuard.DenyReason reason = HywMobilizationGuard.evaluate(
                 player.getUUID(),
                 player.blockPosition(),
-                player
+                player,
+                "rightClickItem"
         );
         if (reason != null) {
             HywMobilizationGuard.denyMobilization(player, reason);
@@ -83,14 +80,14 @@ public final class BridgeServerEvents {
         }
     }
 
-    /** Safety net: reject HYW combat units spawned outside allowed territory. */
+    /** Safety net: reject HYW combat units and recruitment flags spawned outside allowed territory. */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onHywCombatEntityJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide() || !BridgeConfig.REQUIRE_OWN_CLAIM_TO_MOBILIZE.get()) {
             return;
         }
         Entity entity = event.getEntity();
-        if (!(entity instanceof BaseCombatEntity hyw) || entity instanceof RecruitmentFlagEntity) {
+        if (!(entity instanceof BaseCombatEntity hyw)) {
             return;
         }
         UUID ownerId = HywEntityAccess.getOwnerUuid(hyw);
@@ -101,7 +98,8 @@ public final class BridgeServerEvents {
         HywMobilizationGuard.DenyReason reason = HywMobilizationGuard.evaluate(
                 ownerId,
                 entity.blockPosition(),
-                owner
+                owner,
+                "entityJoin:" + entity.getType()
         );
         if (reason != null) {
             event.setCanceled(true);

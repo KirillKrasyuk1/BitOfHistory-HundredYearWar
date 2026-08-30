@@ -17,8 +17,12 @@
 	requireAttackerAdvantage = true
 	#On-screen siege timer and claim HP while inside a besieged claim.
 	showSiegeTimer = true
-	#HYW mobilization (staff + scrolls) only inside your own claim.
+	#HYW recruitment only inside your own Recruits claim.
 	requireOwnClaimToMobilize = true
+	#Player must create an HYW squad before recruiting.
+	requireSquadToMobilize = true
+	#Creative mode does not skip recruitment restrictions.
+	allowCreativeBypass = false
 
 [recruits_strip]
 	blockRecruitsEntities = true

@@ -1,5 +1,6 @@
 package com.cannon.territorybridge.server;
 
+import com.cannon.territorybridge.CannonTerritoryBridge;
 import com.cannon.territorybridge.config.BridgeConfig;
 import com.talhanation.recruits.ClaimEvents;
 import com.talhanation.recruits.FactionEvents;
@@ -25,51 +26,98 @@ public final class HywMobilizationGuard {
     private HywMobilizationGuard() {}
 
     public static boolean canMobilize(ServerPlayer player, BlockPos pos) {
-        return evaluate(player.getUUID(), pos, player) == null;
+        return evaluate(player.getUUID(), pos, player, "canMobilize") == null;
     }
 
     public static DenyReason evaluate(UUID playerId, BlockPos pos, ServerPlayer messagingPlayer) {
-        if (!BridgeConfig.REQUIRE_OWN_CLAIM_TO_MOBILIZE.get()) {
+        return evaluate(playerId, pos, messagingPlayer, "evaluate");
+    }
+
+    public static DenyReason evaluate(UUID playerId, BlockPos pos, ServerPlayer messagingPlayer, String source) {
+        boolean creative = messagingPlayer != null && messagingPlayer.getAbilities().instabuild;
+        boolean hasSquad = HywSquadHelper.hasSquad(playerId);
+        ChunkPos chunk = pos == null ? null : new ChunkPos(pos);
+        RecruitsFaction playerFaction = findPlayerFaction(playerId, messagingPlayer);
+        RecruitsClaim standingClaim = null;
+        if (ClaimEvents.recruitsClaimManager != null && chunk != null) {
+            standingClaim = ClaimEvents.recruitsClaimManager.getClaim(chunk);
+        }
+
+        DenyReason reason = resolve(playerId, pos, messagingPlayer, playerFaction, standingClaim, creative, hasSquad);
+        boolean logAllow = source == null || !source.startsWith("entityJoin:");
+        if (reason != null || logAllow) {
+            CannonTerritoryBridge.LOGGER.info(
+                    "[CTB-MOBILIZE] source={} player={} uuid={} pos={} chunk={} creative={} configClaim={} configSquad={} creativeBypass={} faction={} standingClaim={} squad={} result={}",
+                    source,
+                    messagingPlayer != null ? messagingPlayer.getGameProfile().getName() : "offline",
+                    playerId,
+                    pos,
+                    chunk,
+                    creative,
+                    BridgeConfig.REQUIRE_OWN_CLAIM_TO_MOBILIZE.get(),
+                    BridgeConfig.REQUIRE_SQUAD_TO_MOBILIZE.get(),
+                    BridgeConfig.ALLOW_CREATIVE_BYPASS.get(),
+                    playerFaction != null ? playerFaction.getStringID() : "none",
+                    standingClaim != null ? standingClaim.getOwnerFactionStringID() : "none",
+                    hasSquad,
+                    reason == null ? "ALLOW" : reason
+            );
+        }
+        return reason;
+    }
+
+    private static DenyReason resolve(
+            UUID playerId,
+            BlockPos pos,
+            ServerPlayer messagingPlayer,
+            RecruitsFaction playerFaction,
+            RecruitsClaim standingClaim,
+            boolean creative,
+            boolean hasSquad
+    ) {
+        if (!BridgeConfig.REQUIRE_OWN_CLAIM_TO_MOBILIZE.get() && !BridgeConfig.REQUIRE_SQUAD_TO_MOBILIZE.get()) {
             return null;
         }
-        if (messagingPlayer != null && messagingPlayer.getAbilities().instabuild) {
+        if (creative && BridgeConfig.ALLOW_CREATIVE_BYPASS.get()) {
             return null;
         }
         if (ClaimEvents.recruitsClaimManager == null) {
             return DenyReason.NO_CLAIM;
         }
-
-        RecruitsFaction playerFaction = findPlayerFaction(playerId, messagingPlayer);
         if (playerFaction == null) {
             return DenyReason.NO_CLAIM;
         }
-
-        if (!ownsAnyClaim(playerFaction.getStringID())) {
+        if (BridgeConfig.REQUIRE_OWN_CLAIM_TO_MOBILIZE.get() && !ownsAnyClaim(playerFaction.getStringID())) {
             return DenyReason.NO_CLAIM;
         }
-
-        if (!HywSquadHelper.hasSquad(playerId)) {
+        if (BridgeConfig.REQUIRE_SQUAD_TO_MOBILIZE.get() && !hasSquad) {
             return DenyReason.NO_SQUAD;
         }
-
-        RecruitsClaim claim = ClaimEvents.recruitsClaimManager.getClaim(new ChunkPos(pos));
-        if (claim == null || claim.isAdmin || claim.isRemoved) {
+        if (!BridgeConfig.REQUIRE_OWN_CLAIM_TO_MOBILIZE.get()) {
+            return null;
+        }
+        if (standingClaim == null || standingClaim.isAdmin || standingClaim.isRemoved) {
             return DenyReason.NOT_ON_OWN_CLAIM;
         }
-
-        RecruitsFaction ownerFaction = claim.getOwnerFaction();
+        RecruitsFaction ownerFaction = standingClaim.getOwnerFaction();
         if (ownerFaction == null || !isMemberOfFaction(playerId, ownerFaction)) {
             return DenyReason.NOT_ON_OWN_CLAIM;
         }
-
         return null;
     }
 
     public static void denyMobilization(ServerPlayer player) {
-        denyMobilization(player, evaluate(player.getUUID(), player.blockPosition(), player));
+        denyMobilization(player, evaluate(player.getUUID(), player.blockPosition(), player, "deny"));
     }
 
     public static void denyMobilization(ServerPlayer player, DenyReason reason) {
+        if (reason == null) {
+            reason = DenyReason.NOT_ON_OWN_CLAIM;
+        }
+        player.displayClientMessage(denyMessage(reason).copy().withStyle(ChatFormatting.RED), true);
+    }
+
+    public static Component denyMessage(DenyReason reason) {
         if (reason == null) {
             reason = DenyReason.NOT_ON_OWN_CLAIM;
         }
@@ -78,10 +126,7 @@ public final class HywMobilizationGuard {
             case NO_SQUAD -> "message.cannon_territory_bridge.mobilize_denied_no_squad";
             case NOT_ON_OWN_CLAIM -> "message.cannon_territory_bridge.mobilize_denied";
         };
-        player.displayClientMessage(
-                Component.translatable(key).withStyle(ChatFormatting.RED),
-                true
-        );
+        return Component.translatable(key);
     }
 
     static boolean ownsAnyClaim(String factionId) {

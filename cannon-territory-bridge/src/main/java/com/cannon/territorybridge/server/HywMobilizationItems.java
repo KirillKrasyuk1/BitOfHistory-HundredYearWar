@@ -1,51 +1,27 @@
 package com.cannon.territorybridge.server;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import ydmsama.hundred_years_war.main.item.BaseScrollItem;
+import ydmsama.hundred_years_war.main.item.ConquerorsStaffItem;
 
-/** Detects HYW mobilization items without version-specific mixins. */
+/** Detects HYW recruitment / summon items by class, not registry path. */
 public final class HywMobilizationItems {
-    private static final String HYW_MOD_ID = "hundred_years_war";
-    private static final ResourceLocation CONQUERORS_STAFF =
-            ResourceLocation.fromNamespaceAndPath(HYW_MOD_ID, "conquerors_staff");
-
     private HywMobilizationItems() {}
 
     public static boolean isConquerorsStaff(ItemStack stack) {
-        return matches(stack, CONQUERORS_STAFF);
+        return !stack.isEmpty() && stack.getItem() instanceof ConquerorsStaffItem;
     }
 
     public static boolean isMobilizationItem(ItemStack stack) {
-        return isConquerorsStaff(stack) || isHywScroll(stack);
-    }
-
-    public static boolean isHywScroll(ItemStack stack) {
-        if (stack.isEmpty()) {
-            return false;
-        }
-        ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        if (id == null || !HYW_MOD_ID.equals(id.getNamespace())) {
-            return false;
-        }
-        if (CONQUERORS_STAFF.equals(id)) {
-            return false;
-        }
-        String path = id.getPath();
-        return path.startsWith("scroll_")
-                || path.contains("cannon")
-                || path.contains("trebuchet")
-                || path.contains("mangonel")
-                || path.contains("bombard");
-    }
-
-    private static boolean matches(ItemStack stack, ResourceLocation id) {
         if (stack.isEmpty()) {
             return false;
         }
         Item item = stack.getItem();
-        ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item);
-        return id.equals(itemId);
+        return item instanceof ConquerorsStaffItem || item instanceof BaseScrollItem;
+    }
+
+    public static boolean isHywScroll(ItemStack stack) {
+        return !stack.isEmpty() && stack.getItem() instanceof BaseScrollItem;
     }
 }

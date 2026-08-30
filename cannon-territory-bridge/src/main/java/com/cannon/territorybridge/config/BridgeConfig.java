@@ -18,6 +18,8 @@ public final class BridgeConfig {
     public static final ForgeConfigSpec.BooleanValue REQUIRE_ATTACKER_ADVANTAGE;
     public static final ForgeConfigSpec.BooleanValue SHOW_SIEGE_TIMER;
     public static final ForgeConfigSpec.BooleanValue REQUIRE_OWN_CLAIM_TO_MOBILIZE;
+    public static final ForgeConfigSpec.BooleanValue REQUIRE_SQUAD_TO_MOBILIZE;
+    public static final ForgeConfigSpec.BooleanValue ALLOW_CREATIVE_BYPASS;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -48,8 +50,14 @@ public final class BridgeConfig {
                 .comment("Show remaining siege time and claim HP as on-screen text while you are inside a claim under siege.")
                 .define("showSiegeTimer", true);
         REQUIRE_OWN_CLAIM_TO_MOBILIZE = builder
-                .comment("HYW recruitment and mobilization require a Recruits claim, an HYW squad, and standing inside your own claim chunks.")
+                .comment("HYW recruitment and mobilization require a Recruits claim and standing inside your own claim chunks.")
                 .define("requireOwnClaimToMobilize", true);
+        REQUIRE_SQUAD_TO_MOBILIZE = builder
+                .comment("Player must have created at least one HYW squad before recruiting.")
+                .define("requireSquadToMobilize", true);
+        ALLOW_CREATIVE_BYPASS = builder
+                .comment("If true, Creative mode ignores claim/squad recruitment restrictions.")
+                .define("allowCreativeBypass", false);
         builder.pop();
 
         builder.comment("Strip Recruits settlement / army mechanics — keep claims + diplomacy only.").push("recruits_strip");
