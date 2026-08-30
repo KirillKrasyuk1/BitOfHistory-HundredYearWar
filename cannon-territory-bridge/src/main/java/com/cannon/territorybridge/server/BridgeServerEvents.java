@@ -1,5 +1,6 @@
 package com.cannon.territorybridge.server;
 
+import com.cannon.territorybridge.bridge.BridgeClaimHelper;
 import com.cannon.territorybridge.config.BridgeConfig;
 import com.talhanation.recruits.ClaimEvent;
 import com.talhanation.recruits.DiplomacyEvent;
@@ -182,22 +183,21 @@ public final class BridgeServerEvents {
             return;
         }
 
-        int attackerCount = event.getAttackerCount();
-        int defenderCount = event.getDefenderCount();
+        int attackerCount = bridgeSiegeAttackerCount(claim, event.getAttackerCount());
+        int defenderCount = bridgeSiegeDefenderCount(claim, event.getDefenderCount());
+        float speed = SiegeBalance.computeSpeedPercent(attackerCount, defenderCount);
 
-        if (attackerCount < SiegeBalance.minAttackersToStart()
-                || (BridgeConfig.REQUIRE_ATTACKER_ADVANTAGE.get()
-                && !SiegeBalance.canProgressCapture(attackerCount, defenderCount))) {
+        if (speed <= 0.0f) {
             event.setDamage(0);
+            claim.setSiegeSpeedPercent(0.0f);
             return;
         }
 
+        claim.setSiegeSpeedPercent(speed);
+
         int damage = event.getDamage();
         if (BridgeConfig.APPLY_SIEGE_SPEED_TO_DAMAGE.get()) {
-            float speed = claim.getSiegeSpeedPercent();
-            if (speed > 0.0f) {
-                damage = Math.max(1, Math.round(damage * speed));
-            }
+            damage = Math.max(1, Math.round(damage * speed));
         }
 
         int minMinutes = BridgeConfig.MIN_CAPTURE_MINUTES.get();
@@ -239,6 +239,16 @@ public final class BridgeServerEvents {
             case ALLY -> RelationSystem.RelationType.FRIENDLY;
             case NEUTRAL -> RelationSystem.RelationType.NEUTRAL;
         };
+    }
+
+    private static int bridgeSiegeAttackerCount(RecruitsClaim claim, int fallback) {
+        int bridge = BridgeClaimHelper.attackerCount(claim);
+        return bridge > 0 || BridgeClaimHelper.defenderCount(claim) > 0 ? bridge : fallback;
+    }
+
+    private static int bridgeSiegeDefenderCount(RecruitsClaim claim, int fallback) {
+        int bridge = BridgeClaimHelper.defenderCount(claim);
+        return bridge > 0 || BridgeClaimHelper.attackerCount(claim) > 0 ? bridge : fallback;
     }
 
     /** Used by ClaimEventsMixin */

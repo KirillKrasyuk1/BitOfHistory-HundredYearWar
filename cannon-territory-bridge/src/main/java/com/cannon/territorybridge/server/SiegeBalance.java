@@ -23,15 +23,34 @@ public final class SiegeBalance {
     }
 
     /**
-     * Claim HP only drops when attackers hold the ratio against defending NPCs.
-     * Zero defenders does NOT mean a free capture — that was Recruits default and caused
-     * instant wins when the defending player left but garrison was still on the claim.
+     * Claim HP only drops when attackers meet the minimum headcount and (if enabled) the capture ratio.
+     * Zero defenders allows slow baseline capture — not Recruits' instant max-speed branch.
      */
     public static boolean canProgressCapture(int attackerCount, int defenderCount) {
-        if (attackerCount < minAttackersToStart() || defenderCount <= 0) {
+        if (attackerCount < minAttackersToStart()) {
             return false;
         }
+        if (defenderCount <= 0) {
+            return true;
+        }
+        if (!BridgeConfig.REQUIRE_ATTACKER_ADVANTAGE.get()) {
+            return true;
+        }
         return attackerCount >= defenderCount * captureRatio();
+    }
+
+    /**
+     * Siege speed multiplier passed to Recruits damage and the client overlay.
+     * Below {@link #captureRatio()} capture stalls; above it, speed scales with attacker:defender ratio.
+     */
+    public static float computeSpeedPercent(int attackerCount, int defenderCount) {
+        if (!canProgressCapture(attackerCount, defenderCount)) {
+            return 0.0f;
+        }
+        if (defenderCount <= 0) {
+            return (float) captureRatio();
+        }
+        return (float) attackerCount / defenderCount;
     }
 
     public static boolean isCaptureProgressing(float siegeSpeedPercent, int health) {

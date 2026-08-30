@@ -37,7 +37,7 @@ public final class SiegeTimerUtil {
         int attackers = overlayAttackerCount(claim);
         int defenders = overlayDefenderCount(claim);
         if (attackers > 0 || defenders > 0) {
-            return SiegeBalance.canProgressCapture(attackers, defenders);
+            return SiegeBalance.computeSpeedPercent(attackers, defenders) > 0.0f;
         }
         return SiegeBalance.isCaptureProgressing(claim.getSiegeSpeedPercent(), claim.getHealth());
     }
@@ -53,7 +53,12 @@ public final class SiegeTimerUtil {
 
         int maxHealth = claim.getMaxHealth();
         int health = claim.getHealth();
-        float speed = claim.getSiegeSpeedPercent();
+        int attackers = overlayAttackerCount(claim);
+        int defenders = overlayDefenderCount(claim);
+        float speed = SiegeBalance.computeSpeedPercent(attackers, defenders);
+        if (speed <= 0.0f) {
+            speed = claim.getSiegeSpeedPercent();
+        }
         if (speed <= 0.0f) {
             speed = 1.0f;
         }

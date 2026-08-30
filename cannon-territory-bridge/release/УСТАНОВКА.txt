@@ -1,22 +1,23 @@
-# Cannon Territory Bridge 1.0.17 — установка
+# Cannon Territory Bridge 1.0.18 — установка
 =========================================
 
-Исправлен мгновенный захват, когда защитник покидает claim, а гарнизон остаётся внутри.
+Исправлен краш при запуске (1.0.17) и зависший таймер осады.
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.17.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.18.jar
 
 2. CurseForge → Cannon → **mods**
 
 3. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`
 
-4. Положи `cannon_territory_bridge-1.0.17.jar`
+4. Положи `cannon_territory_bridge-1.0.18.jar`
 
 ## Осада
 
-- Игрок-защитник **не влияет** на силы — считаются только НПС внутри claim
+- Игрок-защитник **не влияет** на силы — считаются только НПС
 - Если защитник ушёл/умер, а HYW-гарнизон **остался в claim** → осада продолжается
-- **0 защитников ≠ мгновенный захват** — HP падает только при реальном перевесе 2:1
-- Вывод атакующих (<10 в claim) → осада сбрасывается (как в Recruits)
+- **2:1 и выше** → HP claim падает; чем больше перевес, тем **быстрее** таймер (3:1 быстрее 2:1)
+- **0 защитников** → медленный базовый захват (не мгновенный)
+- Вывод атакующих (<10 в claim) → осада сбрасывается
 
-В логе: `cannon_territory_bridge 1.0.17`
+В логе: `cannon_territory_bridge 1.0.18`

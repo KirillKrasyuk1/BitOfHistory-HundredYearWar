@@ -83,11 +83,8 @@ public abstract class ClaimEventsMixin {
             ),
             remap = false
     )
-    private static float cannon$siegeSpeedWhenNoDefenders(int attackerCount, int defenderCount) {
-        if (defenderCount <= 0) {
-            return 0.0f;
-        }
-        return ClaimEvents.calculateSiegeSpeedPercent(attackerCount, defenderCount);
+    private float cannon$bridgeSiegeSpeed(int attackerCount, int defenderCount) {
+        return SiegeBalance.computeSpeedPercent(attackerCount, defenderCount);
     }
 
     @Redirect(
