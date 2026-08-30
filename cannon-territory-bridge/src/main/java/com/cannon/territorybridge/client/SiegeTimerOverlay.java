@@ -1,7 +1,6 @@
 package com.cannon.territorybridge.client;
 
 import com.cannon.territorybridge.CannonTerritoryBridge;
-import com.cannon.territorybridge.bridge.BridgeClaimHelper;
 import com.cannon.territorybridge.config.BridgeConfig;
 import com.talhanation.recruits.client.ClientManager;
 import com.talhanation.recruits.world.RecruitsClaim;
@@ -39,8 +38,8 @@ public final class SiegeTimerOverlay {
         int remaining = SiegeTimerUtil.estimateRemainingSeconds(claim);
         int health = claim.getHealth();
         int maxHealth = Math.max(1, claim.getMaxHealth());
-        int attackers = BridgeClaimHelper.attackerCount(claim);
-        int defenders = BridgeClaimHelper.defenderCount(claim);
+        int attackers = SiegeTimerUtil.overlayAttackerCount(claim);
+        int defenders = SiegeTimerUtil.overlayDefenderCount(claim);
         int required = SiegeTimerUtil.requiredAttackers(claim);
         boolean capturing = SiegeTimerUtil.isCaptureProgressing(claim);
 

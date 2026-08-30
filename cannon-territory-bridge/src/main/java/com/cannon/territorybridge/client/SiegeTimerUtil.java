@@ -1,6 +1,7 @@
 package com.cannon.territorybridge.client;
 
 import com.cannon.territorybridge.bridge.BridgeClaimHelper;
+import com.cannon.territorybridge.client.SiegeForceClientCache;
 import com.cannon.territorybridge.config.BridgeConfig;
 import com.cannon.territorybridge.server.SiegeBalance;
 import com.talhanation.recruits.world.RecruitsClaim;
@@ -13,12 +14,28 @@ public final class SiegeTimerUtil {
 
     private SiegeTimerUtil() {}
 
+    public static int overlayAttackerCount(RecruitsClaim claim) {
+        if (claim == null) {
+            return 0;
+        }
+        int cached = SiegeForceClientCache.attackers(claim.getUUID());
+        return cached >= 0 ? cached : BridgeClaimHelper.attackerCount(claim);
+    }
+
+    public static int overlayDefenderCount(RecruitsClaim claim) {
+        if (claim == null) {
+            return 0;
+        }
+        int cached = SiegeForceClientCache.defenders(claim.getUUID());
+        return cached >= 0 ? cached : BridgeClaimHelper.defenderCount(claim);
+    }
+
     public static boolean isCaptureProgressing(RecruitsClaim claim) {
         if (claim == null || !claim.isUnderSiege || claim.getHealth() <= 0) {
             return false;
         }
-        int attackers = BridgeClaimHelper.attackerCount(claim);
-        int defenders = BridgeClaimHelper.defenderCount(claim);
+        int attackers = overlayAttackerCount(claim);
+        int defenders = overlayDefenderCount(claim);
         if (attackers > 0 || defenders > 0) {
             return SiegeBalance.canProgressCapture(attackers, defenders);
         }
@@ -26,7 +43,7 @@ public final class SiegeTimerUtil {
     }
 
     public static int requiredAttackers(RecruitsClaim claim) {
-        return SiegeBalance.requiredAttackersForCapture(BridgeClaimHelper.defenderCount(claim));
+        return SiegeBalance.requiredAttackersForCapture(overlayDefenderCount(claim));
     }
 
     public static int estimateRemainingSeconds(RecruitsClaim claim) {

@@ -2,6 +2,8 @@ package com.cannon.territorybridge.server;
 
 import com.cannon.territorybridge.bridge.BridgeClaimAccess;
 import com.cannon.territorybridge.config.BridgeConfig;
+import com.cannon.territorybridge.network.SiegeForceBroadcaster;
+import com.talhanation.recruits.ClaimEvents;
 import com.talhanation.recruits.world.RecruitsClaim;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -27,10 +29,15 @@ public final class ClaimSiegeTracker {
 
     private ClaimSiegeTracker() {}
 
+    private static final int HOME_SCAN_MARGIN = 2048;
+
     public static void clear(RecruitsClaim claim) {
         if (claim != null) {
             COMMITMENTS.remove(claim.getUUID());
             resetBridgeCounts(claim);
+            if (ClaimEvents.server != null) {
+                SiegeForceBroadcaster.clearOnAll(ClaimEvents.server, claim.getUUID());
+            }
         }
     }
 
@@ -71,15 +78,11 @@ public final class ClaimSiegeTracker {
     }
 
     private static void supplementHomeGarrison(ServerLevel level, RecruitsClaim claim, Commitment commitment) {
-        AABB entireLevel = new AABB(
-                -30_000_000,
-                level.getMinBuildHeight(),
-                -30_000_000,
-                30_000_000,
-                level.getMaxBuildHeight(),
-                30_000_000
-        );
-        List<BaseCombatEntity> hywUnits = level.getEntitiesOfClass(BaseCombatEntity.class, entireLevel, Entity::isAlive);
+        AABB scanBox = expandedClaimBounds(claim, HOME_SCAN_MARGIN);
+        if (scanBox == null) {
+            return;
+        }
+        List<BaseCombatEntity> hywUnits = level.getEntitiesOfClass(BaseCombatEntity.class, scanBox, Entity::isAlive);
         for (BaseCombatEntity hyw : hywUnits) {
             if (!isHomeOnClaim(hyw, claim)) {
                 continue;
@@ -158,12 +161,41 @@ public final class ClaimSiegeTracker {
         return claim.containsChunk(new ChunkPos(home));
     }
 
-    private static void syncBridgeCounts(RecruitsClaim claim, List<LivingEntity> attackers, List<LivingEntity> defenders) {
-        if (!(claim instanceof BridgeClaimAccess access)) {
-            return;
+    private static AABB expandedClaimBounds(RecruitsClaim claim, int margin) {
+        List<ChunkPos> chunks = claim.getClaimedChunks();
+        if (chunks.isEmpty()) {
+            return null;
         }
-        access.cannon$setBridgeAttackerCount(attackers != null ? attackers.size() : 0);
-        access.cannon$setBridgeDefenderCount(defenders != null ? defenders.size() : 0);
+        int minX = Integer.MAX_VALUE;
+        int minZ = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int maxZ = Integer.MIN_VALUE;
+        for (ChunkPos chunk : chunks) {
+            minX = Math.min(minX, chunk.getMinBlockX());
+            minZ = Math.min(minZ, chunk.getMinBlockZ());
+            maxX = Math.max(maxX, chunk.getMaxBlockX());
+            maxZ = Math.max(maxZ, chunk.getMaxBlockZ());
+        }
+        return new AABB(
+                minX - margin,
+                -64,
+                minZ - margin,
+                maxX + margin,
+                320,
+                maxZ + margin
+        );
+    }
+
+    private static void syncBridgeCounts(RecruitsClaim claim, List<LivingEntity> attackers, List<LivingEntity> defenders) {
+        int attackerCount = attackers != null ? attackers.size() : 0;
+        int defenderCount = defenders != null ? defenders.size() : 0;
+        if (claim instanceof BridgeClaimAccess access) {
+            access.cannon$setBridgeAttackerCount(attackerCount);
+            access.cannon$setBridgeDefenderCount(defenderCount);
+        }
+        if (ClaimEvents.server != null && claim != null && claim.isUnderSiege) {
+            SiegeForceBroadcaster.syncToAll(ClaimEvents.server, claim.getUUID(), attackerCount, defenderCount);
+        }
     }
 
     private static void resetBridgeCounts(RecruitsClaim claim) {

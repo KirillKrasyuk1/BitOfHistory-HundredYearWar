@@ -1,6 +1,7 @@
 package com.cannon.territorybridge;
 
 import com.cannon.territorybridge.config.BridgeConfig;
+import com.cannon.territorybridge.network.SiegeForceNetworking;
 import com.cannon.territorybridge.server.BridgeServerEvents;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,6 +24,7 @@ public class CannonTerritoryBridge {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(SiegeForceNetworking::register);
         LOGGER.info("Cannon Territory Bridge loaded — HYW armies + Recruits claims/diplomacy only.");
         LOGGER.info(
                 "[CTB-MOBILIZE] config requireOwnClaim={} requireSquad={} allowCreativeBypass={}",

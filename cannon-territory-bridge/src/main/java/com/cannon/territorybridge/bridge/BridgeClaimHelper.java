@@ -2,6 +2,7 @@ package com.cannon.territorybridge.bridge;
 
 import com.talhanation.recruits.world.RecruitsClaim;
 
+/** Server-side bridge fields on RecruitsClaim (also mirrored to clients via siege force packets). */
 public final class BridgeClaimHelper {
     private BridgeClaimHelper() {}
 

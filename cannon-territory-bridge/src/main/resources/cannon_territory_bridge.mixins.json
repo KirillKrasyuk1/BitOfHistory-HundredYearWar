@@ -14,8 +14,7 @@
     "RecruitmentOrderPacketMixin",
     "RecruitmentOrderManagerMixin",
     "RecruitsClaimMixin",
-    "RecruitsClaimManagerMixin",
-    "com.talhanation.recruits.network.codec.CannonClaimPayloadCodecMixin"
+    "RecruitsClaimManagerMixin"
   ],
   "client": [
     "KeyEventsMixin"
