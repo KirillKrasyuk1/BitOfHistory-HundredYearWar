@@ -48,7 +48,7 @@ public final class BridgeConfig {
                 .comment("Show remaining siege time and claim HP as on-screen text while you are inside a claim under siege.")
                 .define("showSiegeTimer", true);
         REQUIRE_OWN_CLAIM_TO_MOBILIZE = builder
-                .comment("HYW army mobilization (Conqueror's Staff and scrolls) only inside your own Recruits claim chunks.")
+                .comment("HYW recruitment and mobilization require a Recruits claim, an HYW squad, and standing inside your own claim chunks.")
                 .define("requireOwnClaimToMobilize", true);
         builder.pop();
 

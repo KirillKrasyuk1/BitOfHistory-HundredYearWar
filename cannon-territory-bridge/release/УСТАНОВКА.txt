@@ -1,26 +1,29 @@
-# Cannon Territory Bridge 1.0.10 — установка
+# Cannon Territory Bridge 1.0.11 — установка
 =========================================
 
-Исправлен краш с HYW 0.7.1 (mixin на spawnArmy удалён).
+Исправлен краш при создании клейма (HYW 0.7.1) и вербовка только на своей территории.
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.10.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.11.jar
 
 2. CurseForge → Cannon → **mods**
 
 3. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`
 
-4. Положи `cannon_territory_bridge-1.0.10.jar`
+4. Положи `cannon_territory_bridge-1.0.11.jar`
 
 5. Запусти — в логе должно быть:
    `Cannon Territory Bridge loaded`
    и файл `config/cannon_territory_bridge-common.toml`
 
-## Что в 1.0.10
+## Что в 1.0.11
 
-- **Краш исправлен** — совместимость с HundredYearsWar **0.7.1r-fix1**
-- Гарнизон HYW считается защитником по фракции владельца
-- Мобилизация (посох + свитки) только на **своём** клейме
+- **Краш исправлен** — совместимость с HundredYearsWar **0.7.1r-fix1** (`getOwnerUUID` → рефлексия)
+- Вербовка HYW (посох завоевателя) только при выполнении условий:
+  1. Есть **клейм** фракции
+  2. Создан **отряд** в меню HYW
+  3. Вы стоите **на своём** клейме
+- Гарнизон HYW считается защитником при осаде
 - Таймер осады на экране
 
-В логе: `cannon_territory_bridge 1.0.10`
+В логе: `cannon_territory_bridge 1.0.11`

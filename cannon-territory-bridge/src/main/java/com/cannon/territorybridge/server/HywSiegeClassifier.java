@@ -36,11 +36,15 @@ public final class HywSiegeClassifier {
             if (attackers.contains(entity) || defenders.contains(entity)) {
                 continue;
             }
-            Role role = classify(entity, claim);
-            if (role == Role.ATTACKER) {
-                attackers.add(entity);
-            } else if (role == Role.DEFENDER) {
-                defenders.add(entity);
+            try {
+                Role role = classify(entity, claim);
+                if (role == Role.ATTACKER) {
+                    attackers.add(entity);
+                } else if (role == Role.DEFENDER) {
+                    defenders.add(entity);
+                }
+            } catch (Throwable t) {
+                // Never crash the Recruits siege tick because of HYW API drift.
             }
         }
     }
@@ -50,16 +54,16 @@ public final class HywSiegeClassifier {
             return Role.NONE;
         }
         if (!(entity instanceof BaseCombatEntity hyw)) {
+            if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && entity instanceof HywHorseEntity) {
+                return Role.NONE;
+            }
             return Role.NONE;
         }
         if (hyw instanceof SiegeUnit && !BridgeConfig.COUNT_HYW_SIEGE_WEAPONS.get()) {
             return Role.NONE;
         }
-        if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && hyw instanceof HywHorseEntity) {
-            return Role.NONE;
-        }
 
-        UUID ownerId = hyw.getOwnerUUID();
+        UUID ownerId = HywEntityAccess.getOwnerUuid(hyw);
         if (ownerId == null) {
             return Role.NONE;
         }

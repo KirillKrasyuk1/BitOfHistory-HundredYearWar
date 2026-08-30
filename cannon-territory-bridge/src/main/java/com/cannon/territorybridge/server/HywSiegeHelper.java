@@ -49,19 +49,19 @@ public final class HywSiegeHelper {
             if (!BridgeConfig.SYNC_HYW_TEAMS.get() || !entity.isAlive() || entity.isRemoved()) {
                 return null;
             }
+            if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && entity instanceof HywHorseEntity) {
+                return null;
+            }
             if (!(entity instanceof BaseCombatEntity hyw)) {
                 return null;
             }
             if (hyw instanceof SiegeUnit && !BridgeConfig.COUNT_HYW_SIEGE_WEAPONS.get()) {
                 return null;
             }
-            if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && hyw instanceof HywHorseEntity) {
-                return null;
-            }
             if (!(entity.level() instanceof ServerLevel level)) {
                 return null;
             }
-            UUID ownerId = hyw.getOwnerUUID();
+            UUID ownerId = HywEntityAccess.getOwnerUuid(hyw);
             if (ownerId == null) {
                 return null;
             }

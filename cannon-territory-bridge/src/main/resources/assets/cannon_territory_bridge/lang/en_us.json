@@ -1,3 +1,5 @@
 {
-  "message.cannon_territory_bridge.mobilize_denied": "Мобилизация возможна только на территории вашего клейма"
+  "message.cannon_territory_bridge.mobilize_denied": "Mobilization is only allowed inside your own claim",
+  "message.cannon_territory_bridge.mobilize_denied_no_claim": "Create a faction claim first",
+  "message.cannon_territory_bridge.mobilize_denied_no_squad": "Create an HYW squad first"
 }
