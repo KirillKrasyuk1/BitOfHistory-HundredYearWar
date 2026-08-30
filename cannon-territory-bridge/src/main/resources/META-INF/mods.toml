@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+issueTrackerURL=""
+
+[[mods]]
+modId="cannon_territory_bridge"
+version="${mod_version}"
+displayName="Cannon Territory Bridge"
+description='''
+Integrates Hundred Years Warfare armies with Recruits territory claims and sieges.
+Recruits is reduced to diplomacy + claim map only; recruitment and settlement features are disabled.
+Requires Recruits and Hundred Years Warfare.
+'''
+authors="Cannon Season I"
+
+[[dependencies.cannon_territory_bridge]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cannon_territory_bridge]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cannon_territory_bridge]]
+modId="recruits"
+mandatory=true
+versionRange="[1.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.cannon_territory_bridge]]
+modId="hundred_years_war"
+mandatory=true
+versionRange="[0.3,)"
+ordering="AFTER"
+side="BOTH"

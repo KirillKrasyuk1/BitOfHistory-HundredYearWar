@@ -1,0 +1,15 @@
+# Cannon Territory Bridge — recommended defaults (Forge copies on first run)
+
+[hyw_sync]
+	#Count HYW soldiers for Recruits sieges via the owner's faction team (read-only; does not modify entities).
+	syncHywTeams = true
+	#Mirror Recruits faction diplomacy into HYW RelationSystem.
+	syncDiplomacyToHyw = true
+	#If false, HywHorseEntity is not counted for sieges (rider still counts).
+	countMountedHorsesForSiege = false
+
+[recruits_strip]
+	blockRecruitsEntities = true
+	blockRecruitHire = true
+	blockVillagerClaimTakeover = true
+	blockRecruitCommandUi = true

@@ -1,0 +1,24 @@
+Cannon Territory Bridge 1.0.5 — установка
+=========================================
+
+Исправление: вылет при покупке первого claim после HYW-армии + Recruits-фракции.
+
+1. Скачай:
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.5.jar
+
+2. CurseForge → Cannon → Открыть папку → mods
+
+3. Удали ВСЕ cannon_territory_bridge-1.0.x.jar
+
+4. Положи cannon_territory_bridge-1.0.5.jar
+
+5. config → удали cannon_territory_bridge-common.toml
+
+6. Запусти Cannon
+
+Рекомендуемый порядок в игре:
+1. U → создать Recruits-фракцию
+2. M → купить claim
+3. HYW → пушка / солдаты / отряд
+
+В логе: cannon_territory_bridge 1.0.5

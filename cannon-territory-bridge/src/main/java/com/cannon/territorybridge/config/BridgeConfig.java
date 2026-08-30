@@ -1,0 +1,50 @@
+package com.cannon.territorybridge.config;
+
+import net.minecraftforge.common.ForgeConfigSpec;
+
+public final class BridgeConfig {
+    public static final ForgeConfigSpec SPEC;
+
+    public static final ForgeConfigSpec.BooleanValue SYNC_HYW_TEAMS;
+    public static final ForgeConfigSpec.BooleanValue SYNC_DIPLOMACY_TO_HYW;
+    public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUITS_ENTITIES;
+    public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUIT_HIRE;
+    public static final ForgeConfigSpec.BooleanValue BLOCK_VILLAGER_CLAIM_TAKEOVER;
+    public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUIT_COMMAND_UI;
+    public static final ForgeConfigSpec.BooleanValue COUNT_MOUNTED_HORSES_FOR_SIEGE;
+
+    static {
+        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+
+        builder.comment("HYW ↔ Recruits integration for claim sieges.").push("hyw_sync");
+        SYNC_HYW_TEAMS = builder
+                .comment("Count HYW soldiers for Recruits sieges via the owner's faction team (read-only; does not modify entities).")
+                .define("syncHywTeams", true);
+        SYNC_DIPLOMACY_TO_HYW = builder
+                .comment("Mirror Recruits faction diplomacy into HYW RelationSystem.")
+                .define("syncDiplomacyToHyw", true);
+        COUNT_MOUNTED_HORSES_FOR_SIEGE = builder
+                .comment("If false, HywHorseEntity is not counted for sieges (rider still counts).")
+                .define("countMountedHorsesForSiege", false);
+        builder.pop();
+
+        builder.comment("Strip Recruits settlement / army mechanics — keep claims + diplomacy only.").push("recruits_strip");
+        BLOCK_RECRUITS_ENTITIES = builder
+                .comment("Prevent Recruits mod NPCs (recruits, nobles, patrols) from spawning.")
+                .define("blockRecruitsEntities", true);
+        BLOCK_RECRUIT_HIRE = builder
+                .comment("Cancel hiring Recruits mod villagers.")
+                .define("blockRecruitHire", true);
+        BLOCK_VILLAGER_CLAIM_TAKEOVER = builder
+                .comment("Do not auto-assign vanilla villagers to claim owner faction.")
+                .define("blockVillagerClaimTakeover", true);
+        BLOCK_RECRUIT_COMMAND_UI = builder
+                .comment("Block recruit command / hire screens on the client.")
+                .define("blockRecruitCommandUi", true);
+        builder.pop();
+
+        SPEC = builder.build();
+    }
+
+    private BridgeConfig() {}
+}
