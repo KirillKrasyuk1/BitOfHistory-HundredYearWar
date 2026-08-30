@@ -9,11 +9,7 @@
 	countMountedHorsesForSiege = false
 
 [recruits_strip]
-	#Prevent Recruits mod NPCs (recruits, nobles, patrols) from spawning.
 	blockRecruitsEntities = true
-	#Cancel hiring Recruits mod villagers.
 	blockRecruitHire = true
-	#Do not auto-assign vanilla villagers to claim owner faction.
 	blockVillagerClaimTakeover = true
-	#Block recruit command / hire screens on the client.
 	blockRecruitCommandUi = true

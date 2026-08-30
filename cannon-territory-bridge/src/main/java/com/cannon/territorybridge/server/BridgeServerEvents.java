@@ -1,11 +1,15 @@
 package com.cannon.territorybridge.server;
 
 import com.cannon.territorybridge.config.BridgeConfig;
+import com.talhanation.recruits.ClaimEvent;
 import com.talhanation.recruits.DiplomacyEvent;
 import com.talhanation.recruits.FactionEvent;
 import com.talhanation.recruits.RecruitEvent;
 import com.talhanation.recruits.world.RecruitsDiplomacyManager;
 import com.talhanation.recruits.world.RecruitsFaction;
+import com.talhanation.recruits.world.RecruitsClaim;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -34,6 +38,59 @@ public final class BridgeServerEvents {
         }
     }
 
+    @SubscribeEvent
+    public void onFactionCreated(FactionEvent.Created event) {
+        ServerLevel level = event.getLevel();
+        if (level == null) {
+            return;
+        }
+        HywRelationBridge.linkRecruitsFactionDeferred(level, event.getFaction(), event.getCreator());
+    }
+
+    @SubscribeEvent
+    public void onFactionDisbanded(FactionEvent.Disbanded event) {
+        HywRelationBridge.disbandFaction(event.getFaction());
+    }
+
+    @SubscribeEvent
+    public void onClaimUpdated(ClaimEvent.Updated event) {
+        if (!event.isNew()) {
+            return;
+        }
+        ServerLevel level = event.getLevel();
+        if (level == null) {
+            return;
+        }
+        RecruitsClaim claim = event.getClaim();
+        if (claim == null) {
+            return;
+        }
+        RecruitsFaction faction = claim.getOwnerFaction();
+        ServerPlayer player = resolveClaimPlayer(level, claim);
+        HywRelationBridge.linkRecruitsFactionDeferred(level, faction, player);
+    }
+
+    @SubscribeEvent
+    public void onDiplomacyChanged(DiplomacyEvent.RelationChanged event) {
+        UUID factionA = VanillaTeamUuidCache.get(event.getFactionA());
+        UUID factionB = VanillaTeamUuidCache.get(event.getFactionB());
+        HywRelationBridge.mirrorDiplomacy(factionA, factionB, toHywRelation(event.getNewStatus()));
+    }
+
+    private static ServerPlayer resolveClaimPlayer(ServerLevel level, RecruitsClaim claim) {
+        if (claim.getPlayerInfo() != null) {
+            ServerPlayer byInfo = level.getServer().getPlayerList().getPlayer(claim.getPlayerInfo().getUUID());
+            if (byInfo != null) {
+                return byInfo;
+            }
+        }
+        RecruitsFaction faction = claim.getOwnerFaction();
+        if (faction != null && faction.getTeamLeaderUUID() != null) {
+            return level.getServer().getPlayerList().getPlayer(faction.getTeamLeaderUUID());
+        }
+        return null;
+    }
+
     /** Recruits mod NPCs (recruits, nobles, assassins, captains, etc.) — not HYW armies. */
     static boolean isRecruitsNpc(Entity entity) {
         if (!(entity instanceof LivingEntity)) {
@@ -42,48 +99,6 @@ public final class BridgeServerEvents {
         String className = entity.getClass().getName();
         return className.startsWith("com.talhanation.recruits.entities.")
                 && !className.contains(".ai.");
-    }
-
-    @SubscribeEvent
-    public void onFactionCreated(FactionEvent.Created event) {
-        if (!BridgeConfig.SYNC_DIPLOMACY_TO_HYW.get()) {
-            return;
-        }
-        RecruitsFaction faction = event.getFaction();
-        if (faction == null) {
-            return;
-        }
-        UUID teamUuid = VanillaTeamUuidCache.get(faction.getStringID());
-        String displayName = faction.getTeamDisplayName() != null ? faction.getTeamDisplayName() : faction.getStringID();
-        RelationSystem.getOrCreateTeamRelationData(teamUuid, displayName);
-    }
-
-    @SubscribeEvent
-    public void onFactionDisbanded(FactionEvent.Disbanded event) {
-        if (!BridgeConfig.SYNC_DIPLOMACY_TO_HYW.get()) {
-            return;
-        }
-        RecruitsFaction faction = event.getFaction();
-        if (faction == null) {
-            return;
-        }
-        UUID teamUuid = VanillaTeamUuidCache.get(faction.getStringID());
-        UUID leaderId = faction.getTeamLeaderUUID();
-        if (leaderId != null) {
-            RelationSystem.disbandTeam(teamUuid, leaderId);
-        }
-    }
-
-    @SubscribeEvent
-    public void onDiplomacyChanged(DiplomacyEvent.RelationChanged event) {
-        if (!BridgeConfig.SYNC_DIPLOMACY_TO_HYW.get()) {
-            return;
-        }
-        UUID factionA = VanillaTeamUuidCache.get(event.getFactionA());
-        UUID factionB = VanillaTeamUuidCache.get(event.getFactionB());
-        RelationSystem.RelationType hywType = toHywRelation(event.getNewStatus());
-        RelationSystem.setRelation(factionA, factionB, hywType);
-        RelationSystem.setRelation(factionB, factionA, hywType);
     }
 
     private static RelationSystem.RelationType toHywRelation(RecruitsDiplomacyManager.DiplomacyStatus status) {

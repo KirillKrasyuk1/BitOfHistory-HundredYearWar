@@ -1,5 +1,6 @@
 package com.cannon.territorybridge.server;
 
+import com.cannon.territorybridge.CannonTerritoryBridge;
 import com.cannon.territorybridge.config.BridgeConfig;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,23 +17,38 @@ public final class HywSiegeHelper {
     private HywSiegeHelper() {}
 
     public static Team resolveOwnerTeam(LivingEntity entity) {
-        if (!BridgeConfig.SYNC_HYW_TEAMS.get() || !(entity instanceof BaseCombatEntity hyw)) {
+        try {
+            if (!BridgeConfig.SYNC_HYW_TEAMS.get() || !entity.isAlive() || entity.isRemoved()) {
+                return null;
+            }
+            if (!(entity instanceof BaseCombatEntity hyw)) {
+                return null;
+            }
+            if (hyw instanceof SiegeUnit) {
+                return null;
+            }
+            if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && hyw instanceof HywHorseEntity) {
+                return null;
+            }
+            if (!(entity.level() instanceof ServerLevel level)) {
+                return null;
+            }
+            UUID ownerId = hyw.getOwnerUUID();
+            if (ownerId == null) {
+                return null;
+            }
+            ServerPlayer owner = level.getServer().getPlayerList().getPlayer(ownerId);
+            if (owner == null) {
+                return null;
+            }
+            return owner.getTeam();
+        } catch (Throwable t) {
+            CannonTerritoryBridge.LOGGER.warn(
+                    "HYW siege team lookup failed for {}: {}",
+                    entity.getType(),
+                    t.toString()
+            );
             return null;
         }
-        if (hyw instanceof SiegeUnit) {
-            return null;
-        }
-        if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && hyw instanceof HywHorseEntity) {
-            return null;
-        }
-        UUID ownerId = hyw.getOwnerUUID();
-        if (ownerId == null || !(entity.level() instanceof ServerLevel level)) {
-            return null;
-        }
-        ServerPlayer owner = level.getServer().getPlayerList().getPlayer(ownerId);
-        if (owner == null) {
-            return null;
-        }
-        return owner.getTeam();
     }
 }

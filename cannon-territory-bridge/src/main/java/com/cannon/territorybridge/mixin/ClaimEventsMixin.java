@@ -1,5 +1,6 @@
 package com.cannon.territorybridge.mixin;
 
+import com.cannon.territorybridge.CannonTerritoryBridge;
 import com.cannon.territorybridge.server.BridgeServerEvents;
 import com.cannon.territorybridge.server.HywSiegeHelper;
 import com.talhanation.recruits.ClaimEvents;
@@ -28,7 +29,16 @@ public abstract class ClaimEventsMixin {
             remap = true
     )
     private Team cannon$resolveSiegeTeam(LivingEntity entity) {
-        Team team = entity.getTeam();
-        return team != null ? team : HywSiegeHelper.resolveOwnerTeam(entity);
+        try {
+            Team team = entity.getTeam();
+            return team != null ? team : HywSiegeHelper.resolveOwnerTeam(entity);
+        } catch (Throwable t) {
+            CannonTerritoryBridge.LOGGER.warn(
+                    "Recruits siege classify failed for {}: {}",
+                    entity.getType(),
+                    t.toString()
+            );
+            return null;
+        }
     }
 }
