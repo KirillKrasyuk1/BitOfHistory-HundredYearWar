@@ -2,7 +2,7 @@
 
 Русификатор для модпака **Cannon** — дополняет моды, у которых нет полноценного `ru_ru.json`.
 
-## Что переведено (v1.1.0)
+## Что переведено (v1.1.1)
 
 | Мод | Статус |
 |-----|--------|
@@ -14,14 +14,14 @@
 
 ## Установка
 
-1. Скачай `cannon_ru_langpack-1.1.0.jar` из `release/`
+1. Скачай `cannon_ru_langpack-1.1.1.jar` из `release/`
 2. Положи в `Cannon ______\mods\` рядом с остальными модами
 3. В Minecraft: **Настройки → Язык → Русский**
 4. Перезапусти игру
 
 Прямая ссылка (ветка PR):
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-ru-langpack-5fac/cannon-ru-langpack/release/cannon_ru_langpack-1.1.0.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-ru-langpack-5fac/cannon-ru-langpack/release/cannon_ru_langpack-1.1.1.jar
 
 ## Аудит модов без русификатора
 
