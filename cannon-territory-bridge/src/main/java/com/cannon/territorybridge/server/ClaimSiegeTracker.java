@@ -21,8 +21,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Keeps siege attacker/defender counts stable while NPC armies stay alive, even if they leave the claim
- * or the owning player dies. Home-position garrison on the claim is always counted for defenders/attackers.
+ * Keeps siege attacker/defender counts stable while NPC armies stay alive, even if they leave the claim,
+ * chunk-unload, or the owning player walks away. Home-position garrison on the claim is always counted.
  */
 public final class ClaimSiegeTracker {
     private static final Map<UUID, Commitment> COMMITMENTS = new ConcurrentHashMap<>();
@@ -50,7 +50,7 @@ public final class ClaimSiegeTracker {
         if (claim == null || level == null || !claim.isUnderSiege) {
             return;
         }
-        for (net.minecraft.world.level.ChunkPos chunk : claim.getClaimedChunks()) {
+        for (ChunkPos chunk : claim.getClaimedChunks()) {
             int minX = chunk.getMinBlockX();
             int minZ = chunk.getMinBlockZ();
             AABB box = new AABB(
@@ -85,8 +85,8 @@ public final class ClaimSiegeTracker {
             List<LivingEntity> attackers,
             List<LivingEntity> defenders
     ) {
-        if (!BridgeConfig.STICKY_SIEGE_FORCES.get() || claim == null || level == null || !claim.isUnderSiege) {
-            syncBridgeCounts(claim, attackers, defenders);
+        if (claim == null || level == null || !claim.isUnderSiege) {
+            syncBridgeCounts(claim, null, attackers, defenders);
             return;
         }
 
@@ -103,7 +103,87 @@ public final class ClaimSiegeTracker {
         resolveEntities(level, claim, commitment.defenders, defenders);
 
         SiegeForceFilter.stripNonCountingForces(attackers, defenders);
-        syncBridgeCounts(claim, attackers, defenders);
+
+        if (BridgeConfig.STICKY_SIEGE_FORCES.get()) {
+            updateCaptureLock(
+                    claim,
+                    commitment,
+                    Math.max(attackers.size(), commitment.attackers.size()),
+                    Math.max(defenders.size(), commitment.defenders.size())
+            );
+            syncBridgeCounts(claim, commitment, attackers, defenders);
+        } else {
+            syncBridgeCounts(claim, null, attackers, defenders);
+        }
+    }
+
+    /** Scanned count plus committed UUIDs that are not confirmed dead (includes chunk-unloaded garrison). */
+    public static int effectiveAttackerCount(RecruitsClaim claim, int scannedCount) {
+        if (claim == null || !claim.isUnderSiege) {
+            return Math.max(0, scannedCount);
+        }
+        Commitment commitment = COMMITMENTS.get(claim.getUUID());
+        if (commitment == null) {
+            return Math.max(0, scannedCount);
+        }
+        int committed = commitment.attackers.size();
+        int bridge = bridgeFieldCount(claim, true);
+        return Math.max(Math.max(scannedCount, committed), bridge);
+    }
+
+    /** Scanned count plus committed garrison; during active capture, never drops below the locked ratio baseline. */
+    public static int effectiveDefenderCount(RecruitsClaim claim, int scannedCount) {
+        if (claim == null || !claim.isUnderSiege) {
+            return Math.max(0, scannedCount);
+        }
+        Commitment commitment = COMMITMENTS.get(claim.getUUID());
+        if (commitment == null) {
+            return Math.max(0, scannedCount);
+        }
+        int committed = commitment.defenders.size();
+        int bridge = bridgeFieldCount(claim, false);
+        int effective = Math.max(Math.max(scannedCount, committed), bridge);
+        if (commitment.captureInProgress && commitment.ratioLockedDefenders > 0) {
+            effective = Math.max(effective, commitment.ratioLockedDefenders);
+        }
+        return effective;
+    }
+
+    public static boolean hasCommittedDefenders(RecruitsClaim claim) {
+        Commitment commitment = claim != null ? COMMITMENTS.get(claim.getUUID()) : null;
+        return commitment != null && !commitment.defenders.isEmpty();
+    }
+
+    public static boolean isCaptureInProgress(RecruitsClaim claim) {
+        Commitment commitment = claim != null ? COMMITMENTS.get(claim.getUUID()) : null;
+        return commitment != null && commitment.captureInProgress;
+    }
+
+    private static void updateCaptureLock(
+            RecruitsClaim claim,
+            Commitment commitment,
+            int attackerCount,
+            int defenderCount
+    ) {
+        int effectiveAttackers = Math.max(attackerCount, commitment.attackers.size());
+        int effectiveDefenders = Math.max(defenderCount, commitment.defenders.size());
+        if (!SiegeBalance.canProgressCapture(effectiveAttackers, effectiveDefenders)) {
+            return;
+        }
+        if (claim.getHealth() >= claim.getMaxHealth()) {
+            return;
+        }
+        commitment.captureInProgress = true;
+        if (effectiveDefenders > 0) {
+            commitment.ratioLockedDefenders = Math.max(commitment.ratioLockedDefenders, effectiveDefenders);
+        }
+    }
+
+    private static int bridgeFieldCount(RecruitsClaim claim, boolean attackers) {
+        if (claim instanceof BridgeClaimAccess access) {
+            return attackers ? access.cannon$getBridgeAttackerCount() : access.cannon$getBridgeDefenderCount();
+        }
+        return 0;
     }
 
     private static void rememberEntities(Set<UUID> bucket, List<LivingEntity> entities) {
@@ -226,9 +306,21 @@ public final class ClaimSiegeTracker {
         );
     }
 
-    private static void syncBridgeCounts(RecruitsClaim claim, List<LivingEntity> attackers, List<LivingEntity> defenders) {
+    private static void syncBridgeCounts(
+            RecruitsClaim claim,
+            Commitment commitment,
+            List<LivingEntity> attackers,
+            List<LivingEntity> defenders
+    ) {
         int attackerCount = attackers != null ? attackers.size() : 0;
         int defenderCount = defenders != null ? defenders.size() : 0;
+        if (commitment != null) {
+            attackerCount = Math.max(attackerCount, commitment.attackers.size());
+            defenderCount = Math.max(defenderCount, commitment.defenders.size());
+            if (commitment.captureInProgress && commitment.ratioLockedDefenders > 0) {
+                defenderCount = Math.max(defenderCount, commitment.ratioLockedDefenders);
+            }
+        }
         if (claim instanceof BridgeClaimAccess access) {
             access.cannon$setBridgeAttackerCount(attackerCount);
             access.cannon$setBridgeDefenderCount(defenderCount);
@@ -248,5 +340,7 @@ public final class ClaimSiegeTracker {
     private static final class Commitment {
         private final Set<UUID> attackers = new HashSet<>();
         private final Set<UUID> defenders = new HashSet<>();
+        private int ratioLockedDefenders;
+        private boolean captureInProgress;
     }
 }

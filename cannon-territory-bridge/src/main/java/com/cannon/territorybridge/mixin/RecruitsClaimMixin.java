@@ -2,6 +2,7 @@ package com.cannon.territorybridge.mixin;
 
 import com.cannon.territorybridge.bridge.BridgeClaimAccess;
 import com.cannon.territorybridge.bridge.BridgeClaimHelper;
+import com.cannon.territorybridge.server.ClaimSiegeTracker;
 import com.cannon.territorybridge.server.SiegeBalance;
 import com.talhanation.recruits.world.RecruitsClaim;
 import net.minecraft.server.level.ServerLevel;
@@ -54,16 +55,31 @@ public class RecruitsClaimMixin implements BridgeClaimAccess {
         }
     }
 
+    /** Do not wipe siege HP while capture is underway and committed garrison may still be alive. */
+    @Inject(method = "resetHealth", at = @At("HEAD"), cancellable = true, remap = false)
+    private void cannon$guardCaptureTimerReset(CallbackInfo ci) {
+        RecruitsClaim self = (RecruitsClaim) (Object) this;
+        if (!self.isUnderSiege) {
+            return;
+        }
+        if (ClaimSiegeTracker.isCaptureInProgress(self) && ClaimSiegeTracker.hasCommittedDefenders(self)) {
+            ci.cancel();
+        }
+    }
+
     /** Capture only when bridge army counts satisfy the ratio — not because a player walked off. */
     @Inject(method = "setSiegeSuccess", at = @At("HEAD"), cancellable = true, remap = false)
     private void cannon$guardInstantCapture(ServerLevel level, CallbackInfo ci) {
         RecruitsClaim self = (RecruitsClaim) (Object) this;
         int attackers = BridgeClaimHelper.attackerCount(self);
         int defenders = BridgeClaimHelper.defenderCount(self);
-        if (attackers < SiegeBalance.minAttackersToStart() || !SiegeBalance.canProgressCapture(attackers, defenders)) {
+        boolean committedDefenders = ClaimSiegeTracker.hasCommittedDefenders(self);
+        boolean captureInProgress = ClaimSiegeTracker.isCaptureInProgress(self);
+
+        if (!SiegeBalance.canCompleteCapture(attackers, defenders, committedDefenders, captureInProgress)) {
             ci.cancel();
             if (self.getHealth() <= 0) {
-                self.resetHealth();
+                self.setHealth(1);
             }
         }
     }

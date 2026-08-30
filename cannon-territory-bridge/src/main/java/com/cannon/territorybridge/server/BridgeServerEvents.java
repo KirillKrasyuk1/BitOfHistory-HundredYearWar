@@ -185,8 +185,8 @@ public final class BridgeServerEvents {
             return;
         }
 
-        int attackerCount = bridgeSiegeAttackerCount(claim, event.getAttackerCount());
-        int defenderCount = bridgeSiegeDefenderCount(claim, event.getDefenderCount());
+        int attackerCount = ClaimSiegeTracker.effectiveAttackerCount(claim, bridgeSiegeAttackerCount(claim, event.getAttackerCount()));
+        int defenderCount = ClaimSiegeTracker.effectiveDefenderCount(claim, bridgeSiegeDefenderCount(claim, event.getDefenderCount()));
         float speed = SiegeBalance.computeSpeedPercent(attackerCount, defenderCount);
 
         if (speed <= 0.0f) {

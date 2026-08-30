@@ -1,16 +1,22 @@
-# Cannon Territory Bridge 1.0.20 — установка
+# Cannon Territory Bridge 1.0.21 — установка
 =========================================
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.20.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.21.jar
 
-2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.20**
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.21**
 
-## Что исправлено (1.0.19 + 1.0.20)
+## Что исправлено (1.0.21)
 
-- **1.0.20** — краш при запуске (Mixin static/instance)
-- Таймер **«До захвата»** — оставшееся время, не полное
-- **Игроки не влияют** — считаются только воины HYW
-- Уход игрока из claim не сбрасывает осада / не даёт мгновенный захват
+- При **2:1+** и запущенном таймере: уход игрока из claim **не даёт мгновенный захват**
+- Гарнизон HYW считается даже если юниты выгрузились вместе с игроком (committed UUID)
+- **Таймер не сбрасывается** — Recruits больше не вызывает resetHealth при активной осаде
+- Ratio-lock: после начала захвата счётчик защитников для соотношения не падает до 0
 
-В логе: `cannon_territory_bridge 1.0.20`
+## Ранее (1.0.19–1.0.20)
+
+- Таймер **«До захвата»** — оставшееся время
+- **Игроки не влияют** — только воины HYW
+- **1.0.20** — краш при запуске (Mixin)
+
+В логе: `cannon_territory_bridge 1.0.21`

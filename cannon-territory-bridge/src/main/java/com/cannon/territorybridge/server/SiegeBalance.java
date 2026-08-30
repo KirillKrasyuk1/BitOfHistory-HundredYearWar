@@ -24,7 +24,7 @@ public final class SiegeBalance {
 
     /**
      * Claim HP only drops when attackers meet the minimum headcount and (if enabled) the capture ratio.
-     * Zero defenders allows slow baseline capture — not Recruits' instant max-speed branch.
+     * Zero defenders allows slow baseline capture only when there is no committed garrison left.
      */
     public static boolean canProgressCapture(int attackerCount, int defenderCount) {
         if (attackerCount < minAttackersToStart()) {
@@ -37,6 +37,22 @@ public final class SiegeBalance {
             return true;
         }
         return attackerCount >= defenderCount * captureRatio();
+    }
+
+    /** Whether a siege may transfer ownership — blocks completion while committed garrison UUIDs remain. */
+    public static boolean canCompleteCapture(
+            int attackerCount,
+            int defenderCount,
+            boolean hasCommittedDefenders,
+            boolean captureInProgress
+    ) {
+        if (!canProgressCapture(attackerCount, defenderCount)) {
+            return false;
+        }
+        if (captureInProgress && hasCommittedDefenders && defenderCount <= 0) {
+            return false;
+        }
+        return true;
     }
 
     /**

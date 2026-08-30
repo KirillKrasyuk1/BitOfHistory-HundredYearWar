@@ -1,10 +1,11 @@
 package com.cannon.territorybridge.mixin;
 
 import com.cannon.territorybridge.CannonTerritoryBridge;
+import com.cannon.territorybridge.bridge.BridgeClaimHelper;
 import com.cannon.territorybridge.server.BridgeServerEvents;
+import com.cannon.territorybridge.server.ClaimSiegeTracker;
 import com.cannon.territorybridge.server.HywSiegeClassifier;
 import com.cannon.territorybridge.server.HywSiegeHelper;
-import com.cannon.territorybridge.server.ClaimSiegeTracker;
 import com.cannon.territorybridge.server.SiegeBalance;
 import com.cannon.territorybridge.server.SiegeForceFilter;
 import com.talhanation.recruits.ClaimEvents;
@@ -19,6 +20,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -119,6 +121,27 @@ public abstract class ClaimEventsMixin {
         return cannon$hywArmiesInClaim(level, claim);
     }
 
+    /** Use bridge / committed counts so chunk-unloaded garrison still affects speed and siege end checks. */
+    @ModifyVariable(
+            method = "tickActiveSieges",
+            at = @At("STORE"),
+            ordinal = 0,
+            remap = false
+    )
+    private int cannon$effectiveAttackers(int scannedAttackers, RecruitsClaim claim) {
+        return ClaimSiegeTracker.effectiveAttackerCount(claim, scannedAttackers);
+    }
+
+    @ModifyVariable(
+            method = "tickActiveSieges",
+            at = @At("STORE"),
+            ordinal = 1,
+            remap = false
+    )
+    private int cannon$effectiveDefenders(int scannedDefenders, RecruitsClaim claim) {
+        return ClaimSiegeTracker.effectiveDefenderCount(claim, scannedDefenders);
+    }
+
     @Redirect(
             method = "tickActiveSieges",
             at = @At(
@@ -127,8 +150,49 @@ public abstract class ClaimEventsMixin {
             ),
             remap = false
     )
-    private float cannon$bridgeSiegeSpeed(int attackerCount, int defenderCount) {
-        return SiegeBalance.computeSpeedPercent(attackerCount, defenderCount);
+    private float cannon$bridgeSiegeSpeed(int attackerCount, int defenderCount, RecruitsClaim claim) {
+        return SiegeBalance.computeSpeedPercent(
+                ClaimSiegeTracker.effectiveAttackerCount(claim, attackerCount),
+                ClaimSiegeTracker.effectiveDefenderCount(claim, defenderCount)
+        );
+    }
+
+    /**
+     * Recruits calls resetHealth after a cancelled setUnderSiege(false) when scanned attackers dip —
+     * skip timer wipe while bridge armies keep the siege alive.
+     */
+    @Redirect(
+            method = "tickActiveSieges",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/talhanation/recruits/world/RecruitsClaim;resetHealth()V"
+            ),
+            remap = false
+    )
+    private void cannon$guardSiegeResetHealth(RecruitsClaim claim) {
+        if (BridgeClaimHelper.attackerCount(claim) >= SiegeBalance.minAttackersToStart()) {
+            return;
+        }
+        claim.resetHealth();
+    }
+
+    /** Do not tear down the active siege while bridge attackers still meet the minimum. */
+    @Redirect(
+            method = "tickActiveSieges",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/talhanation/recruits/world/RecruitsClaimManager;removeActiveSiege(Lcom/talhanation/recruits/world/RecruitsClaim;)V"
+            ),
+            remap = false
+    )
+    private void cannon$guardRemoveActiveSiege(
+            com.talhanation.recruits.world.RecruitsClaimManager manager,
+            RecruitsClaim claim
+    ) {
+        if (BridgeClaimHelper.attackerCount(claim) >= SiegeBalance.minAttackersToStart()) {
+            return;
+        }
+        manager.removeActiveSiege(claim);
     }
 
     @Redirect(
