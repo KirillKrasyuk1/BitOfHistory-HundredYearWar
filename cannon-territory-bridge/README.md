@@ -13,18 +13,19 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 Download and replace JAR in `Cannon ______\mods\`:
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.6.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.7.jar
 
 1. Delete all older `cannon_territory_bridge-1.0.x.jar`
-2. Copy **1.0.6** into `mods`
+2. Copy **1.0.7** into `mods`
 3. Delete `config\cannon_territory_bridge-common.toml` (game recreates it)
 4. Restart Cannon
 
-## Siege (v1.0.6)
+## Siege (v1.0.7)
 
-- HYW units count as **defenders** even when the claim owner is offline
-- **Minimum capture time** (~3 min by default, configurable via `minCaptureMinutes`)
-- Defender/attacker ratio affects siege speed when `applySiegeSpeedToDamage = true`
+- HYW units (incl. **cannons/trebuchets**) count for attacker/defender totals, even when claim owner is offline
+- **Garrison holds**: no capture progress while `defenders >= attackers`
+- **Minimum capture time** (~3 min default, `minCaptureMinutes`)
+- Defender/attacker ratio affects speed when attackers have the advantage
 
 ## Keys
 

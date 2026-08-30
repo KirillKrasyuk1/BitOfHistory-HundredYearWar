@@ -102,6 +102,16 @@ public final class BridgeServerEvents {
             return;
         }
 
+        int attackerCount = event.getAttackerCount();
+        int defenderCount = event.getDefenderCount();
+
+        if (BridgeConfig.REQUIRE_ATTACKER_ADVANTAGE.get()
+                && defenderCount > 0
+                && defenderCount >= attackerCount) {
+            event.setDamage(0);
+            return;
+        }
+
         int damage = event.getDamage();
         if (BridgeConfig.APPLY_SIEGE_SPEED_TO_DAMAGE.get()) {
             float speed = claim.getSiegeSpeedPercent();

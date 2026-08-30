@@ -1,28 +1,47 @@
-# Cannon Territory Bridge 1.0.6 — установка
+# Cannon Territory Bridge 1.0.7 — установка
 =========================================
 
-Исправление: HYW-гарнизон защищает клейм, когда владелец офлайн; минимальное время захвата.
+Осады клеймов: гарнизон HYW, преимущество численности, минимальное время захвата.
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.6.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.7.jar
 
-2. CurseForge → Cannon → Открыть папку → mods
+2. CurseForge → Cannon → mods
 
 3. Удали ВСЕ cannon_territory_bridge-1.0.x.jar
 
-4. Положи cannon_territory_bridge-1.0.6.jar
+4. Положи cannon_territory_bridge-1.0.7.jar
 
-5. config → удали cannon_territory_bridge-common.toml (пересоздастся с новыми настройками)
+5. config → удали cannon_territory_bridge-common.toml
 
 6. Запусти Cannon
 
-Настройки осады (config/cannon_territory_bridge-common.toml):
-- minCaptureMinutes = 3   — минимум ~3 минуты на захват
-- applySiegeSpeedToDamage = true — гарнизон замедляет осада
+## Как работает осада (кратко)
+
+1. Враждебные юниты (HYW-солдаты игрока) заходят в чужой **клейм**
+2. Recruits раз в ~15 с проверяет: если атакующих ≥ 10 (настройка Recruits) — начинается **осада**
+3. **Гарнизон** (свои HYW-юниты в клейме) считается защитниками — даже если владелец офлайн
+4. Пока **защитников ≥ атакующих** — HP клейма **не падает** (`requireAttackerAdvantage`)
+5. Когда атакующих больше — идёт урон; не быстрее **~3 мин** (`minCaptureMinutes`)
+6. Пушки/требушеты HYW тоже считаются (`countHywSiegeWeapons`)
+
+## Настройки bridge (config/cannon_territory_bridge-common.toml)
+
+| Параметр | По умолчанию | Смысл |
+|----------|--------------|-------|
+| minCaptureMinutes | 3 | Минимум минут на захват |
+| requireAttackerAdvantage | true | Гарнизон блокирует прогресс, пока не перевес по числу |
+| countHywSiegeWeapons | true | Пушки HYW в подсчёте осады |
+| applySiegeSpeedToDamage | true | Больше защитников — медленнее осада |
+
+## Настройки Recruits (config/recruits-common.toml или recruits-server)
+
+- SiegeClaimsRecruitsAmount — мин. число атакующих для старта осады (обычно 10)
+- SiegeClaimsConquerTime — «прочность» клейма (минуты × 60 = HP)
 
 Рекомендуемый порядок в игре:
-1. U → создать Recruits-фракцию
-2. M → купить claim
-3. HYW → пушка / солдаты / отряд
+1. U → фракция Recruits
+2. M → клейм
+3. HYW → гарнизон в своём клейме / армия для атаки
 
-В логе: cannon_territory_bridge 1.0.6
+В логе: cannon_territory_bridge 1.0.7

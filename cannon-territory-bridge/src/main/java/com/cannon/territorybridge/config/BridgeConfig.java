@@ -12,8 +12,10 @@ public final class BridgeConfig {
     public static final ForgeConfigSpec.BooleanValue BLOCK_VILLAGER_CLAIM_TAKEOVER;
     public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUIT_COMMAND_UI;
     public static final ForgeConfigSpec.BooleanValue COUNT_MOUNTED_HORSES_FOR_SIEGE;
+    public static final ForgeConfigSpec.BooleanValue COUNT_HYW_SIEGE_WEAPONS;
     public static final ForgeConfigSpec.IntValue MIN_CAPTURE_MINUTES;
     public static final ForgeConfigSpec.BooleanValue APPLY_SIEGE_SPEED_TO_DAMAGE;
+    public static final ForgeConfigSpec.BooleanValue REQUIRE_ATTACKER_ADVANTAGE;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -28,12 +30,18 @@ public final class BridgeConfig {
         COUNT_MOUNTED_HORSES_FOR_SIEGE = builder
                 .comment("If false, HywHorseEntity is not counted for sieges (rider still counts).")
                 .define("countMountedHorsesForSiege", false);
+        COUNT_HYW_SIEGE_WEAPONS = builder
+                .comment("Count HYW cannons/trebuchets (SiegeUnit) for claim siege attacker/defender totals.")
+                .define("countHywSiegeWeapons", true);
         MIN_CAPTURE_MINUTES = builder
                 .comment("Minimum wall-clock minutes to capture a claim once a siege is active (Recruits ticks every 5 s).")
                 .defineInRange("minCaptureMinutes", 3, 1, 60);
         APPLY_SIEGE_SPEED_TO_DAMAGE = builder
                 .comment("Apply Recruits attacker/defender ratio to siege damage (defenders slow capture; none = faster).")
                 .define("applySiegeSpeedToDamage", true);
+        REQUIRE_ATTACKER_ADVANTAGE = builder
+                .comment("Claim HP does not drop while defenders >= attackers (garrison holds the line). Empty claims (0 defenders) can still be captured.")
+                .define("requireAttackerAdvantage", true);
         builder.pop();
 
         builder.comment("Strip Recruits settlement / army mechanics — keep claims + diplomacy only.").push("recruits_strip");

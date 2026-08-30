@@ -27,7 +27,7 @@ public final class HywSiegeHelper {
             if (!(entity instanceof BaseCombatEntity hyw)) {
                 return null;
             }
-            if (hyw instanceof SiegeUnit) {
+            if (hyw instanceof SiegeUnit && !BridgeConfig.COUNT_HYW_SIEGE_WEAPONS.get()) {
                 return null;
             }
             if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && hyw instanceof HywHorseEntity) {
