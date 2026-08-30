@@ -2,7 +2,9 @@ package com.cannon.territorybridge.server;
 
 import com.cannon.territorybridge.bridge.BridgeClaimHelper;
 import com.cannon.territorybridge.config.BridgeConfig;
+import com.cannon.territorybridge.network.SiegeForceBroadcaster;
 import com.talhanation.recruits.ClaimEvent;
+import com.talhanation.recruits.ClaimEvents;
 import com.talhanation.recruits.DiplomacyEvent;
 import com.talhanation.recruits.FactionEvent;
 import com.talhanation.recruits.RecruitEvent;
@@ -207,6 +209,10 @@ public final class BridgeServerEvents {
                 (int) Math.ceil(maxHealth / (double) (minMinutes * RECRUITS_SIEGE_TICKS_PER_MINUTE))
         );
         event.setDamage(Math.min(damage, maxDamagePerTick));
+
+        if (ClaimEvents.server != null) {
+            SiegeForceBroadcaster.syncClaim(ClaimEvents.server, claim);
+        }
     }
 
     private static ServerPlayer resolveClaimPlayer(ServerLevel level, RecruitsClaim claim) {
@@ -242,13 +248,17 @@ public final class BridgeServerEvents {
     }
 
     private static int bridgeSiegeAttackerCount(RecruitsClaim claim, int fallback) {
-        int bridge = BridgeClaimHelper.attackerCount(claim);
-        return bridge > 0 || BridgeClaimHelper.defenderCount(claim) > 0 ? bridge : fallback;
+        if (claim != null && claim.isUnderSiege) {
+            return BridgeClaimHelper.attackerCount(claim);
+        }
+        return fallback;
     }
 
     private static int bridgeSiegeDefenderCount(RecruitsClaim claim, int fallback) {
-        int bridge = BridgeClaimHelper.defenderCount(claim);
-        return bridge > 0 || BridgeClaimHelper.attackerCount(claim) > 0 ? bridge : fallback;
+        if (claim != null && claim.isUnderSiege) {
+            return BridgeClaimHelper.defenderCount(claim);
+        }
+        return fallback;
     }
 
     /** Used by ClaimEventsMixin */

@@ -234,7 +234,7 @@ public final class ClaimSiegeTracker {
             access.cannon$setBridgeDefenderCount(defenderCount);
         }
         if (ClaimEvents.server != null && claim != null && claim.isUnderSiege) {
-            SiegeForceBroadcaster.syncToAll(ClaimEvents.server, claim.getUUID(), attackerCount, defenderCount);
+            SiegeForceBroadcaster.syncClaim(ClaimEvents.server, claim);
         }
     }
 

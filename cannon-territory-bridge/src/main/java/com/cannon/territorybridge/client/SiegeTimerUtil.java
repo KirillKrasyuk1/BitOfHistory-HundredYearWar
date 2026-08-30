@@ -1,12 +1,11 @@
 package com.cannon.territorybridge.client;
 
 import com.cannon.territorybridge.bridge.BridgeClaimHelper;
-import com.cannon.territorybridge.client.SiegeForceClientCache;
 import com.cannon.territorybridge.config.BridgeConfig;
 import com.cannon.territorybridge.server.SiegeBalance;
 import com.talhanation.recruits.world.RecruitsClaim;
 
-/** Estimates remaining siege time from synced claim state (Recruits ticks every 5 s). */
+/** Estimates remaining siege time from server-synced claim state (Recruits ticks every 5 s). */
 public final class SiegeTimerUtil {
     private static final int SIEGE_TICK_SECONDS = 5;
     private static final int TICKS_PER_MINUTE = 12;
@@ -30,8 +29,24 @@ public final class SiegeTimerUtil {
         return cached >= 0 ? cached : BridgeClaimHelper.defenderCount(claim);
     }
 
+    public static int overlayHealth(RecruitsClaim claim) {
+        if (claim == null) {
+            return 0;
+        }
+        int cached = SiegeForceClientCache.health(claim.getUUID());
+        return cached >= 0 ? cached : claim.getHealth();
+    }
+
+    public static int overlayMaxHealth(RecruitsClaim claim) {
+        if (claim == null) {
+            return 1;
+        }
+        int cached = SiegeForceClientCache.maxHealth(claim.getUUID());
+        return cached > 0 ? cached : Math.max(1, claim.getMaxHealth());
+    }
+
     public static boolean isCaptureProgressing(RecruitsClaim claim) {
-        if (claim == null || !claim.isUnderSiege || claim.getHealth() <= 0) {
+        if (claim == null || !claim.isUnderSiege || overlayHealth(claim) <= 0) {
             return false;
         }
         int attackers = overlayAttackerCount(claim);
@@ -39,7 +54,7 @@ public final class SiegeTimerUtil {
         if (attackers > 0 || defenders > 0) {
             return SiegeBalance.computeSpeedPercent(attackers, defenders) > 0.0f;
         }
-        return SiegeBalance.isCaptureProgressing(claim.getSiegeSpeedPercent(), claim.getHealth());
+        return SiegeBalance.isCaptureProgressing(claim.getSiegeSpeedPercent(), overlayHealth(claim));
     }
 
     public static int requiredAttackers(RecruitsClaim claim) {
@@ -51,11 +66,14 @@ public final class SiegeTimerUtil {
             return 0;
         }
 
-        int maxHealth = claim.getMaxHealth();
-        int health = claim.getHealth();
+        int health = overlayHealth(claim);
+        int maxHealth = overlayMaxHealth(claim);
         int attackers = overlayAttackerCount(claim);
         int defenders = overlayDefenderCount(claim);
-        float speed = SiegeBalance.computeSpeedPercent(attackers, defenders);
+        float speed = SiegeForceClientCache.speedPercent(claim.getUUID());
+        if (speed <= 0.0f) {
+            speed = SiegeBalance.computeSpeedPercent(attackers, defenders);
+        }
         if (speed <= 0.0f) {
             speed = claim.getSiegeSpeedPercent();
         }

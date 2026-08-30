@@ -1,9 +1,15 @@
 package com.cannon.territorybridge.mixin;
 
 import com.cannon.territorybridge.bridge.BridgeClaimAccess;
+import com.cannon.territorybridge.bridge.BridgeClaimHelper;
+import com.cannon.territorybridge.server.SiegeBalance;
 import com.talhanation.recruits.world.RecruitsClaim;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = RecruitsClaim.class, remap = false)
 public class RecruitsClaimMixin implements BridgeClaimAccess {
@@ -31,5 +37,34 @@ public class RecruitsClaimMixin implements BridgeClaimAccess {
     @Override
     public void cannon$setBridgeDefenderCount(int count) {
         cannon$bridgeDefenderCount = Math.max(0, count);
+    }
+
+    /** Recruits ends sieges when player headcount in claim drops — ignore if HYW armies remain. */
+    @Inject(method = "setUnderSiege", at = @At("HEAD"), cancellable = true, remap = false)
+    private void cannon$guardPrematureSiegeEnd(boolean underSiege, ServerLevel level, CallbackInfo ci) {
+        if (underSiege) {
+            return;
+        }
+        RecruitsClaim self = (RecruitsClaim) (Object) this;
+        if (!self.isUnderSiege) {
+            return;
+        }
+        if (BridgeClaimHelper.attackerCount(self) >= SiegeBalance.minAttackersToStart()) {
+            ci.cancel();
+        }
+    }
+
+    /** Capture only when bridge army counts satisfy the ratio — not because a player walked off. */
+    @Inject(method = "setSiegeSuccess", at = @At("HEAD"), cancellable = true, remap = false)
+    private void cannon$guardInstantCapture(ServerLevel level, CallbackInfo ci) {
+        RecruitsClaim self = (RecruitsClaim) (Object) this;
+        int attackers = BridgeClaimHelper.attackerCount(self);
+        int defenders = BridgeClaimHelper.defenderCount(self);
+        if (attackers < SiegeBalance.minAttackersToStart() || !SiegeBalance.canProgressCapture(attackers, defenders)) {
+            ci.cancel();
+            if (self.getHealth() <= 0) {
+                self.resetHealth();
+            }
+        }
     }
 }

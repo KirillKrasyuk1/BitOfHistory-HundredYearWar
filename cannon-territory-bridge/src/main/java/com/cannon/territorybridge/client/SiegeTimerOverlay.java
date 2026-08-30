@@ -36,8 +36,8 @@ public final class SiegeTimerOverlay {
         }
 
         int remaining = SiegeTimerUtil.estimateRemainingSeconds(claim);
-        int health = claim.getHealth();
-        int maxHealth = Math.max(1, claim.getMaxHealth());
+        int health = SiegeTimerUtil.overlayHealth(claim);
+        int maxHealth = Math.max(1, SiegeTimerUtil.overlayMaxHealth(claim));
         int attackers = SiegeTimerUtil.overlayAttackerCount(claim);
         int defenders = SiegeTimerUtil.overlayDefenderCount(claim);
         int required = SiegeTimerUtil.requiredAttackers(claim);

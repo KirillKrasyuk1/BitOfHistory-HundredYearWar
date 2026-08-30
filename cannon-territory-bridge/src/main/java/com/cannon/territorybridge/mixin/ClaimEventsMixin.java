@@ -8,10 +8,12 @@ import com.cannon.territorybridge.server.ClaimSiegeTracker;
 import com.cannon.territorybridge.server.SiegeBalance;
 import com.cannon.territorybridge.server.SiegeForceFilter;
 import com.talhanation.recruits.ClaimEvents;
+import com.talhanation.recruits.util.ClaimUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import com.talhanation.recruits.world.RecruitsClaim;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 @Mixin(value = ClaimEvents.class, remap = false)
 public abstract class ClaimEventsMixin {
@@ -73,6 +76,26 @@ public abstract class ClaimEventsMixin {
         }
         MinecraftServer server = ClaimEvents.server;
         return server != null ? server.overworld() : null;
+    }
+
+    /**
+     * Recruits only scans {@link net.minecraft.server.level.ServerPlayer} inside the claim.
+     * Replace with NPC armies (HYW) so player movement does not change force totals.
+     */
+    @Redirect(
+            method = {"tickActiveSieges", "tickDetection", "onRelationChanged"},
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/talhanation/recruits/util/ClaimUtil;getLivingEntitiesInClaim(Lnet/minecraft/world/level/Level;Lcom/talhanation/recruits/world/RecruitsClaim;Ljava/util/function/Predicate;)Ljava/util/List;"
+            ),
+            remap = false
+    )
+    private List<LivingEntity> cannon$scanNpcArmies(
+            Level level,
+            RecruitsClaim claim,
+            Predicate<LivingEntity> ignored
+    ) {
+        return ClaimUtil.getLivingEntitiesInClaim(level, claim, SiegeForceFilter::countsForSiege);
     }
 
     @Redirect(
