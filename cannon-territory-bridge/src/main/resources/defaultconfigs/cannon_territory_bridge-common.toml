@@ -21,6 +21,8 @@
 	captureAdvantageRatio = 2.0
 	#Players on the claim do not count toward siege forces — only NPC armies.
 	countPlayersForSiege = false
+	#Keep NPC siege counts while units stay alive, even off-claim. Home garrison on the claim always counts.
+	stickySiegeForces = true
 	#On-screen siege timer and claim HP while inside a besieged claim.
 	showSiegeTimer = true
 	#HYW recruitment only inside your own Recruits claim.

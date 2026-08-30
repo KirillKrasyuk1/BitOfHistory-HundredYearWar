@@ -14,6 +14,14 @@ public final class SiegeBalance {
         return BridgeConfig.CAPTURE_ADVANTAGE_RATIO.get();
     }
 
+    /** Attackers needed for passive capture at the current defender count. */
+    public static int requiredAttackersForCapture(int defenderCount) {
+        if (defenderCount <= 0) {
+            return minAttackersToStart();
+        }
+        return (int) Math.ceil(defenderCount * captureRatio());
+    }
+
     /** Siege may exist, but claim HP only drops at this attacker:defender ratio (default 2:1). */
     public static boolean canProgressCapture(int attackerCount, int defenderCount) {
         if (attackerCount < minAttackersToStart()) {

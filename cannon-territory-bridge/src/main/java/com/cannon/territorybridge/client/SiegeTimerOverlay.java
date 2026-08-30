@@ -1,6 +1,7 @@
 package com.cannon.territorybridge.client;
 
 import com.cannon.territorybridge.CannonTerritoryBridge;
+import com.cannon.territorybridge.bridge.BridgeClaimHelper;
 import com.cannon.territorybridge.config.BridgeConfig;
 import com.talhanation.recruits.client.ClientManager;
 import com.talhanation.recruits.world.RecruitsClaim;
@@ -38,12 +39,26 @@ public final class SiegeTimerOverlay {
         int remaining = SiegeTimerUtil.estimateRemainingSeconds(claim);
         int health = claim.getHealth();
         int maxHealth = Math.max(1, claim.getMaxHealth());
+        int attackers = BridgeClaimHelper.attackerCount(claim);
+        int defenders = BridgeClaimHelper.defenderCount(claim);
+        int required = SiegeTimerUtil.requiredAttackers(claim);
         boolean capturing = SiegeTimerUtil.isCaptureProgressing(claim);
 
         Component line1 = capturing
                 ? Component.translatable("overlay.cannon_territory_bridge.siege_timer", SiegeTimerUtil.formatDuration(remaining))
-                : Component.translatable("overlay.cannon_territory_bridge.siege_paused");
+                : Component.translatable(
+                        "overlay.cannon_territory_bridge.siege_paused",
+                        attackers,
+                        defenders,
+                        required
+                );
         Component line2 = Component.translatable(
+                "overlay.cannon_territory_bridge.siege_forces",
+                attackers,
+                defenders,
+                required
+        );
+        Component line3 = Component.translatable(
                 "overlay.cannon_territory_bridge.siege_hp",
                 health,
                 maxHealth,
@@ -56,7 +71,8 @@ public final class SiegeTimerOverlay {
         int y = minecraft.getWindow().getGuiScaledHeight() / 2 + 28;
 
         graphics.drawCenteredString(minecraft.font, line1, x, y, 0xFFFFFF);
-        graphics.drawCenteredString(minecraft.font, line2, x, y + 10, 0xAAAAAA);
+        graphics.drawCenteredString(minecraft.font, line2, x, y + 10, 0xCCCCCC);
+        graphics.drawCenteredString(minecraft.font, line3, x, y + 20, 0xAAAAAA);
     }
 
     private static RecruitsClaim findClaimAtPlayer(Minecraft minecraft) {

@@ -1,5 +1,6 @@
 package com.cannon.territorybridge.client;
 
+import com.cannon.territorybridge.bridge.BridgeClaimHelper;
 import com.cannon.territorybridge.config.BridgeConfig;
 import com.cannon.territorybridge.server.SiegeBalance;
 import com.talhanation.recruits.world.RecruitsClaim;
@@ -16,7 +17,16 @@ public final class SiegeTimerUtil {
         if (claim == null || !claim.isUnderSiege || claim.getHealth() <= 0) {
             return false;
         }
+        int attackers = BridgeClaimHelper.attackerCount(claim);
+        int defenders = BridgeClaimHelper.defenderCount(claim);
+        if (attackers > 0 || defenders > 0) {
+            return SiegeBalance.canProgressCapture(attackers, defenders);
+        }
         return SiegeBalance.isCaptureProgressing(claim.getSiegeSpeedPercent(), claim.getHealth());
+    }
+
+    public static int requiredAttackers(RecruitsClaim claim) {
+        return SiegeBalance.requiredAttackersForCapture(BridgeClaimHelper.defenderCount(claim));
     }
 
     public static int estimateRemainingSeconds(RecruitsClaim claim) {

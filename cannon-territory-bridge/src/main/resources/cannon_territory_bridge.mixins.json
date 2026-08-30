@@ -12,7 +12,10 @@
     "OpenRecruitmentPacketMixin",
     "RecruitmentDataRequestPacketMixin",
     "RecruitmentOrderPacketMixin",
-    "RecruitmentOrderManagerMixin"
+    "RecruitmentOrderManagerMixin",
+    "RecruitsClaimMixin",
+    "RecruitsClaimManagerMixin",
+    "com.talhanation.recruits.network.codec.CannonClaimPayloadCodecMixin"
   ],
   "client": [
     "KeyEventsMixin"

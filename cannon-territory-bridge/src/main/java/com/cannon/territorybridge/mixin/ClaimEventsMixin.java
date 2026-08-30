@@ -4,9 +4,11 @@ import com.cannon.territorybridge.CannonTerritoryBridge;
 import com.cannon.territorybridge.server.BridgeServerEvents;
 import com.cannon.territorybridge.server.HywSiegeClassifier;
 import com.cannon.territorybridge.server.HywSiegeHelper;
+import com.cannon.territorybridge.server.ClaimSiegeTracker;
 import com.cannon.territorybridge.server.SiegeBalance;
 import com.cannon.territorybridge.server.SiegeForceFilter;
 import com.talhanation.recruits.ClaimEvents;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import com.talhanation.recruits.world.RecruitsClaim;
@@ -56,6 +58,20 @@ public abstract class ClaimEventsMixin {
     ) {
         HywSiegeClassifier.supplementHywUnits(entities, claim, attackers, defenders);
         SiegeForceFilter.stripNonCountingForces(attackers, defenders);
+        ServerLevel level = resolveServerLevel(entities);
+        if (level != null) {
+            ClaimSiegeTracker.applyStickyForces(level, claim, entities, attackers, defenders);
+        }
+    }
+
+    private static ServerLevel resolveServerLevel(List<LivingEntity> entities) {
+        for (LivingEntity entity : entities) {
+            if (entity != null && entity.level() instanceof ServerLevel serverLevel) {
+                return serverLevel;
+            }
+        }
+        MinecraftServer server = ClaimEvents.server;
+        return server != null ? server.overworld() : null;
     }
 
     @Redirect(
