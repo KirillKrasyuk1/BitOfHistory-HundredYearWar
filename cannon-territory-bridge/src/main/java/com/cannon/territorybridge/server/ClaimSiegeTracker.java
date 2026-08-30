@@ -31,6 +31,20 @@ public final class ClaimSiegeTracker {
 
     private static final int HOME_SCAN_MARGIN = 2048;
 
+    private static final ThreadLocal<RecruitsClaim> ACTIVE_TICK_CLAIM = new ThreadLocal<>();
+
+    public static void bindActiveTickClaim(RecruitsClaim claim) {
+        ACTIVE_TICK_CLAIM.set(claim);
+    }
+
+    public static RecruitsClaim activeTickClaim() {
+        return ACTIVE_TICK_CLAIM.get();
+    }
+
+    public static void clearActiveTickClaim() {
+        ACTIVE_TICK_CLAIM.remove();
+    }
+
     public static void clear(RecruitsClaim claim) {
         if (claim != null) {
             COMMITMENTS.remove(claim.getUUID());

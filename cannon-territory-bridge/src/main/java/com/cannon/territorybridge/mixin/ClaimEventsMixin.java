@@ -61,6 +61,7 @@ public abstract class ClaimEventsMixin {
             List<LivingEntity> defenders,
             CallbackInfo ci
     ) {
+        ClaimSiegeTracker.bindActiveTickClaim(claim);
         HywSiegeClassifier.supplementHywUnits(entities, claim, attackers, defenders);
         SiegeForceFilter.stripNonCountingForces(attackers, defenders);
         ServerLevel level = resolveServerLevel(entities);
@@ -68,6 +69,11 @@ public abstract class ClaimEventsMixin {
             ClaimSiegeTracker.supplementForcesInsideClaim(level, claim, attackers, defenders);
             ClaimSiegeTracker.applyStickyForces(level, claim, entities, attackers, defenders);
         }
+    }
+
+    @Inject(method = "tickActiveSieges", at = @At("RETURN"), remap = false)
+    private void cannon$clearActiveTickClaim(ServerLevel level, CallbackInfo ci) {
+        ClaimSiegeTracker.clearActiveTickClaim();
     }
 
     private static ServerLevel resolveServerLevel(List<LivingEntity> entities) {
@@ -128,8 +134,8 @@ public abstract class ClaimEventsMixin {
             ordinal = 0,
             remap = false
     )
-    private int cannon$effectiveAttackers(int scannedAttackers, RecruitsClaim claim) {
-        return ClaimSiegeTracker.effectiveAttackerCount(claim, scannedAttackers);
+    private int cannon$effectiveAttackers(int scannedAttackers) {
+        return ClaimSiegeTracker.effectiveAttackerCount(ClaimSiegeTracker.activeTickClaim(), scannedAttackers);
     }
 
     @ModifyVariable(
@@ -138,8 +144,8 @@ public abstract class ClaimEventsMixin {
             ordinal = 1,
             remap = false
     )
-    private int cannon$effectiveDefenders(int scannedDefenders, RecruitsClaim claim) {
-        return ClaimSiegeTracker.effectiveDefenderCount(claim, scannedDefenders);
+    private int cannon$effectiveDefenders(int scannedDefenders) {
+        return ClaimSiegeTracker.effectiveDefenderCount(ClaimSiegeTracker.activeTickClaim(), scannedDefenders);
     }
 
     @Redirect(
@@ -150,7 +156,8 @@ public abstract class ClaimEventsMixin {
             ),
             remap = false
     )
-    private float cannon$bridgeSiegeSpeed(int attackerCount, int defenderCount, RecruitsClaim claim) {
+    private float cannon$bridgeSiegeSpeed(int attackerCount, int defenderCount) {
+        RecruitsClaim claim = ClaimSiegeTracker.activeTickClaim();
         return SiegeBalance.computeSpeedPercent(
                 ClaimSiegeTracker.effectiveAttackerCount(claim, attackerCount),
                 ClaimSiegeTracker.effectiveDefenderCount(claim, defenderCount)

@@ -1,22 +1,14 @@
-# Cannon Territory Bridge 1.0.21 — установка
+# Cannon Territory Bridge 1.0.22 — установка
 =========================================
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.21.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.22.jar
 
-2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.21**
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.22**
 
-## Что исправлено (1.0.21)
+## Что исправлено
 
-- При **2:1+** и запущенном таймере: уход игрока из claim **не даёт мгновенный захват**
-- Гарнизон HYW считается даже если юниты выгрузились вместе с игроком (committed UUID)
-- **Таймер не сбрасывается** — Recruits больше не вызывает resetHealth при активной осаде
-- Ratio-lock: после начала захвата счётчик защитников для соотношения не падает до 0
+- **1.0.22** — краш при запуске из 1.0.21 (Mixin `@ModifyVariable` signature)
+- **1.0.21** — мгновенный захват при 2:1+ когда игрок покидает claim (committed garrison, ratio lock)
 
-## Ранее (1.0.19–1.0.20)
-
-- Таймер **«До захвата»** — оставшееся время
-- **Игроки не влияют** — только воины HYW
-- **1.0.20** — краш при запуске (Mixin)
-
-В логе: `cannon_territory_bridge 1.0.21`
+В логе: `cannon_territory_bridge 1.0.22`
