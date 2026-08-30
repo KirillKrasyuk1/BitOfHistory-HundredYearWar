@@ -5,6 +5,7 @@ import com.cannon.territorybridge.server.BridgeServerEvents;
 import com.cannon.territorybridge.server.HywSiegeClassifier;
 import com.cannon.territorybridge.server.HywSiegeHelper;
 import com.cannon.territorybridge.server.SiegeBalance;
+import com.cannon.territorybridge.server.SiegeForceFilter;
 import com.talhanation.recruits.ClaimEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,7 +47,7 @@ public abstract class ClaimEventsMixin {
             at = @At("RETURN"),
             remap = false
     )
-    private void cannon$addHywGarrison(
+    private void cannon$finalizeSiegeForces(
             List<LivingEntity> entities,
             RecruitsClaim claim,
             List<LivingEntity> attackers,
@@ -54,6 +55,7 @@ public abstract class ClaimEventsMixin {
             CallbackInfo ci
     ) {
         HywSiegeClassifier.supplementHywUnits(entities, claim, attackers, defenders);
+        SiegeForceFilter.stripNonCountingForces(attackers, defenders);
     }
 
     @Redirect(

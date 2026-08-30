@@ -13,17 +13,17 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 Download and replace JAR in `Cannon ______\mods\`:
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.13.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.14.jar
 
 1. Delete all older `cannon_territory_bridge-1.0.x.jar`
-2. Copy **1.0.13** into Cannon profile **mods** folder
-3. Launch — verify log line `Cannon Territory Bridge loaded` and `[CTB-MOBILIZE]`
+2. Copy **1.0.14** into Cannon profile **mods** folder
+3. Launch — verify log line `Cannon Territory Bridge loaded`
 
-## v1.0.13
+## v1.0.14
 
-- Siege **starts** only with **10+** attackers in the claim
-- Passive capture (HP drain) only at **2:1** attacker:defender ratio
-- Overlay shows «нужен перевес 2:1» while the siege is active but not capturing
+- **Players no longer affect siege** — only NPC armies (HYW garrison, etc.) count
+- Leaving the claim no longer instantly loses the siege if your army stays
+- Siege starts at **10+** NPC attackers; capture at **2:1** ratio
 
 
 ## Keys

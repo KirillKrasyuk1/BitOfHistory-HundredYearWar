@@ -18,6 +18,7 @@ public final class BridgeConfig {
     public static final ForgeConfigSpec.BooleanValue REQUIRE_ATTACKER_ADVANTAGE;
     public static final ForgeConfigSpec.IntValue MIN_SIEGE_ATTACKERS;
     public static final ForgeConfigSpec.DoubleValue CAPTURE_ADVANTAGE_RATIO;
+    public static final ForgeConfigSpec.BooleanValue COUNT_PLAYERS_FOR_SIEGE;
     public static final ForgeConfigSpec.BooleanValue SHOW_SIEGE_TIMER;
     public static final ForgeConfigSpec.BooleanValue REQUIRE_OWN_CLAIM_TO_MOBILIZE;
     public static final ForgeConfigSpec.BooleanValue REQUIRE_SQUAD_TO_MOBILIZE;
@@ -54,6 +55,9 @@ public final class BridgeConfig {
         CAPTURE_ADVANTAGE_RATIO = builder
                 .comment("Attackers must be at least this many times defenders for passive capture (2.0 = 2:1). Empty claims (0 defenders) still capture once the siege has started.")
                 .defineInRange("captureAdvantageRatio", 2.0, 1.0, 10.0);
+        COUNT_PLAYERS_FOR_SIEGE = builder
+                .comment("If false, players on the claim do not count as attackers or defenders — only NPC armies (HYW units, etc.).")
+                .define("countPlayersForSiege", false);
         SHOW_SIEGE_TIMER = builder
                 .comment("Show remaining siege time and claim HP as on-screen text while you are inside a claim under siege.")
                 .define("showSiegeTimer", true);

@@ -19,6 +19,8 @@
 	minSiegeAttackers = 10
 	#Attackers must be at least this many times defenders for passive capture (2.0 = 2:1).
 	captureAdvantageRatio = 2.0
+	#Players on the claim do not count toward siege forces — only NPC armies.
+	countPlayersForSiege = false
 	#On-screen siege timer and claim HP while inside a besieged claim.
 	showSiegeTimer = true
 	#HYW recruitment only inside your own Recruits claim.
