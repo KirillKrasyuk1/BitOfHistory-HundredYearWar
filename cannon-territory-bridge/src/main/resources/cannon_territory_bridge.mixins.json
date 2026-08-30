@@ -6,9 +6,7 @@
   "refmap": "cannon_territory_bridge.refmap.json",
   "mixins": [
     "ClaimEventsMixin",
-    "CommandEventsMixin",
-    "ConquerorsStaffItemMixin",
-    "BaseScrollItemMixin"
+    "CommandEventsMixin"
   ],
   "client": [
     "KeyEventsMixin"

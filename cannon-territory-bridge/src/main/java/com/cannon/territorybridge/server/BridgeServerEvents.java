@@ -13,7 +13,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import ydmsama.hundred_years_war.main.utils.RelationSystem;
@@ -26,6 +29,45 @@ public final class BridgeServerEvents {
     public void onRecruitHired(RecruitEvent.Hired event) {
         if (BridgeConfig.BLOCK_RECRUIT_HIRE.get()) {
             event.setCanceled(true);
+        }
+    }
+
+    /** Blocks Conqueror's Staff army spawn when charge completes outside own claim. */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onHywStaffUseFinish(LivingEntityUseItemEvent.Finish event) {
+        if (event.getEntity().level().isClientSide()) {
+            return;
+        }
+        if (!(event.getEntity() instanceof ServerPlayer player)) {
+            return;
+        }
+        ItemStack stack = event.getItem();
+        if (!HywMobilizationItems.isConquerorsStaff(stack)) {
+            return;
+        }
+        if (!HywMobilizationGuard.canMobilize(player, player.blockPosition())) {
+            HywMobilizationGuard.denyMobilization(player);
+            event.setCanceled(true);
+        }
+    }
+
+    /** Blocks HYW scroll / staff use outside own claim. */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onHywMobilizationRightClick(PlayerInteractEvent.RightClickItem event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
+        if (!(event.getEntity() instanceof ServerPlayer player)) {
+            return;
+        }
+        ItemStack stack = event.getItemStack();
+        if (!HywMobilizationItems.isMobilizationItem(stack)) {
+            return;
+        }
+        if (!HywMobilizationGuard.canMobilize(player, player.blockPosition())) {
+            HywMobilizationGuard.denyMobilization(player);
+            event.setCanceled(true);
+            event.setCancellationResult(net.minecraft.world.InteractionResult.FAIL);
         }
     }
 

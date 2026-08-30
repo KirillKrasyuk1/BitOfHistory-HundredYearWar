@@ -1,58 +1,26 @@
-# Cannon Territory Bridge 1.0.9 — установка
+# Cannon Territory Bridge 1.0.10 — установка
 =========================================
 
-Гарнизон HYW защищает клейм; мобилизация только на своей территории.
-
-## Проверка что мод загружен
-
-После запуска Cannon **обязательно** проверь:
-
-1. **Лог** (`logs/latest.log`) — строка:
-   `Cannon Territory Bridge loaded — HYW armies + Recruits claims/diplomacy only.`
-2. **Файл конфига** — появится после первого запуска с модом:
-   `config/cannon_territory_bridge-common.toml`
-
-Если конфига нет и строки в логе нет — мод **не установлен** (JAR не в папке mods профиля Cannon).
-
----
+Исправлен краш с HYW 0.7.1 (mixin на spawnArmy удалён).
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.9.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.10.jar
 
-2. CurseForge → Cannon → **mods** (именно папка профиля, не .minecraft/mods если профиль другой)
+2. CurseForge → Cannon → **mods**
 
 3. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`
 
-4. Положи `cannon_territory_bridge-1.0.9.jar`
+4. Положи `cannon_territory_bridge-1.0.10.jar`
 
-5. Запусти Cannon один раз — проверь лог и конфиг (см. выше)
+5. Запусти — в логе должно быть:
+   `Cannon Territory Bridge loaded`
+   и файл `config/cannon_territory_bridge-common.toml`
 
-6. Пересоздавать мир **не нужно** — мод работает на любом мире
+## Что в 1.0.10
 
-## Что нового в 1.0.9
+- **Краш исправлен** — совместимость с HundredYearsWar **0.7.1r-fix1**
+- Гарнизон HYW считается защитником по фракции владельца
+- Мобилизация (посох + свитки) только на **своём** клейме
+- Таймер осады на экране
 
-| Функция | Описание |
-|---------|----------|
-| **Гарнизон** | HYW-юниты считаются защитниками по владельцу + фракции Recruits (не нужен scoreboard) |
-| **Мобилизация** | Посох завоевателя и свитки — **только в своём клейме** |
-| **Таймер осады** | На экране: «Осада: M:SS» и прочность клейма |
-
-## Как работает осада
-
-1. Враждебные юниты заходят в чужой клейм
-2. Recruits раз в ~15 с проверяет атакующих (обычно нужно ≥10 — настройка Recruits)
-3. **Гарнизон HYW в клейме = защитники**, даже если ты вышел за границу
-4. Пока защитников ≥ атакующих — HP не падает
-5. При перевесе атакующих — захват минимум ~3 мин
-6. **Один игрок без армии** может начать осаду (если Recruits SiegeClaimsRecruitsAmount=1), но не захватит мгновенно при живом гарнизоне
-
-## Настройки bridge (`config/cannon_territory_bridge-common.toml`)
-
-| Параметр | По умолчанию | Смысл |
-|----------|--------------|-------|
-| requireOwnClaimToMobilize | true | Мобилизация только на своём клейме |
-| minCaptureMinutes | 3 | Минимум минут на захват |
-| requireAttackerAdvantage | true | Гарнизон блокирует прогресс |
-| showSiegeTimer | true | Таймер осады на экране |
-
-В логе: `cannon_territory_bridge 1.0.9`
+В логе: `cannon_territory_bridge 1.0.10`
