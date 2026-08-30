@@ -1,6 +1,7 @@
 package com.cannon.territorybridge.client;
 
 import com.cannon.territorybridge.config.BridgeConfig;
+import com.cannon.territorybridge.server.SiegeBalance;
 import com.talhanation.recruits.world.RecruitsClaim;
 
 /** Estimates remaining siege time from synced claim state (Recruits ticks every 5 s). */
@@ -11,8 +12,15 @@ public final class SiegeTimerUtil {
 
     private SiegeTimerUtil() {}
 
-    public static int estimateRemainingSeconds(RecruitsClaim claim) {
+    public static boolean isCaptureProgressing(RecruitsClaim claim) {
         if (claim == null || !claim.isUnderSiege || claim.getHealth() <= 0) {
+            return false;
+        }
+        return SiegeBalance.isCaptureProgressing(claim.getSiegeSpeedPercent(), claim.getHealth());
+    }
+
+    public static int estimateRemainingSeconds(RecruitsClaim claim) {
+        if (!isCaptureProgressing(claim)) {
             return 0;
         }
 

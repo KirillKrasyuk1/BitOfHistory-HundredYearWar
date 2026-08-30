@@ -16,6 +16,8 @@ public final class BridgeConfig {
     public static final ForgeConfigSpec.IntValue MIN_CAPTURE_MINUTES;
     public static final ForgeConfigSpec.BooleanValue APPLY_SIEGE_SPEED_TO_DAMAGE;
     public static final ForgeConfigSpec.BooleanValue REQUIRE_ATTACKER_ADVANTAGE;
+    public static final ForgeConfigSpec.IntValue MIN_SIEGE_ATTACKERS;
+    public static final ForgeConfigSpec.DoubleValue CAPTURE_ADVANTAGE_RATIO;
     public static final ForgeConfigSpec.BooleanValue SHOW_SIEGE_TIMER;
     public static final ForgeConfigSpec.BooleanValue REQUIRE_OWN_CLAIM_TO_MOBILIZE;
     public static final ForgeConfigSpec.BooleanValue REQUIRE_SQUAD_TO_MOBILIZE;
@@ -44,8 +46,14 @@ public final class BridgeConfig {
                 .comment("Apply Recruits attacker/defender ratio to siege damage (defenders slow capture; none = faster).")
                 .define("applySiegeSpeedToDamage", true);
         REQUIRE_ATTACKER_ADVANTAGE = builder
-                .comment("Claim HP does not drop while defenders >= attackers (garrison holds the line). Empty claims (0 defenders) can still be captured.")
+                .comment("Claim HP only drops when attackers reach the capture ratio (default 2:1). Siege can still start without that ratio.")
                 .define("requireAttackerAdvantage", true);
+        MIN_SIEGE_ATTACKERS = builder
+                .comment("Minimum attackers inside a claim to start or keep a Recruits siege (overrides Recruits SiegeClaimsRecruitsAmount).")
+                .defineInRange("minSiegeAttackers", 10, 1, 200);
+        CAPTURE_ADVANTAGE_RATIO = builder
+                .comment("Attackers must be at least this many times defenders for passive capture (2.0 = 2:1). Empty claims (0 defenders) still capture once the siege has started.")
+                .defineInRange("captureAdvantageRatio", 2.0, 1.0, 10.0);
         SHOW_SIEGE_TIMER = builder
                 .comment("Show remaining siege time and claim HP as on-screen text while you are inside a claim under siege.")
                 .define("showSiegeTimer", true);

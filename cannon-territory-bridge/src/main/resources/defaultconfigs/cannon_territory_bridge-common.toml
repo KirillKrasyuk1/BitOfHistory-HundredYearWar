@@ -13,8 +13,12 @@
 	minCaptureMinutes = 3
 	#Scale siege damage by attacker/defender ratio (more defenders = slower capture).
 	applySiegeSpeedToDamage = true
-	#No capture progress while defenders >= attackers (garrison must be outnumbered).
+	#No capture progress unless attackers outnumber defenders by captureAdvantageRatio.
 	requireAttackerAdvantage = true
+	#Minimum attackers inside a claim to start or keep a siege.
+	minSiegeAttackers = 10
+	#Attackers must be at least this many times defenders for passive capture (2.0 = 2:1).
+	captureAdvantageRatio = 2.0
 	#On-screen siege timer and claim HP while inside a besieged claim.
 	showSiegeTimer = true
 	#HYW recruitment only inside your own Recruits claim.

@@ -1,26 +1,23 @@
-# Cannon Territory Bridge 1.0.12 — установка
+# Cannon Territory Bridge 1.0.13 — установка
 =========================================
 
-Вербовка HYW только на своём клейме, только с отрядом. Краш 0.7.1 уже исправлен.
+Осада: старт от 10 воинов, захват только при перевесе 2:1.
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.12.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.13.jar
 
 2. CurseForge → Cannon → **mods**
 
 3. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`
 
-4. Положи `cannon_territory_bridge-1.0.12.jar`
+4. Положи `cannon_territory_bridge-1.0.13.jar`
 
-5. Запусти — в логе:
-   `Cannon Territory Bridge loaded`
-   `[CTB-MOBILIZE] config requireOwnClaim=true requireSquad=true allowCreativeBypass=false`
+5. Запусти — в логе: `Cannon Territory Bridge loaded`
 
-## Что в 1.0.12
+## Осада
 
-- Вербовка перехватывается в `RecruitmentOrderManager.createOrder` (настоящий найм HYW 0.7.1)
-- Посох завоевателя не открывает меню вне своего клейма
-- Креатив больше **не обходит** ограничения
-- Красные сообщения: нет клейма / нет отряда / не на своей территории
+- Начинается при **10+** атакующих на клейме
+- Прочность падает только при перевесе **2:1** (20 vs 10, пустой клейм — сразу)
+- На экране: таймер захвата или «нужен перевес 2:1»
 
-В логе: `cannon_territory_bridge 1.0.12`
+В логе: `cannon_territory_bridge 1.0.13`

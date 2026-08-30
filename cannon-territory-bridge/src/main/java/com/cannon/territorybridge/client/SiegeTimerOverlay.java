@@ -38,11 +38,16 @@ public final class SiegeTimerOverlay {
         int remaining = SiegeTimerUtil.estimateRemainingSeconds(claim);
         int health = claim.getHealth();
         int maxHealth = Math.max(1, claim.getMaxHealth());
+        boolean capturing = SiegeTimerUtil.isCaptureProgressing(claim);
 
-        Component line1 = Component.literal("§c⚔ Осада: §f" + SiegeTimerUtil.formatDuration(remaining));
-        Component line2 = Component.literal(
-                "§7Прочность: §f" + health + "/" + maxHealth
-                        + " §7(§f" + (health * 100 / maxHealth) + "%§7)"
+        Component line1 = capturing
+                ? Component.translatable("overlay.cannon_territory_bridge.siege_timer", SiegeTimerUtil.formatDuration(remaining))
+                : Component.translatable("overlay.cannon_territory_bridge.siege_paused");
+        Component line2 = Component.translatable(
+                "overlay.cannon_territory_bridge.siege_hp",
+                health,
+                maxHealth,
+                health * 100 / maxHealth
         );
 
         GuiGraphics graphics = event.getGuiGraphics();

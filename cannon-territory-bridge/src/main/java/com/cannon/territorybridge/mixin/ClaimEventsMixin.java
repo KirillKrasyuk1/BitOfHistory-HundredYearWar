@@ -4,11 +4,13 @@ import com.cannon.territorybridge.CannonTerritoryBridge;
 import com.cannon.territorybridge.server.BridgeServerEvents;
 import com.cannon.territorybridge.server.HywSiegeClassifier;
 import com.cannon.territorybridge.server.HywSiegeHelper;
+import com.cannon.territorybridge.server.SiegeBalance;
 import com.talhanation.recruits.ClaimEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import com.talhanation.recruits.world.RecruitsClaim;
 import net.minecraft.world.scores.Team;
+import net.minecraftforge.common.ForgeConfigSpec;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,6 +26,19 @@ public abstract class ClaimEventsMixin {
         if (BridgeServerEvents.shouldBlockVillagerClaimTakeover()) {
             ci.cancel();
         }
+    }
+
+    @Redirect(
+            method = {"tickDetection", "tickActiveSieges", "updateParties"},
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraftforge/common/ForgeConfigSpec$IntValue;get()Ljava/lang/Object;",
+                    remap = false
+            ),
+            remap = false
+    )
+    private Object cannon$minSiegeAttackers(ForgeConfigSpec.IntValue instance) {
+        return Integer.valueOf(SiegeBalance.minAttackersToStart());
     }
 
     @Inject(

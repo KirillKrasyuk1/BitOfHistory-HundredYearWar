@@ -185,9 +185,9 @@ public final class BridgeServerEvents {
         int attackerCount = event.getAttackerCount();
         int defenderCount = event.getDefenderCount();
 
-        if (BridgeConfig.REQUIRE_ATTACKER_ADVANTAGE.get()
-                && defenderCount > 0
-                && defenderCount >= attackerCount) {
+        if (attackerCount < SiegeBalance.minAttackersToStart()
+                || (BridgeConfig.REQUIRE_ATTACKER_ADVANTAGE.get()
+                && !SiegeBalance.canProgressCapture(attackerCount, defenderCount))) {
             event.setDamage(0);
             return;
         }
