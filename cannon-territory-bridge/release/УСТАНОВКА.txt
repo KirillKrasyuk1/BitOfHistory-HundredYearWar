@@ -1,21 +1,23 @@
-# Cannon Territory Bridge 1.0.14 — установка
+# Cannon Territory Bridge 1.0.15 — установка
 =========================================
 
-Осада зависит только от армий НПС, не от игроков на клейме.
+Осада: липкий учёт армий НПС + живой оверлей сил.
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.14.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.15.jar
 
 2. CurseForge → Cannon → **mods**
 
 3. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`
 
-4. Положи `cannon_territory_bridge-1.0.14.jar`
+4. Положи `cannon_territory_bridge-1.0.15.jar`
 
-## Осада
+## Осада (v1.0.15)
 
-- Игроки **не считаются** в силах атаки/обороны (`countPlayersForSiege = false`)
-- Уход с клейма не ломает осаду, если гарнизон HYW остался
+- Игроки **не считаются** в силах атаки/обороны
+- Армии НПС остаются в счёте, пока живы — даже если игрок умер или ушёл с клейма
+- Гарнизон HYW с home position на клейме всегда считается защитой
+- Оверлей показывает реальные силы: «15 vs 10 | для захвата: 20»
 - Старт: **10+** юнитов атакующих; захват: перевес **2:1**
 
-В логе: `cannon_territory_bridge 1.0.14`
+В логе: `cannon_territory_bridge 1.0.15`

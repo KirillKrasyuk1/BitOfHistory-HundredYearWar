@@ -13,18 +13,17 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 Download and replace JAR in `Cannon ______\mods\`:
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.14.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.15.jar
 
 1. Delete all older `cannon_territory_bridge-1.0.x.jar`
-2. Copy **1.0.14** into Cannon profile **mods** folder
-3. Launch — verify log line `Cannon Territory Bridge loaded`
+2. Copy **1.0.15** into Cannon profile **mods** folder
+3. Launch — verify log line `cannon_territory_bridge 1.0.15`
 
-## v1.0.14
+## v1.0.15
 
-- **Players no longer affect siege** — only NPC armies (HYW garrison, etc.) count
-- Leaving the claim no longer instantly loses the siege if your army stays
-- Siege starts at **10+** NPC attackers; capture at **2:1** ratio
-
+- **Sticky siege forces** — NPC armies stay counted while alive, even off-claim or after player death
+- **Home garrison** — HYW units stationed on the claim (home position) always count as defenders/attackers
+- **Live overlay** — shows actual forces (e.g. `15 vs 10 | need 20`) instead of static «2:1» text
 
 ## Keys
 
