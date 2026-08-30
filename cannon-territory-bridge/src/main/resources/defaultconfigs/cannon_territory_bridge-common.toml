@@ -1,15 +1,11 @@
 # Cannon Territory Bridge — recommended defaults (Forge copies on first run)
 
 [hyw_sync]
-	#Assign HYW combat units to their owner's Recruits scoreboard team.
+	#Count HYW soldiers for Recruits sieges via the owner's faction team (read-only; does not modify entities).
 	syncHywTeams = true
-	#How often (server ticks) to re-sync HYW units near online players.
-	teamSyncIntervalTicks = 200
-	#Block radius around each player for HYW team re-sync (smaller = less lag).
-	teamSyncRadius = 128
 	#Mirror Recruits faction diplomacy into HYW RelationSystem.
 	syncDiplomacyToHyw = true
-	#If false, HywHorseEntity is not added to the faction team (rider still counts).
+	#If false, HywHorseEntity is not counted for sieges (rider still counts).
 	countMountedHorsesForSiege = false
 
 [recruits_strip]

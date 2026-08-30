@@ -6,8 +6,6 @@ public final class BridgeConfig {
     public static final ForgeConfigSpec SPEC;
 
     public static final ForgeConfigSpec.BooleanValue SYNC_HYW_TEAMS;
-    public static final ForgeConfigSpec.IntValue TEAM_SYNC_INTERVAL_TICKS;
-    public static final ForgeConfigSpec.IntValue TEAM_SYNC_RADIUS;
     public static final ForgeConfigSpec.BooleanValue SYNC_DIPLOMACY_TO_HYW;
     public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUITS_ENTITIES;
     public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUIT_HIRE;
@@ -18,21 +16,15 @@ public final class BridgeConfig {
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
-        builder.comment("HYW unit → Recruits faction team sync (required for sieges with HYW armies).").push("hyw_sync");
+        builder.comment("HYW ↔ Recruits integration for claim sieges.").push("hyw_sync");
         SYNC_HYW_TEAMS = builder
-                .comment("Assign HYW combat units to their owner's Recruits scoreboard team.")
+                .comment("Count HYW soldiers for Recruits sieges via the owner's faction team (read-only; does not modify entities).")
                 .define("syncHywTeams", true);
-        TEAM_SYNC_INTERVAL_TICKS = builder
-                .comment("How often (server ticks) to re-sync HYW units near online players.")
-                .defineInRange("teamSyncIntervalTicks", 200, 20, 1200);
-        TEAM_SYNC_RADIUS = builder
-                .comment("Block radius around each player for HYW team re-sync (smaller = less lag).")
-                .defineInRange("teamSyncRadius", 128, 32, 512);
         SYNC_DIPLOMACY_TO_HYW = builder
                 .comment("Mirror Recruits faction diplomacy into HYW RelationSystem.")
                 .define("syncDiplomacyToHyw", true);
         COUNT_MOUNTED_HORSES_FOR_SIEGE = builder
-                .comment("If false, HywHorseEntity is not added to the faction team (rider still counts).")
+                .comment("If false, HywHorseEntity is not counted for sieges (rider still counts).")
                 .define("countMountedHorsesForSiege", false);
         builder.pop();
 

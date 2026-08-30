@@ -1,0 +1,20 @@
+Cannon Territory Bridge 1.0.4 — установка
+=========================================
+
+ВАЖНО: версия 1.0.4 исправляет вылеты при спавне HYW (пушки, солдаты).
+Старые 1.0.0–1.0.3 трогали scoreboard и ломали HYW.
+
+1. Скачай:
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.4.jar
+
+2. CurseForge → ПКМ по Cannon → Открыть папку → mods
+
+3. Удали ВСЕ cannon_territory_bridge-1.0.x.jar
+
+4. Положи cannon_territory_bridge-1.0.4.jar
+
+5. Папка config → удали cannon_territory_bridge-common.toml
+
+6. Запусти Cannon
+
+В логе должно быть: cannon_territory_bridge 1.0.4
