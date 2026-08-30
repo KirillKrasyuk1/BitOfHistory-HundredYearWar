@@ -19,6 +19,8 @@
 3. В Minecraft: **Настройки → Язык → Русский**
 4. Перезапусти игру
 
+Если при загрузке видишь предупреждение **«не удалось загрузить правильную информацию о наборе ресурсов»** — удали старый `cannon_ru_langpack-1.1.0.jar` и поставь **1.1.1+** (внутри JAR должен быть `pack.mcmeta`).
+
 Прямая ссылка (ветка PR):
 
 https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-ru-langpack-5fac/cannon-ru-langpack/release/cannon_ru_langpack-1.1.1.jar
