@@ -1,0 +1,55 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="cannon_ru_langpack"
+version="${mod_version}"
+displayName="Cannon Russian Langpack"
+description='''
+Russian (ru_ru) translations for Cannon modpack mods that ship without Russian language files.
+Currently: Hundred Years War 0.7.1 (full), Villager Recruits (gap-fill), Siege Weapons (full), Villager Workers (gap-fill).
+'''
+authors="Cannon Season I"
+
+[[dependencies.cannon_ru_langpack]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cannon_ru_langpack]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.cannon_ru_langpack]]
+modId="hundred_years_war"
+mandatory=false
+versionRange="[0.3,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.cannon_ru_langpack]]
+modId="recruits"
+mandatory=false
+versionRange="[1.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.cannon_ru_langpack]]
+modId="siegeweapons"
+mandatory=false
+versionRange="[0.2,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.cannon_ru_langpack]]
+modId="workers"
+mandatory=false
+versionRange="[2.0,)"
+ordering="AFTER"
+side="BOTH"

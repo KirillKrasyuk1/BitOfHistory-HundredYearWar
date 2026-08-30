@@ -1,0 +1,6 @@
+{
+  "chat.workers.courier.cannotDepositTargetFull": "%s: Не удалось положить предметы в %s — инвентарь полон!",
+  "chat.workers.courier.inventoryFull": "%s: Не удалось взять предметы из %s — мой инвентарь полон!",
+  "gui.workers.checkbox.keepOn": "Сохранить",
+  "gui.workers.checkbox.tooltip.keepOn": "Если включено, зона добычи не будет удалена после завершения работы."
+}
