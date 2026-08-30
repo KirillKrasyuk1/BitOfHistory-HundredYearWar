@@ -16,6 +16,7 @@ public final class BridgeConfig {
     public static final ForgeConfigSpec.IntValue MIN_CAPTURE_MINUTES;
     public static final ForgeConfigSpec.BooleanValue APPLY_SIEGE_SPEED_TO_DAMAGE;
     public static final ForgeConfigSpec.BooleanValue REQUIRE_ATTACKER_ADVANTAGE;
+    public static final ForgeConfigSpec.BooleanValue SHOW_SIEGE_TIMER;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -42,6 +43,9 @@ public final class BridgeConfig {
         REQUIRE_ATTACKER_ADVANTAGE = builder
                 .comment("Claim HP does not drop while defenders >= attackers (garrison holds the line). Empty claims (0 defenders) can still be captured.")
                 .define("requireAttackerAdvantage", true);
+        SHOW_SIEGE_TIMER = builder
+                .comment("Show remaining siege time and claim HP as on-screen text while you are inside a claim under siege.")
+                .define("showSiegeTimer", true);
         builder.pop();
 
         builder.comment("Strip Recruits settlement / army mechanics — keep claims + diplomacy only.").push("recruits_strip");

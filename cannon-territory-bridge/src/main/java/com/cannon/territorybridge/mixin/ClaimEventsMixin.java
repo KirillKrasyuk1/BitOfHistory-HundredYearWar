@@ -24,21 +24,20 @@ public abstract class ClaimEventsMixin {
     }
 
     @Redirect(
-            method = "classifyEntities",
+            method = {"classifyEntities", "updateParties"},
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getTeam()Lnet/minecraft/world/scores/Team;"),
             remap = true
     )
     private Team cannon$resolveSiegeTeam(LivingEntity entity) {
         try {
-            Team team = entity.getTeam();
-            return team != null ? team : HywSiegeHelper.resolveOwnerTeam(entity);
+            return HywSiegeHelper.resolveSiegeTeam(entity);
         } catch (Throwable t) {
             CannonTerritoryBridge.LOGGER.warn(
                     "Recruits siege classify failed for {}: {}",
                     entity.getType(),
                     t.toString()
             );
-            return null;
+            return entity.getTeam();
         }
     }
 }

@@ -12,12 +12,37 @@ import net.minecraft.world.scores.Team;
 import ydmsama.hundred_years_war.main.entity.entities.BaseCombatEntity;
 import ydmsama.hundred_years_war.main.entity.entities.HywHorseEntity;
 import ydmsama.hundred_years_war.main.entity.entities.tags.SiegeUnit;
+import ydmsama.hundred_years_war.main.utils.RelationSystem;
+import ydmsama.hundred_years_war.main.utils.VanillaTeamUuidCache;
 
 import java.util.UUID;
 
 /** Resolves Recruits siege faction for HYW units without touching the scoreboard. */
 public final class HywSiegeHelper {
     private HywSiegeHelper() {}
+
+    /**
+     * Team used by Recruits {@code classifyEntities} / {@code updateParties}.
+     * HYW soldiers must resolve to a Recruits faction scoreboard team — a raw vanilla/HYW team name
+     * that Recruits does not know would otherwise be ignored and the unit would not count.
+     */
+    public static Team resolveSiegeTeam(LivingEntity entity) {
+        if (!entity.isAlive() || entity.isRemoved()) {
+            return null;
+        }
+        if (entity instanceof BaseCombatEntity) {
+            Team fromOwner = resolveOwnerTeam(entity);
+            if (fromOwner != null) {
+                return fromOwner;
+            }
+            Team vanilla = entity.getTeam();
+            if (vanilla != null && isRecruitsFactionTeam(vanilla.getName())) {
+                return vanilla;
+            }
+            return null;
+        }
+        return entity.getTeam();
+    }
 
     public static Team resolveOwnerTeam(LivingEntity entity) {
         try {
@@ -48,9 +73,12 @@ public final class HywSiegeHelper {
 
             RecruitsFaction faction = findRecruitsFactionForOwner(ownerId);
             if (faction == null) {
+                faction = findRecruitsFactionByHywTeam(ownerId);
+            }
+            if (faction == null) {
                 return null;
             }
-            return level.getScoreboard().getPlayerTeam(faction.getStringID());
+            return scoreboardTeamForFaction(level, faction);
         } catch (Throwable t) {
             CannonTerritoryBridge.LOGGER.warn(
                     "HYW siege team lookup failed for {}: {}",
@@ -76,5 +104,44 @@ public final class HywSiegeHelper {
             }
         }
         return null;
+    }
+
+    private static RecruitsFaction findRecruitsFactionByHywTeam(UUID ownerId) {
+        if (FactionEvents.recruitsFactionManager == null) {
+            return null;
+        }
+        UUID hywTeamUuid = RelationSystem.getPlayerTeamUUID(ownerId);
+        if (hywTeamUuid == null) {
+            return null;
+        }
+        for (RecruitsFaction faction : FactionEvents.recruitsFactionManager.getFactions()) {
+            if (hywTeamUuid.equals(VanillaTeamUuidCache.get(faction.getStringID()))) {
+                return faction;
+            }
+        }
+        return null;
+    }
+
+    private static Team scoreboardTeamForFaction(ServerLevel level, RecruitsFaction faction) {
+        Team team = level.getScoreboard().getPlayerTeam(faction.getStringID());
+        if (team != null) {
+            return team;
+        }
+        // Some worlds use display name as scoreboard id — try that as a fallback.
+        String displayName = faction.getTeamDisplayName();
+        if (displayName != null && !displayName.isBlank()) {
+            team = level.getScoreboard().getPlayerTeam(displayName);
+            if (team != null) {
+                return team;
+            }
+        }
+        return null;
+    }
+
+    static boolean isRecruitsFactionTeam(String teamName) {
+        if (teamName == null || FactionEvents.recruitsFactionManager == null) {
+            return false;
+        }
+        return FactionEvents.recruitsFactionManager.getFactionByStringID(teamName) != null;
     }
 }
