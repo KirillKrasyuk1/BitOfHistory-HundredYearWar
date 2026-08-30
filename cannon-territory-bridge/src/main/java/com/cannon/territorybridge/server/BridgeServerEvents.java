@@ -18,6 +18,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -176,6 +177,16 @@ public final class BridgeServerEvents {
     }
 
     @SubscribeEvent
+    public void onHywSiegeUnitDeath(LivingDeathEvent event) {
+        if (event.getEntity().level().isClientSide()) {
+            return;
+        }
+        if (SiegeForceFilter.countsForSiege(event.getEntity())) {
+            ClaimSiegeTracker.markDead(event.getEntity().getUUID());
+        }
+    }
+
+    @SubscribeEvent
     public void onSiegeTick(SiegeEvent.Tick event) {
         if (event.getLevel().isClientSide()) {
             return;
@@ -185,13 +196,16 @@ public final class BridgeServerEvents {
             return;
         }
 
-        int attackerCount = ClaimSiegeTracker.effectiveAttackerCount(claim, bridgeSiegeAttackerCount(claim, event.getAttackerCount()));
-        int defenderCount = ClaimSiegeTracker.effectiveDefenderCount(claim, bridgeSiegeDefenderCount(claim, event.getDefenderCount()));
+        int attackerCount = BridgeClaimHelper.attackerCount(claim);
+        int defenderCount = BridgeClaimHelper.defenderCount(claim);
         float speed = SiegeBalance.computeSpeedPercent(attackerCount, defenderCount);
 
         if (speed <= 0.0f) {
             event.setDamage(0);
             claim.setSiegeSpeedPercent(0.0f);
+            if (ClaimEvents.server != null) {
+                SiegeForceBroadcaster.syncClaim(ClaimEvents.server, claim);
+            }
             return;
         }
 
@@ -245,20 +259,6 @@ public final class BridgeServerEvents {
             case ALLY -> RelationSystem.RelationType.FRIENDLY;
             case NEUTRAL -> RelationSystem.RelationType.NEUTRAL;
         };
-    }
-
-    private static int bridgeSiegeAttackerCount(RecruitsClaim claim, int fallback) {
-        if (claim != null && claim.isUnderSiege) {
-            return BridgeClaimHelper.attackerCount(claim);
-        }
-        return fallback;
-    }
-
-    private static int bridgeSiegeDefenderCount(RecruitsClaim claim, int fallback) {
-        if (claim != null && claim.isUnderSiege) {
-            return BridgeClaimHelper.defenderCount(claim);
-        }
-        return fallback;
     }
 
     /** Used by ClaimEventsMixin */

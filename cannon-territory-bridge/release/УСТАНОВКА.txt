@@ -1,14 +1,21 @@
-# Cannon Territory Bridge 1.0.22 — установка
+# Cannon Territory Bridge 1.0.23 — установка
 =========================================
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.22.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.23.jar
 
-2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.22**
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.23**
 
-## Что исправлено
+## Что исправлено (1.0.23)
 
-- **1.0.22** — краш при запуске из 1.0.21 (Mixin `@ModifyVariable` signature)
-- **1.0.21** — мгновенный захват при 2:1+ когда игрок покидает claim (committed garrison, ratio lock)
+- **Счётчик бойцов** обновляется сразу при убийстве/выводе юнитов (убран «липкий max()» из 1.0.21–1.0.22)
+- **Таймер** снова считается от реального соотношения сил и HP
+- **Выход игрока из claim при 2:1+** — гарнизон не обнуляется мгновенно; резерв только для выгруженных, но живых защитников во время захвата
+- **Мгновенный захват** блокируется на уровне setHealth и setSiegeSuccess
 
-В логе: `cannon_territory_bridge 1.0.22`
+## Ранее
+
+- 1.0.22 — краш Mixin при запуске
+- 1.0.20 — рабочий baseline до sticky/ratio-lock
+
+В логе: `cannon_territory_bridge 1.0.23`

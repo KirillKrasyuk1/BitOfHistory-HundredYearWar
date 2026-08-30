@@ -4,12 +4,14 @@ import com.cannon.territorybridge.bridge.BridgeClaimAccess;
 import com.cannon.territorybridge.bridge.BridgeClaimHelper;
 import com.cannon.territorybridge.server.ClaimSiegeTracker;
 import com.cannon.territorybridge.server.SiegeBalance;
+import com.talhanation.recruits.ClaimEvents;
 import com.talhanation.recruits.world.RecruitsClaim;
 import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = RecruitsClaim.class, remap = false)
@@ -40,7 +42,7 @@ public class RecruitsClaimMixin implements BridgeClaimAccess {
         cannon$bridgeDefenderCount = Math.max(0, count);
     }
 
-    /** Recruits ends sieges when player headcount in claim drops — ignore if HYW armies remain. */
+    /** Recruits ends sieges when scanned headcount drops — ignore if bridge armies remain. */
     @Inject(method = "setUnderSiege", at = @At("HEAD"), cancellable = true, remap = false)
     private void cannon$guardPrematureSiegeEnd(boolean underSiege, ServerLevel level, CallbackInfo ci) {
         if (underSiege) {
@@ -55,28 +57,50 @@ public class RecruitsClaimMixin implements BridgeClaimAccess {
         }
     }
 
-    /** Do not wipe siege HP while capture is underway and committed garrison may still be alive. */
+    /** Do not reset siege HP during an active capture tick. */
     @Inject(method = "resetHealth", at = @At("HEAD"), cancellable = true, remap = false)
     private void cannon$guardCaptureTimerReset(CallbackInfo ci) {
         RecruitsClaim self = (RecruitsClaim) (Object) this;
-        if (!self.isUnderSiege) {
-            return;
-        }
-        if (ClaimSiegeTracker.isCaptureInProgress(self) && ClaimSiegeTracker.hasCommittedDefenders(self)) {
+        if (self.isUnderSiege && ClaimSiegeTracker.isCaptureInProgress(self)) {
             ci.cancel();
         }
     }
 
-    /** Capture only when bridge army counts satisfy the ratio — not because a player walked off. */
+    /** Block claim HP from reaching zero unless army ratio rules allow capture. */
+    @ModifyVariable(method = "setHealth", at = @At("HEAD"), argsOnly = true, remap = false)
+    private int cannon$clampZeroHealthWithoutRatio(int health) {
+        RecruitsClaim self = (RecruitsClaim) (Object) this;
+        if (!self.isUnderSiege || health > 0) {
+            return health;
+        }
+        int attackers = BridgeClaimHelper.attackerCount(self);
+        int defenders = BridgeClaimHelper.defenderCount(self);
+        if (!SiegeBalance.canProgressCapture(attackers, defenders)) {
+            return 1;
+        }
+        ServerLevel level = ClaimEvents.server != null ? ClaimEvents.server.overworld() : null;
+        if (defenders <= 0 && ClaimSiegeTracker.hasLiveOrReservedDefenders(self, level)) {
+            return 1;
+        }
+        return health;
+    }
+
+    /** Transfer ownership only when bridge army counts satisfy the ratio. */
     @Inject(method = "setSiegeSuccess", at = @At("HEAD"), cancellable = true, remap = false)
     private void cannon$guardInstantCapture(ServerLevel level, CallbackInfo ci) {
         RecruitsClaim self = (RecruitsClaim) (Object) this;
         int attackers = BridgeClaimHelper.attackerCount(self);
         int defenders = BridgeClaimHelper.defenderCount(self);
-        boolean committedDefenders = ClaimSiegeTracker.hasCommittedDefenders(self);
-        boolean captureInProgress = ClaimSiegeTracker.isCaptureInProgress(self);
 
-        if (!SiegeBalance.canCompleteCapture(attackers, defenders, committedDefenders, captureInProgress)) {
+        if (!SiegeBalance.canProgressCapture(attackers, defenders)) {
+            ci.cancel();
+            if (self.getHealth() <= 0) {
+                self.setHealth(1);
+            }
+            return;
+        }
+
+        if (defenders <= 0 && ClaimSiegeTracker.hasLiveOrReservedDefenders(self, level)) {
             ci.cancel();
             if (self.getHealth() <= 0) {
                 self.setHealth(1);

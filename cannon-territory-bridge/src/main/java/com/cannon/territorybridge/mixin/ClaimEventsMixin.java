@@ -20,7 +20,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -63,11 +62,10 @@ public abstract class ClaimEventsMixin {
     ) {
         ClaimSiegeTracker.bindActiveTickClaim(claim);
         HywSiegeClassifier.supplementHywUnits(entities, claim, attackers, defenders);
-        SiegeForceFilter.stripNonCountingForces(attackers, defenders);
         ServerLevel level = resolveServerLevel(entities);
         if (level != null) {
             ClaimSiegeTracker.supplementForcesInsideClaim(level, claim, attackers, defenders);
-            ClaimSiegeTracker.applyStickyForces(level, claim, entities, attackers, defenders);
+            ClaimSiegeTracker.finalizeSiegeForces(level, claim, attackers, defenders);
         }
     }
 
@@ -86,11 +84,6 @@ public abstract class ClaimEventsMixin {
         return server != null ? server.overworld() : null;
     }
 
-    /**
-     * Recruits only scans {@link net.minecraft.server.level.ServerPlayer} inside the claim.
-     * Replace with HYW armies so player movement does not change force totals.
-     * Instance + static handlers are split — Mixin rejects one @Redirect for both contexts.
-     */
     private static List<LivingEntity> cannon$hywArmiesInClaim(Level level, RecruitsClaim claim) {
         return ClaimUtil.getLivingEntitiesInClaim(level, claim, SiegeForceFilter::countsForSiege);
     }
@@ -127,25 +120,31 @@ public abstract class ClaimEventsMixin {
         return cannon$hywArmiesInClaim(level, claim);
     }
 
-    /** Use bridge / committed counts so chunk-unloaded garrison still affects speed and siege end checks. */
-    @ModifyVariable(
+    /** Recruits reads list sizes after classifyEntities — use synced bridge totals instead. */
+    @Redirect(
             method = "tickActiveSieges",
-            at = @At("STORE"),
-            ordinal = 0,
+            at = @At(value = "INVOKE", target = "Ljava/util/List;size()I", ordinal = 0),
             remap = false
     )
-    private int cannon$effectiveAttackers(int scannedAttackers) {
-        return ClaimSiegeTracker.effectiveAttackerCount(ClaimSiegeTracker.activeTickClaim(), scannedAttackers);
+    private int cannon$bridgeAttackerListSize(List<?> ignored) {
+        RecruitsClaim claim = ClaimSiegeTracker.activeTickClaim();
+        if (claim != null && claim.isUnderSiege) {
+            return ClaimSiegeTracker.bridgeAttackerCount(claim);
+        }
+        return ignored.size();
     }
 
-    @ModifyVariable(
+    @Redirect(
             method = "tickActiveSieges",
-            at = @At("STORE"),
-            ordinal = 1,
+            at = @At(value = "INVOKE", target = "Ljava/util/List;size()I", ordinal = 1),
             remap = false
     )
-    private int cannon$effectiveDefenders(int scannedDefenders) {
-        return ClaimSiegeTracker.effectiveDefenderCount(ClaimSiegeTracker.activeTickClaim(), scannedDefenders);
+    private int cannon$bridgeDefenderListSize(List<?> ignored) {
+        RecruitsClaim claim = ClaimSiegeTracker.activeTickClaim();
+        if (claim != null && claim.isUnderSiege) {
+            return ClaimSiegeTracker.bridgeDefenderCount(claim);
+        }
+        return ignored.size();
     }
 
     @Redirect(
@@ -158,16 +157,13 @@ public abstract class ClaimEventsMixin {
     )
     private float cannon$bridgeSiegeSpeed(int attackerCount, int defenderCount) {
         RecruitsClaim claim = ClaimSiegeTracker.activeTickClaim();
-        return SiegeBalance.computeSpeedPercent(
-                ClaimSiegeTracker.effectiveAttackerCount(claim, attackerCount),
-                ClaimSiegeTracker.effectiveDefenderCount(claim, defenderCount)
-        );
+        if (claim != null && claim.isUnderSiege) {
+            attackerCount = ClaimSiegeTracker.bridgeAttackerCount(claim);
+            defenderCount = ClaimSiegeTracker.bridgeDefenderCount(claim);
+        }
+        return SiegeBalance.computeSpeedPercent(attackerCount, defenderCount);
     }
 
-    /**
-     * Recruits calls resetHealth after a cancelled setUnderSiege(false) when scanned attackers dip —
-     * skip timer wipe while bridge armies keep the siege alive.
-     */
     @Redirect(
             method = "tickActiveSieges",
             at = @At(
@@ -183,7 +179,6 @@ public abstract class ClaimEventsMixin {
         claim.resetHealth();
     }
 
-    /** Do not tear down the active siege while bridge attackers still meet the minimum. */
     @Redirect(
             method = "tickActiveSieges",
             at = @At(

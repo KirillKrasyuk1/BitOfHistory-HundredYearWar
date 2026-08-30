@@ -21,11 +21,12 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Keeps siege attacker/defender counts stable while NPC armies stay alive, even if they leave the claim,
- * chunk-unload, or the owning player walks away. Home-position garrison on the claim is always counted.
+ * Siege force totals: live HYW units in the claim update every tick.
+ * During active capture, chunk-unloaded garrison UUIDs still count until confirmed dead.
  */
 public final class ClaimSiegeTracker {
     private static final Map<UUID, Commitment> COMMITMENTS = new ConcurrentHashMap<>();
+    private static final Set<UUID> CONFIRMED_DEAD = ConcurrentHashMap.newKeySet();
 
     private ClaimSiegeTracker() {}
 
@@ -45,9 +46,19 @@ public final class ClaimSiegeTracker {
         ACTIVE_TICK_CLAIM.remove();
     }
 
+    public static void markDead(UUID entityId) {
+        if (entityId != null) {
+            CONFIRMED_DEAD.add(entityId);
+        }
+    }
+
     public static void clear(RecruitsClaim claim) {
         if (claim != null) {
-            COMMITMENTS.remove(claim.getUUID());
+            Commitment removed = COMMITMENTS.remove(claim.getUUID());
+            if (removed != null) {
+                removed.attackers.forEach(CONFIRMED_DEAD::remove);
+                removed.defenders.forEach(CONFIRMED_DEAD::remove);
+            }
             resetBridgeCounts(claim);
             if (ClaimEvents.server != null) {
                 SiegeForceBroadcaster.clearOnAll(ClaimEvents.server, claim.getUUID());
@@ -65,139 +76,131 @@ public final class ClaimSiegeTracker {
             return;
         }
         for (ChunkPos chunk : claim.getClaimedChunks()) {
-            int minX = chunk.getMinBlockX();
-            int minZ = chunk.getMinBlockZ();
             AABB box = new AABB(
-                    minX,
+                    chunk.getMinBlockX(),
                     level.getMinBuildHeight(),
-                    minZ,
+                    chunk.getMinBlockZ(),
                     chunk.getMaxBlockX() + 1,
                     level.getMaxBuildHeight(),
                     chunk.getMaxBlockZ() + 1
             );
             for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, box, Entity::isAlive)) {
-                if (!SiegeForceFilter.countsForSiege(entity)) {
-                    continue;
-                }
-                if (attackers.contains(entity) || defenders.contains(entity)) {
-                    continue;
-                }
-                HywSiegeClassifier.Role role = HywSiegeClassifier.classify(entity, claim);
-                if (role == HywSiegeClassifier.Role.ATTACKER) {
-                    attackers.add(entity);
-                } else if (role == HywSiegeClassifier.Role.DEFENDER) {
-                    defenders.add(entity);
-                }
+                addClassifiedEntity(entity, claim, attackers, defenders);
             }
         }
     }
 
-    public static void applyStickyForces(
+    public static void finalizeSiegeForces(
             ServerLevel level,
             RecruitsClaim claim,
-            List<LivingEntity> inClaimEntities,
             List<LivingEntity> attackers,
             List<LivingEntity> defenders
     ) {
         if (claim == null || level == null || !claim.isUnderSiege) {
-            syncBridgeCounts(claim, null, attackers, defenders);
+            syncBridgeCounts(claim, 0, 0);
             return;
         }
-
-        Commitment commitment = COMMITMENTS.computeIfAbsent(claim.getUUID(), ignored -> new Commitment());
-        rememberEntities(commitment.attackers, attackers);
-        rememberEntities(commitment.defenders, defenders);
-
-        supplementHomeGarrison(level, claim, commitment);
-        pruneCommitment(level, claim, commitment);
-
-        attackers.clear();
-        defenders.clear();
-        resolveEntities(level, claim, commitment.attackers, attackers);
-        resolveEntities(level, claim, commitment.defenders, defenders);
 
         SiegeForceFilter.stripNonCountingForces(attackers, defenders);
 
         if (BridgeConfig.STICKY_SIEGE_FORCES.get()) {
-            updateCaptureLock(
-                    claim,
-                    commitment,
-                    Math.max(attackers.size(), commitment.attackers.size()),
-                    Math.max(defenders.size(), commitment.defenders.size())
-            );
-            syncBridgeCounts(claim, commitment, attackers, defenders);
-        } else {
-            syncBridgeCounts(claim, null, attackers, defenders);
+            supplementHomeGarrisonInLists(level, claim, attackers, defenders);
         }
+
+        SiegeForceFilter.stripNonCountingForces(attackers, defenders);
+
+        Commitment commitment = COMMITMENTS.computeIfAbsent(claim.getUUID(), ignored -> new Commitment());
+        rebuildCommitmentFromLists(commitment, attackers, defenders);
+        pruneCommitment(level, claim, commitment);
+
+        int attackerCount = attackers.size();
+        int defenderCount = defenders.size();
+
+        if (BridgeConfig.STICKY_SIEGE_FORCES.get() && isCaptureInProgress(claim)) {
+            defenderCount += countUnloadedReserve(level, commitment.defenders);
+        }
+
+        syncBridgeCounts(claim, attackerCount, defenderCount);
     }
 
-    /** Scanned count plus committed UUIDs that are not confirmed dead (includes chunk-unloaded garrison). */
-    public static int effectiveAttackerCount(RecruitsClaim claim, int scannedCount) {
-        if (claim == null || !claim.isUnderSiege) {
-            return Math.max(0, scannedCount);
-        }
-        Commitment commitment = COMMITMENTS.get(claim.getUUID());
-        if (commitment == null) {
-            return Math.max(0, scannedCount);
-        }
-        int committed = commitment.attackers.size();
-        int bridge = bridgeFieldCount(claim, true);
-        return Math.max(Math.max(scannedCount, committed), bridge);
+    public static int bridgeAttackerCount(RecruitsClaim claim) {
+        return bridgeFieldCount(claim, true);
     }
 
-    /** Scanned count plus committed garrison; during active capture, never drops below the locked ratio baseline. */
-    public static int effectiveDefenderCount(RecruitsClaim claim, int scannedCount) {
-        if (claim == null || !claim.isUnderSiege) {
-            return Math.max(0, scannedCount);
-        }
-        Commitment commitment = COMMITMENTS.get(claim.getUUID());
-        if (commitment == null) {
-            return Math.max(0, scannedCount);
-        }
-        int committed = commitment.defenders.size();
-        int bridge = bridgeFieldCount(claim, false);
-        int effective = Math.max(Math.max(scannedCount, committed), bridge);
-        if (commitment.captureInProgress && commitment.ratioLockedDefenders > 0) {
-            effective = Math.max(effective, commitment.ratioLockedDefenders);
-        }
-        return effective;
-    }
-
-    public static boolean hasCommittedDefenders(RecruitsClaim claim) {
-        Commitment commitment = claim != null ? COMMITMENTS.get(claim.getUUID()) : null;
-        return commitment != null && !commitment.defenders.isEmpty();
+    public static int bridgeDefenderCount(RecruitsClaim claim) {
+        return bridgeFieldCount(claim, false);
     }
 
     public static boolean isCaptureInProgress(RecruitsClaim claim) {
-        Commitment commitment = claim != null ? COMMITMENTS.get(claim.getUUID()) : null;
-        return commitment != null && commitment.captureInProgress;
+        return claim != null && claim.isUnderSiege && claim.getHealth() < claim.getMaxHealth();
     }
 
-    private static void updateCaptureLock(
+    public static boolean hasLiveOrReservedDefenders(RecruitsClaim claim, ServerLevel level) {
+        if (claim == null) {
+            return false;
+        }
+        Commitment commitment = COMMITMENTS.get(claim.getUUID());
+        if (commitment == null || commitment.defenders.isEmpty()) {
+            return false;
+        }
+        if (level == null) {
+            return true;
+        }
+        for (UUID entityId : commitment.defenders) {
+            if (CONFIRMED_DEAD.contains(entityId)) {
+                continue;
+            }
+            Entity entity = level.getEntity(entityId);
+            if (entity == null || (entity instanceof LivingEntity living && living.isAlive() && !living.isRemoved())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void addClassifiedEntity(
+            LivingEntity entity,
             RecruitsClaim claim,
-            Commitment commitment,
-            int attackerCount,
-            int defenderCount
+            List<LivingEntity> attackers,
+            List<LivingEntity> defenders
     ) {
-        int effectiveAttackers = Math.max(attackerCount, commitment.attackers.size());
-        int effectiveDefenders = Math.max(defenderCount, commitment.defenders.size());
-        if (!SiegeBalance.canProgressCapture(effectiveAttackers, effectiveDefenders)) {
+        if (!SiegeForceFilter.countsForSiege(entity)) {
             return;
         }
-        if (claim.getHealth() >= claim.getMaxHealth()) {
+        if (attackers.contains(entity) || defenders.contains(entity)) {
             return;
         }
-        commitment.captureInProgress = true;
-        if (effectiveDefenders > 0) {
-            commitment.ratioLockedDefenders = Math.max(commitment.ratioLockedDefenders, effectiveDefenders);
+        HywSiegeClassifier.Role role = HywSiegeClassifier.classify(entity, claim);
+        if (role == HywSiegeClassifier.Role.ATTACKER) {
+            attackers.add(entity);
+        } else if (role == HywSiegeClassifier.Role.DEFENDER) {
+            defenders.add(entity);
         }
     }
 
-    private static int bridgeFieldCount(RecruitsClaim claim, boolean attackers) {
-        if (claim instanceof BridgeClaimAccess access) {
-            return attackers ? access.cannon$getBridgeAttackerCount() : access.cannon$getBridgeDefenderCount();
+    private static void rebuildCommitmentFromLists(
+            Commitment commitment,
+            List<LivingEntity> attackers,
+            List<LivingEntity> defenders
+    ) {
+        commitment.attackers.clear();
+        commitment.defenders.clear();
+        rememberEntities(commitment.attackers, attackers);
+        rememberEntities(commitment.defenders, defenders);
+    }
+
+    private static int countUnloadedReserve(ServerLevel level, Set<UUID> defenderIds) {
+        int reserve = 0;
+        for (UUID entityId : defenderIds) {
+            if (CONFIRMED_DEAD.contains(entityId)) {
+                continue;
+            }
+            Entity entity = level.getEntity(entityId);
+            if (entity == null) {
+                reserve++;
+            }
         }
-        return 0;
+        return reserve;
     }
 
     private static void rememberEntities(Set<UUID> bucket, List<LivingEntity> entities) {
@@ -208,22 +211,21 @@ public final class ClaimSiegeTracker {
         }
     }
 
-    private static void supplementHomeGarrison(ServerLevel level, RecruitsClaim claim, Commitment commitment) {
+    private static void supplementHomeGarrisonInLists(
+            ServerLevel level,
+            RecruitsClaim claim,
+            List<LivingEntity> attackers,
+            List<LivingEntity> defenders
+    ) {
         AABB scanBox = expandedClaimBounds(claim, HOME_SCAN_MARGIN);
         if (scanBox == null) {
             return;
         }
-        List<BaseCombatEntity> hywUnits = level.getEntitiesOfClass(BaseCombatEntity.class, scanBox, Entity::isAlive);
-        for (BaseCombatEntity hyw : hywUnits) {
+        for (BaseCombatEntity hyw : level.getEntitiesOfClass(BaseCombatEntity.class, scanBox, Entity::isAlive)) {
             if (!isHomeOnClaim(hyw, claim)) {
                 continue;
             }
-            HywSiegeClassifier.Role role = HywSiegeClassifier.classify(hyw, claim);
-            if (role == HywSiegeClassifier.Role.ATTACKER) {
-                commitment.attackers.add(hyw.getUUID());
-            } else if (role == HywSiegeClassifier.Role.DEFENDER) {
-                commitment.defenders.add(hyw.getUUID());
-            }
+            addClassifiedEntity(hyw, claim, attackers, defenders);
         }
     }
 
@@ -241,45 +243,25 @@ public final class ClaimSiegeTracker {
         Iterator<UUID> iterator = bucket.iterator();
         while (iterator.hasNext()) {
             UUID entityId = iterator.next();
+            if (CONFIRMED_DEAD.contains(entityId)) {
+                iterator.remove();
+                continue;
+            }
             Entity entity = level.getEntity(entityId);
             if (entity == null) {
                 continue;
             }
             if (!(entity instanceof LivingEntity living) || !living.isAlive() || living.isRemoved()) {
                 iterator.remove();
+                CONFIRMED_DEAD.add(entityId);
                 continue;
             }
             if (!SiegeForceFilter.countsForSiege(living)) {
                 iterator.remove();
                 continue;
             }
-            HywSiegeClassifier.Role role = HywSiegeClassifier.classify(living, claim);
-            if (role != expectedRole) {
+            if (HywSiegeClassifier.classify(living, claim) != expectedRole) {
                 iterator.remove();
-            }
-        }
-    }
-
-    private static void resolveEntities(
-            ServerLevel level,
-            RecruitsClaim claim,
-            Set<UUID> source,
-            List<LivingEntity> target
-    ) {
-        for (UUID entityId : source) {
-            Entity entity = level.getEntity(entityId);
-            if (!(entity instanceof LivingEntity living) || !living.isAlive() || living.isRemoved()) {
-                continue;
-            }
-            if (!SiegeForceFilter.countsForSiege(living)) {
-                continue;
-            }
-            HywSiegeClassifier.Role role = HywSiegeClassifier.classify(living, claim);
-            if (role == HywSiegeClassifier.Role.NONE) {
-                continue;
-            }
-            if (!target.contains(living)) {
-                target.add(living);
             }
         }
     }
@@ -320,21 +302,7 @@ public final class ClaimSiegeTracker {
         );
     }
 
-    private static void syncBridgeCounts(
-            RecruitsClaim claim,
-            Commitment commitment,
-            List<LivingEntity> attackers,
-            List<LivingEntity> defenders
-    ) {
-        int attackerCount = attackers != null ? attackers.size() : 0;
-        int defenderCount = defenders != null ? defenders.size() : 0;
-        if (commitment != null) {
-            attackerCount = Math.max(attackerCount, commitment.attackers.size());
-            defenderCount = Math.max(defenderCount, commitment.defenders.size());
-            if (commitment.captureInProgress && commitment.ratioLockedDefenders > 0) {
-                defenderCount = Math.max(defenderCount, commitment.ratioLockedDefenders);
-            }
-        }
+    private static void syncBridgeCounts(RecruitsClaim claim, int attackerCount, int defenderCount) {
         if (claim instanceof BridgeClaimAccess access) {
             access.cannon$setBridgeAttackerCount(attackerCount);
             access.cannon$setBridgeDefenderCount(defenderCount);
@@ -342,6 +310,13 @@ public final class ClaimSiegeTracker {
         if (ClaimEvents.server != null && claim != null && claim.isUnderSiege) {
             SiegeForceBroadcaster.syncClaim(ClaimEvents.server, claim);
         }
+    }
+
+    private static int bridgeFieldCount(RecruitsClaim claim, boolean attackers) {
+        if (claim instanceof BridgeClaimAccess access) {
+            return attackers ? access.cannon$getBridgeAttackerCount() : access.cannon$getBridgeDefenderCount();
+        }
+        return 0;
     }
 
     private static void resetBridgeCounts(RecruitsClaim claim) {
@@ -354,7 +329,5 @@ public final class ClaimSiegeTracker {
     private static final class Commitment {
         private final Set<UUID> attackers = new HashSet<>();
         private final Set<UUID> defenders = new HashSet<>();
-        private int ratioLockedDefenders;
-        private boolean captureInProgress;
     }
 }
