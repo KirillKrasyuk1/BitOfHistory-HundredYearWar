@@ -106,7 +106,7 @@ public final class HywSiegeHelper {
         return null;
     }
 
-    private static RecruitsFaction findRecruitsFactionByHywTeam(UUID ownerId) {
+    public static RecruitsFaction findRecruitsFactionByHywTeam(UUID ownerId) {
         if (FactionEvents.recruitsFactionManager == null) {
             return null;
         }

@@ -17,6 +17,8 @@
 	requireAttackerAdvantage = true
 	#On-screen siege timer and claim HP while inside a besieged claim.
 	showSiegeTimer = true
+	#HYW mobilization (staff + scrolls) only inside your own claim.
+	requireOwnClaimToMobilize = true
 
 [recruits_strip]
 	blockRecruitsEntities = true

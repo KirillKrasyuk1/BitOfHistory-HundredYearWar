@@ -13,21 +13,18 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 Download and replace JAR in `Cannon ______\mods\`:
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.8.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.9.jar
 
 1. Delete all older `cannon_territory_bridge-1.0.x.jar`
-2. Copy **1.0.8** into `mods`
-3. Delete `config\cannon_territory_bridge-common.toml` (game recreates it)
-4. Restart Cannon
+2. Copy **1.0.9** into Cannon profile **mods** folder
+3. Launch once — verify log line `Cannon Territory Bridge loaded` and file `config/cannon_territory_bridge-common.toml`
+4. No need to recreate the world
 
-## Siege (v1.0.8)
+## Siege (v1.0.9)
 
-- HYW garrison units count as defenders/attackers via owner faction (not only the player in the chunk)
-- HYW units (incl. **cannons/trebuchets**) count even when claim owner is offline
-- **Garrison holds**: no capture progress while `defenders >= attackers`
-- **Minimum capture time** (~3 min default, `minCaptureMinutes`)
-- **On-screen siege timer** while inside a besieged claim (`showSiegeTimer`)
-- Defender/attacker ratio affects speed when attackers have the advantage
+- HYW garrison counts as defenders by **owner Recruits faction** (works when you leave the claim)
+- **Mobilization** (Conqueror's Staff + scrolls) only on **your own** claim (`requireOwnClaimToMobilize`)
+- On-screen siege timer (`showSiegeTimer`), min capture ~3 min, garrison holds while `defenders >= attackers`
 
 ## Keys
 

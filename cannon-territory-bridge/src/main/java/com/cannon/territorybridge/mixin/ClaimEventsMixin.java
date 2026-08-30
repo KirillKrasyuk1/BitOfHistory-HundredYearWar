@@ -2,6 +2,7 @@ package com.cannon.territorybridge.mixin;
 
 import com.cannon.territorybridge.CannonTerritoryBridge;
 import com.cannon.territorybridge.server.BridgeServerEvents;
+import com.cannon.territorybridge.server.HywSiegeClassifier;
 import com.cannon.territorybridge.server.HywSiegeHelper;
 import com.talhanation.recruits.ClaimEvents;
 import net.minecraft.server.level.ServerLevel;
@@ -14,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
+
 @Mixin(value = ClaimEvents.class, remap = false)
 public abstract class ClaimEventsMixin {
     @Inject(method = "takeOverVillager", at = @At("HEAD"), cancellable = true, remap = false)
@@ -21,6 +24,21 @@ public abstract class ClaimEventsMixin {
         if (BridgeServerEvents.shouldBlockVillagerClaimTakeover()) {
             ci.cancel();
         }
+    }
+
+    @Inject(
+            method = "classifyEntities",
+            at = @At("RETURN"),
+            remap = false
+    )
+    private void cannon$addHywGarrison(
+            List<LivingEntity> entities,
+            RecruitsClaim claim,
+            List<LivingEntity> attackers,
+            List<LivingEntity> defenders,
+            CallbackInfo ci
+    ) {
+        HywSiegeClassifier.supplementHywUnits(entities, claim, attackers, defenders);
     }
 
     @Redirect(

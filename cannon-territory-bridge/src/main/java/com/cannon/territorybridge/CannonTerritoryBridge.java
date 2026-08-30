@@ -24,5 +24,6 @@ public class CannonTerritoryBridge {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Cannon Territory Bridge loaded — HYW armies + Recruits claims/diplomacy only.");
+        LOGGER.info("Config file: config/cannon_territory_bridge-common.toml (created on first launch if mod is active).");
     }
 }

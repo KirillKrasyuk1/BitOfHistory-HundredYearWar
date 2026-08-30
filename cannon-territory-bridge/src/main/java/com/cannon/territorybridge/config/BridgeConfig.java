@@ -17,6 +17,7 @@ public final class BridgeConfig {
     public static final ForgeConfigSpec.BooleanValue APPLY_SIEGE_SPEED_TO_DAMAGE;
     public static final ForgeConfigSpec.BooleanValue REQUIRE_ATTACKER_ADVANTAGE;
     public static final ForgeConfigSpec.BooleanValue SHOW_SIEGE_TIMER;
+    public static final ForgeConfigSpec.BooleanValue REQUIRE_OWN_CLAIM_TO_MOBILIZE;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -46,6 +47,9 @@ public final class BridgeConfig {
         SHOW_SIEGE_TIMER = builder
                 .comment("Show remaining siege time and claim HP as on-screen text while you are inside a claim under siege.")
                 .define("showSiegeTimer", true);
+        REQUIRE_OWN_CLAIM_TO_MOBILIZE = builder
+                .comment("HYW army mobilization (Conqueror's Staff and scrolls) only inside your own Recruits claim chunks.")
+                .define("requireOwnClaimToMobilize", true);
         builder.pop();
 
         builder.comment("Strip Recruits settlement / army mechanics — keep claims + diplomacy only.").push("recruits_strip");
