@@ -1,0 +1,4 @@
+{
+  "restrictive_farming.restricted_crop_message": "Эта культура не растёт в этом биоме (%s)",
+  "restrictive_farming.restricted_block_message": "Этот блок нельзя поставить в этом биоме (%s)"
+}
