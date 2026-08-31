@@ -1,0 +1,52 @@
+{
+  "levels": {
+    "2": {
+      "main_hand": [
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "minecraft:spyglass",
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

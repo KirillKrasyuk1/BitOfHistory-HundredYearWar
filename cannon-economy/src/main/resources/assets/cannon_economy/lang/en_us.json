@@ -1,18 +1,7 @@
 {
-  "block.cannon_economy.trade_post": "Trade Post",
-  "item.cannon_economy.trade_post": "Trade Post",
-  "message.cannon_economy.deposit_added": "Deposit %s created (id=%s, radius=%s)",
+  "message.cannon_economy.fertility": "Fertility: %s/5 (growth ×%s)",
+  "message.cannon_economy.deposit_created": "Deposit %s created (id=%s, radius %s chunks). Conversion started.",
   "message.cannon_economy.deposit_removed": "Deposit removed: %s",
   "message.cannon_economy.deposit_not_found": "Deposit not found: %s",
-  "message.cannon_economy.unknown_deposit_type": "Unknown deposit type: %s",
-  "message.cannon_economy.post_named": "Trade post named: %s",
-  "message.cannon_economy.no_trade_post": "Stand inside a Trade Post block",
-  "message.cannon_economy.post_not_found": "Trade post not found: %s",
-  "message.cannon_economy.route_created": "Trade route created: %s",
-  "message.cannon_economy.route_removed": "Trade route removed: %s",
-  "message.cannon_economy.route_not_found": "Route not found: %s",
-  "message.cannon_economy.caravan_departed": "Caravan departed on route %s",
-  "message.cannon_economy.caravan_arrived": "Caravan arrived at destination",
-  "message.cannon_economy.caravan_turned_back": "Caravan turned back (embargo or blocked route)",
-  "message.cannon_economy.trade_embargo": "Trade blocked by embargo on route %s"
+  "message.cannon_economy.unknown_ore": "Unknown ore/preset: %s"
 }

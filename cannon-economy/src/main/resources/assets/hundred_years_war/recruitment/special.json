@@ -1,0 +1,454 @@
+{
+  "races": {
+    "mercenary": {
+      "translationKey": "recruitment.hundred_years_war.race.mercenary",
+      "categories": {
+        "special": [
+          {
+            "id": "priest",
+            "translationKey": "recruitment.hundred_years_war.unit.priest",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.priest_i",
+                "expCost": 36,
+                "timeCostSeconds": 86,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:priest",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "horse",
+            "translationKey": "recruitment.hundred_years_war.unit.horse",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.horse_i",
+                "expCost": 10,
+                "timeCostSeconds": 34,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_horse",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.horse_ii",
+                "expCost": 16,
+                "timeCostSeconds": 46,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_horse",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.horse_iii",
+                "expCost": 24,
+                "timeCostSeconds": 60,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_horse",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.horse_iv",
+                "expCost": 34,
+                "timeCostSeconds": 76,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_horse",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "undead": {
+      "translationKey": "recruitment.hundred_years_war.race.undead",
+      "categories": {
+        "special": [
+          {
+            "id": "hyw_skeleton_horse",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_skeleton_horse",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_horse_i",
+                "expCost": 12,
+                "timeCostSeconds": 40,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_horse",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_horse_ii",
+                "expCost": 18,
+                "timeCostSeconds": 52,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_horse",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_horse_iii",
+                "expCost": 26,
+                "timeCostSeconds": 64,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 3
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_horse",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_horse_iv",
+                "expCost": 36,
+                "timeCostSeconds": 80,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_horse",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "hyw_giant",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_giant",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.hyw_giant",
+                "expCost": 150,
+                "timeCostSeconds": 300,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 48
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 32
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 6
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_giant",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 4
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bandit": {
+      "translationKey": "recruitment.hundred_years_war.race.bandit",
+      "categories": {
+        "special": [
+          {
+            "id": "bandit_demolitionist",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_demolitionist",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_demolitionist",
+                "expCost": 32,
+                "timeCostSeconds": 72,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_demolitionist",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_war_hound",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_war_hound",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_war_hound",
+                "expCost": 16,
+                "timeCostSeconds": 38,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_war_hound",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_beastmaster",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_beastmaster",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_beastmaster",
+                "expCost": 56,
+                "timeCostSeconds": 114,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 18
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 20
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_beastmaster",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

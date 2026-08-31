@@ -1,0 +1,821 @@
+{
+  "races": {
+    "mercenary": {
+      "translationKey": "recruitment.hundred_years_war.race.mercenary",
+      "categories": {
+        "siege": [
+          {
+            "id": "battering_ram",
+            "translationKey": "recruitment.hundred_years_war.unit.battering_ram",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.battering_ram_i",
+                "expCost": 55,
+                "timeCostSeconds": 240,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 18
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 48
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:battering_ram",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "siege_tower",
+            "translationKey": "recruitment.hundred_years_war.unit.siege_tower",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.siege_tower_i",
+                "expCost": 70,
+                "timeCostSeconds": 360,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 18
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 24
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 64
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:siege_tower",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "springald",
+            "translationKey": "recruitment.hundred_years_war.unit.springald",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.springald_i",
+                "expCost": 65,
+                "timeCostSeconds": 300,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 16
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 28
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 32
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:springald",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "mangonels",
+            "translationKey": "recruitment.hundred_years_war.unit.mangonels",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.mangonels_i",
+                "expCost": 80,
+                "timeCostSeconds": 420,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 22
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 34
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 48
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mangonels",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "trebuchets",
+            "translationKey": "recruitment.hundred_years_war.unit.trebuchets",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.trebuchets_i",
+                "expCost": 100,
+                "timeCostSeconds": 540,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 28
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 40
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 72
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:trebuchets",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bombard",
+            "translationKey": "recruitment.hundred_years_war.unit.bombard",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.bombard_i",
+                "expCost": 95,
+                "timeCostSeconds": 420,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 26
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 46
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 28
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bombard",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "cannon",
+            "translationKey": "recruitment.hundred_years_war.unit.cannon",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.cannon_i",
+                "expCost": 110,
+                "timeCostSeconds": 480,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 32
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 54
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 30
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:cannon",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "culverin",
+            "translationKey": "recruitment.hundred_years_war.unit.culverin",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.culverin_i",
+                "expCost": 85,
+                "timeCostSeconds": 390,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 24
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 42
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 24
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:culverin",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "great_bombard",
+            "translationKey": "recruitment.hundred_years_war.unit.great_bombard",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.great_bombard_i",
+                "expCost": 150,
+                "timeCostSeconds": 720,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 40
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 72
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 42
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:great_bombard",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "ribauldequin",
+            "translationKey": "recruitment.hundred_years_war.unit.ribauldequin",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.ribauldequin_i",
+                "expCost": 120,
+                "timeCostSeconds": 520,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 34
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 58
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 34
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:ribauldequin",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "nest_of_bees",
+            "translationKey": "recruitment.hundred_years_war.unit.nest_of_bees",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.nest_of_bees_i",
+                "expCost": 130,
+                "timeCostSeconds": 560,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 36
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 64
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  },
+                  {
+                    "itemId": "hundred_years_war:any_log",
+                    "count": 32
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:nest_of_bees",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "siege_engineer",
+            "translationKey": "recruitment.hundred_years_war.unit.siege_engineer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.siege_engineer_i",
+                "expCost": 14,
+                "timeCostSeconds": 34,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.siege_engineer_ii",
+                "expCost": 22,
+                "timeCostSeconds": 48,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.siege_engineer_iii",
+                "expCost": 30,
+                "timeCostSeconds": 62,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 7
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.siege_engineer_iv",
+                "expCost": 40,
+                "timeCostSeconds": 78,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "undead": {
+      "translationKey": "recruitment.hundred_years_war.race.undead",
+      "categories": {
+        "siege": [
+          {
+            "id": "hyw_skeleton_siege_engineer",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_skeleton_siege_engineer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_siege_engineer_i",
+                "expCost": 16,
+                "timeCostSeconds": 38,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_siege_engineer_ii",
+                "expCost": 24,
+                "timeCostSeconds": 52,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_siege_engineer_iii",
+                "expCost": 34,
+                "timeCostSeconds": 66,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_siege_engineer_iv",
+                "expCost": 46,
+                "timeCostSeconds": 82,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 11
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bandit": {
+      "translationKey": "recruitment.hundred_years_war.race.bandit",
+      "categories": {
+        "siege": [
+          {
+            "id": "bandit_siege_engineer",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_siege_engineer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.bandit_siege_engineer_ii",
+                "expCost": 32,
+                "timeCostSeconds": 64,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "desert_raider": {
+      "translationKey": "recruitment.hundred_years_war.race.desert_raider",
+      "categories": {
+        "siege": [
+          {
+            "id": "desert_raider_siege_engineer",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_siege_engineer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.desert_raider_siege_engineer_ii",
+                "expCost": 30,
+                "timeCostSeconds": 64,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 7
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wood_elf": {
+      "translationKey": "recruitment.hundred_years_war.race.wood_elf",
+      "categories": {
+        "siege": [
+          {
+            "id": "wood_elf_siege_engineer",
+            "translationKey": "recruitment.hundred_years_war.unit.wood_elf_siege_engineer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.wood_elf_siege_engineer_i",
+                "expCost": 26,
+                "timeCostSeconds": 60,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:wood_elf_siege_engineer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

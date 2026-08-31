@@ -1,0 +1,88 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 0.7
+        },
+        {
+          "item": "hundred_years_war:iron_saber",
+          "probability": 0.3
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "main_hand": [
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 0.7
+        },
+        {
+          "item": "hundred_years_war:iron_saber",
+          "probability": 0.3
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

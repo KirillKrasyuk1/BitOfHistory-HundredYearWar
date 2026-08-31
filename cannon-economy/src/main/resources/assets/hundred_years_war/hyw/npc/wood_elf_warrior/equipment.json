@@ -1,0 +1,98 @@
+{
+  "levels": {
+    "2": {
+      "main_hand": [
+        {
+          "item": "hundred_years_war:iron_pike",
+          "probability": 0.68,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "hundred_years_war:iron_pike",
+          "probability": 0.02,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "item": "hundred_years_war:diamond_pike",
+          "probability": 0.24,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "hundred_years_war:diamond_pike",
+          "probability": 0.02,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "item": "hundred_years_war:diamond_pike",
+          "probability": 0.03,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "hundred_years_war:diamond_pike",
+          "probability": 0.01,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 3
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "minecraft:shield",
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

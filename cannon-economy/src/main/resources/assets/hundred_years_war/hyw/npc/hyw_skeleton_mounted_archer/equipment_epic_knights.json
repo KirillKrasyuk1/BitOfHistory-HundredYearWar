@@ -1,0 +1,250 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "minecraft:stone_sword",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "2": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "minecraft:bow",
+          "probability": 0.6,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "minecraft:crossbow",
+          "probability": 0.4
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 0.7
+        },
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "3": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 3
+            },
+            {
+              "enchantment": "minecraft:punch",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 3
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

@@ -7,7 +7,7 @@ modId="cannon_economy"
 version="${mod_version}"
 displayName="Cannon Economy"
 description='''
-Regional resources, admin-placed strategic deposits, biome-aware farming, and faction-aware trade routes for GoT-style gameplay.
+Soil fertility (1-5), admin regenerating ore deposits, HYW netherite→diamond overrides, increased army supply consumption.
 '''
 authors="Cannon Season I"
 
@@ -26,8 +26,8 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.cannon_economy]]
-modId="recruits"
+modId="hundred_years_war"
 mandatory=false
-versionRange="[1.0,)"
+versionRange="[0.3,)"
 ordering="AFTER"
 side="BOTH"

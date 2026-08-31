@@ -1,0 +1,170 @@
+{
+  "levels": {
+    "1": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:chainmail_helmet",
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:chainmail_chestplate",
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:chainmail_leggings",
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:chainmail_boots",
+          "probability": 1.0
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "hundred_years_war:iron_scimitar",
+          "probability": 1.0
+        }
+      ]
+    },
+    "2": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:iron_helmet",
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:iron_chestplate",
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:iron_leggings",
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:iron_boots",
+          "probability": 1.0
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "hundred_years_war:iron_scimitar",
+          "probability": 1.0
+        }
+      ]
+    },
+    "3": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:diamond_helmet",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:diamond_helmet",
+          "probability": 0.2
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:diamond_chestplate",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:diamond_chestplate",
+          "probability": 0.2
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:diamond_leggings",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:diamond_leggings",
+          "probability": 0.2
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:diamond_boots",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:diamond_boots",
+          "probability": 0.2
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "hundred_years_war:iron_scimitar",
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

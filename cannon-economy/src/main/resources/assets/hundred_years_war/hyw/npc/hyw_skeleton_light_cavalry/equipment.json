@@ -1,0 +1,260 @@
+{
+  "levels": {
+    "0": {
+      "lance_weapon": [
+        {
+          "item": "hundred_years_war:iron_pike_charge",
+          "probability": 1.0
+        }
+      ],
+      "main_weapon": [
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:iron_helmet",
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:iron_chestplate",
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "lance_weapon": [
+        {
+          "item": "hundred_years_war:iron_pike_charge",
+          "probability": 1.0
+        }
+      ],
+      "main_weapon": [
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:iron_helmet",
+          "probability": 0.7
+        },
+        {
+          "item": "minecraft:iron_helmet",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:iron_chestplate",
+          "probability": 0.7
+        },
+        {
+          "item": "minecraft:iron_chestplate",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "2": {
+      "lance_weapon": [
+        {
+          "item": "hundred_years_war:diamond_pike_charge",
+          "probability": 0.6
+        },
+        {
+          "item": "hundred_years_war:iron_pike_charge",
+          "probability": 0.4,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "main_weapon": [
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 0.7
+        },
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:iron_helmet",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:iron_chestplate",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "3": {
+      "lance_weapon": [
+        {
+          "item": "hundred_years_war:diamond_pike_charge",
+          "probability": 1.0
+        }
+      ],
+      "main_weapon": [
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 3
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:diamond_helmet",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:diamond_chestplate",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

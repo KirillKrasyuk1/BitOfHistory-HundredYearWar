@@ -1,0 +1,200 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "horse_armor": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "main_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "horse_armor": [
+        {
+          "item": "minecraft:iron_horse_armor",
+          "probability": 0.2
+        },
+        {
+          "item": null,
+          "probability": 0.8
+        }
+      ]
+    },
+    "2": {
+      "main_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "horse_armor": [
+        {
+          "item": "minecraft:diamond_horse_armor",
+          "probability": 0.3
+        },
+        {
+          "item": "minecraft:iron_horse_armor",
+          "probability": 0.3
+        },
+        {
+          "item": null,
+          "probability": 0.4
+        }
+      ]
+    },
+    "3": {
+      "main_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "horse_armor": [
+        {
+          "item": "minecraft:diamond_horse_armor",
+          "probability": 0.6
+        },
+        {
+          "item": "minecraft:iron_horse_armor",
+          "probability": 0.3
+        },
+        {
+          "item": null,
+          "probability": 0.1
+        }
+      ]
+    }
+  }
+}

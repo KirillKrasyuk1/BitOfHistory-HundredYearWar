@@ -1,0 +1,288 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": "hundred_years_war:matchlock",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "main_hand": [
+        {
+          "item": "hundred_years_war:matchlock",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:cuirassier_helmet",
+          "probability": 0.4
+        },
+        {
+          "item": "magistuarmory:face_helmet",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:sallet",
+          "probability": 0.3
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:cuirassier_chestplate",
+          "probability": 0.4
+        },
+        {
+          "item": "magistuarmory:lamellar_chestplate",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:brigandine_chestplate",
+          "probability": 0.3
+        }
+      ],
+      "legs": [
+        {
+          "item": "magistuarmory:cuirassier_leggings",
+          "probability": 0.5
+        },
+        {
+          "item": "magistuarmory:chainmail_leggings",
+          "probability": 0.5
+        }
+      ],
+      "feet": [
+        {
+          "item": "magistuarmory:cuirassier_boots",
+          "probability": 0.5
+        },
+        {
+          "item": "magistuarmory:lamellar_boots",
+          "probability": 0.5
+        }
+      ]
+    },
+    "2": {
+      "main_hand": [
+        {
+          "item": "hundred_years_war:matchlock",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:cuirassier_helmet",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:face_helmet",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:sallet",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:armet",
+          "probability": 0.15
+        },
+        {
+          "item": "magistuarmory:bascinet",
+          "probability": 0.15
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:cuirassier_chestplate",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:lamellar_chestplate",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:knight_chestplate",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:halfarmor_chestplate",
+          "probability": 0.25
+        }
+      ],
+      "legs": [
+        {
+          "item": "magistuarmory:cuirassier_leggings",
+          "probability": 0.4
+        },
+        {
+          "item": "magistuarmory:knight_leggings",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:platemail_leggings",
+          "probability": 0.3
+        }
+      ],
+      "feet": [
+        {
+          "item": "magistuarmory:cuirassier_boots",
+          "probability": 0.4
+        },
+        {
+          "item": "magistuarmory:knight_boots",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:lamellar_boots",
+          "probability": 0.3
+        }
+      ]
+    },
+    "3": {
+      "main_hand": [
+        {
+          "item": "hundred_years_war:matchlock",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:cuirassier_helmet",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:armet",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:maximilian_helmet",
+          "probability": 0.15
+        },
+        {
+          "item": "magistuarmory:face_helmet",
+          "probability": 0.15
+        },
+        {
+          "item": "magistuarmory:sallet",
+          "probability": 0.15
+        },
+        {
+          "item": "magistuarmory:grand_bascinet",
+          "probability": 0.1
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:cuirassier_chestplate",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:knight_chestplate",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:maximilian_chestplate",
+          "probability": 0.15
+        },
+        {
+          "item": "magistuarmory:lamellar_chestplate",
+          "probability": 0.15
+        },
+        {
+          "item": "magistuarmory:wingedhussar_chestplate",
+          "probability": 0.15
+        },
+        {
+          "item": "magistuarmory:halfarmor_chestplate",
+          "probability": 0.1
+        }
+      ],
+      "legs": [
+        {
+          "item": "magistuarmory:cuirassier_leggings",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:knight_leggings",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:maximilian_leggings",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:platemail_leggings",
+          "probability": 0.25
+        }
+      ],
+      "feet": [
+        {
+          "item": "magistuarmory:cuirassier_boots",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:knight_boots",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:maximilian_boots",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:lamellar_boots",
+          "probability": 0.25
+        }
+      ]
+    }
+  }
+}

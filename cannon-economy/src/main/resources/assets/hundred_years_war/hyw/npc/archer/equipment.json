@@ -1,0 +1,300 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:iron_helmet",
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:chainmail_chestplate",
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:chainmail_leggings",
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:chainmail_boots",
+          "probability": 1.0
+        }
+      ]
+    },
+    "2": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 0.7,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "minecraft:bow",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:chainmail_helmet",
+          "probability": 0.9,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "minecraft:chainmail_helmet",
+          "probability": 0.1
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:chainmail_chestplate",
+          "probability": 0.9,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "minecraft:chainmail_chestplate",
+          "probability": 0.1
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:chainmail_leggings",
+          "probability": 0.9,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "minecraft:chainmail_leggings",
+          "probability": 0.1
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:chainmail_boots",
+          "probability": 0.9,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "minecraft:chainmail_boots",
+          "probability": 0.1
+        }
+      ]
+    },
+    "3": {
+      "main_hand": [
+        {
+          "item": "minecraft:bow",
+          "probability": 0.7,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 2
+            },
+            {
+              "enchantment": "minecraft:flame",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "minecraft:bow",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 3
+            },
+            {
+              "enchantment": "minecraft:flame",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:iron_helmet",
+          "probability": 0.8,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "minecraft:diamond_helmet",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:iron_chestplate",
+          "probability": 0.8,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "minecraft:diamond_chestplate",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:iron_leggings",
+          "probability": 0.8,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "minecraft:diamond_leggings",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:iron_boots",
+          "probability": 0.8,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "minecraft:diamond_boots",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

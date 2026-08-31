@@ -1,0 +1,65 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "builder": "tacz_gun",
+          "probability": 1.0,
+          "gun_pool": [
+            {
+              "id": "tacz:glock_17",
+              "weight": 5.0,
+              "ammo_count": 17,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            },
+            {
+              "id": "tacz:hk_mp5a5",
+              "weight": 2.0,
+              "ammo_count": 30,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:ump45",
+              "weight": 2.0,
+              "ammo_count": 25,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

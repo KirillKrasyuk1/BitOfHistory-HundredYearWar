@@ -1,0 +1,270 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "builder": "tacz_gun",
+          "probability": 1.0,
+          "attachment_pools": {
+            "scope": [
+              {
+                "id": "",
+                "weight": 4.0
+              },
+              {
+                "id": "tacz:sight_deltapoint_pistol",
+                "weight": 1.5
+              },
+              {
+                "id": "tacz:sight_deltapoint_rifle",
+                "weight": 1.5
+              },
+              {
+                "id": "tacz:sight_rmr_dot",
+                "weight": 1.5
+              },
+              {
+                "id": "tacz:sight_t2",
+                "weight": 2.0
+              },
+              {
+                "id": "tacz:sight_552",
+                "weight": 2.0
+              },
+              {
+                "id": "tacz:sight_exp3",
+                "weight": 2.0
+              },
+              {
+                "id": "tacz:sight_coyote",
+                "weight": 2.0
+              },
+              {
+                "id": "tacz:scope_acog_ta31",
+                "weight": 1.5
+              }
+            ]
+          },
+          "gun_pool": [
+            {
+              "id": "tacz:p320",
+              "weight": 1.0,
+              "ammo_count": 12,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            },
+            {
+              "id": "tacz:m1911",
+              "weight": 1.0,
+              "ammo_count": 7,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            },
+            {
+              "id": "tacz:hk416d",
+              "weight": 2.0,
+              "ammo_count": 30,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:m16a1",
+              "weight": 2.0,
+              "ammo_count": 20,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:scar_l",
+              "weight": 2.0,
+              "ammo_count": 30,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:g36k",
+              "weight": 2.0,
+              "ammo_count": 30,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:spas_12",
+              "weight": 1.4,
+              "ammo_count": 5,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            },
+            {
+              "id": "tacz:aa12",
+              "weight": 1.4,
+              "ammo_count": 8,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:ump45",
+              "weight": 1.5,
+              "ammo_count": 25,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:vector45",
+              "weight": 1.5,
+              "ammo_count": 20,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:p90",
+              "weight": 1.5,
+              "ammo_count": 50,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:rpg7",
+              "weight": 0.5,
+              "ammo_count": 1,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            },
+            {
+              "id": "tacz:m249",
+              "weight": 1.0,
+              "ammo_count": 75,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:minigun",
+              "weight": 0.8,
+              "ammo_count": 0,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:fn_evolys",
+              "weight": 1.0,
+              "ammo_count": 75,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:m700",
+              "weight": 1.0,
+              "ammo_count": 5,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI",
+              "attachment_pools": {
+                "scope": [
+                  {
+                    "id": "",
+                    "weight": 2.0
+                  },
+                  {
+                    "id": "tacz:scope_mk5hd",
+                    "weight": 3.0
+                  },
+                  {
+                    "id": "tacz:scope_standard_8x",
+                    "weight": 3.0
+                  },
+                  {
+                    "id": "tacz:scope_contender",
+                    "weight": 2.0
+                  }
+                ]
+              }
+            },
+            {
+              "id": "tacz:m107",
+              "weight": 1.0,
+              "ammo_count": 10,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI",
+              "attachment_pools": {
+                "scope": [
+                  {
+                    "id": "",
+                    "weight": 2.0
+                  },
+                  {
+                    "id": "tacz:scope_mk5hd",
+                    "weight": 3.0
+                  },
+                  {
+                    "id": "tacz:scope_standard_8x",
+                    "weight": 3.0
+                  },
+                  {
+                    "id": "tacz:scope_contender",
+                    "weight": 2.0
+                  }
+                ]
+              }
+            },
+            {
+              "id": "tacz:m95",
+              "weight": 1.0,
+              "ammo_count": 5,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI",
+              "attachment_pools": {
+                "scope": [
+                  {
+                    "id": "",
+                    "weight": 2.0
+                  },
+                  {
+                    "id": "tacz:scope_mk5hd",
+                    "weight": 3.0
+                  },
+                  {
+                    "id": "tacz:scope_standard_8x",
+                    "weight": 3.0
+                  },
+                  {
+                    "id": "tacz:scope_contender",
+                    "weight": 2.0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": "minecraft:splash_potion",
+          "probability": 1.0,
+          "potion": "minecraft:healing"
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "hundred_years_war:priest_cane_1",
+          "probability": 0.5
+        },
+        {
+          "item": "hundred_years_war:priest_cane_2",
+          "probability": 0.5
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

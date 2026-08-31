@@ -1,0 +1,116 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "extra_slots": {
+        "spellbook": [
+          {
+            "probability": 1.0,
+            "item_pool": [
+              {
+                "item": "irons_spellbooks:rotten_spell_book",
+                "weight": 4.0
+              },
+              {
+                "item": "irons_spellbooks:blaze_spell_book",
+                "weight": 4.0
+              },
+              {
+                "item": "irons_spellbooks:gold_spell_book",
+                "weight": 2.0
+              }
+            ],
+            "spell_container": {
+              "max_spell_count": 8,
+              "spell_wheel": true,
+              "must_equip": true,
+              "spells": [
+                {
+                  "id": "irons_spellbooks:fire_arrow",
+                  "use_tier_level": true,
+                  "locked": true
+                },
+                {
+                  "id": "irons_spellbooks:wither_skull",
+                  "use_tier_level": true,
+                  "locked": true
+                }
+              ],
+              "spell_count_min": 4,
+              "spell_count_max": 6,
+              "spell_pool": [
+                {
+                  "id": "irons_spellbooks:blood_slash",
+                  "weight": 1.6
+                },
+                {
+                  "id": "irons_spellbooks:blood_needles",
+                  "weight": 1.4
+                },
+                {
+                  "id": "irons_spellbooks:ray_of_siphoning",
+                  "weight": 1.2
+                },
+                {
+                  "id": "irons_spellbooks:firebolt",
+                  "weight": 1.4
+                },
+                {
+                  "id": "irons_spellbooks:fireball",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:scorch",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:magma_bomb",
+                  "weight": 0.8
+                },
+                {
+                  "id": "irons_spellbooks:blaze_storm",
+                  "weight": 0.6
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

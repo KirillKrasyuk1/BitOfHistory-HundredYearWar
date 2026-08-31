@@ -1,0 +1,552 @@
+{
+  "levels": {
+    "0": {
+      "lance_weapon": [
+        {
+          "item": "hundred_years_war:wooden_lance",
+          "probability": 1.0
+        }
+      ],
+      "main_weapon": [
+        {
+          "item": "magistuarmory:stone_shortsword",
+          "probability": 0.6
+        },
+        {
+          "item": "magistuarmory:stone_katzbalger",
+          "probability": 0.4
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "magistuarmory:stone_buckler",
+          "probability": 0.5
+        },
+        {
+          "item": "magistuarmory:stone_target",
+          "probability": 0.3
+        },
+        {
+          "item": null,
+          "probability": 0.2
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:coif",
+          "probability": 0.4
+        },
+        {
+          "item": "magistuarmory:kettlehat",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:norman_helmet",
+          "probability": 0.3
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:gambeson_chestplate",
+          "probability": 0.5
+        },
+        {
+          "item": "magistuarmory:chainmail_chestplate",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:brigandine_chestplate",
+          "probability": 0.2
+        }
+      ],
+      "legs": [
+        {
+          "item": "magistuarmory:pantyhose",
+          "probability": 0.5
+        },
+        {
+          "item": "magistuarmory:chainmail_leggings",
+          "probability": 0.5
+        }
+      ],
+      "feet": [
+        {
+          "item": "magistuarmory:gambeson_boots",
+          "probability": 0.5
+        },
+        {
+          "item": "magistuarmory:chainmail_boots",
+          "probability": 0.5
+        }
+      ]
+    },
+    "1": {
+      "lance_weapon": [
+        {
+          "item": "hundred_years_war:wooden_lance",
+          "probability": 1.0
+        }
+      ],
+      "main_weapon": [
+        {
+          "item": "magistuarmory:iron_shortsword",
+          "probability": 0.6
+        },
+        {
+          "item": "magistuarmory:iron_katzbalger",
+          "probability": 0.4
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "magistuarmory:iron_buckler",
+          "probability": 0.4
+        },
+        {
+          "item": "magistuarmory:iron_target",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:iron_roundshield",
+          "probability": 0.3
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:barbute",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:sallet",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:kettlehat",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:coif",
+          "probability": 0.2
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:brigandine_chestplate",
+          "probability": 0.4
+        },
+        {
+          "item": "magistuarmory:chainmail_chestplate",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:platemail_chestplate",
+          "probability": 0.3
+        }
+      ],
+      "legs": [
+        {
+          "item": "magistuarmory:chainmail_leggings",
+          "probability": 0.5
+        },
+        {
+          "item": "magistuarmory:platemail_leggings",
+          "probability": 0.5
+        }
+      ],
+      "feet": [
+        {
+          "item": "magistuarmory:chainmail_boots",
+          "probability": 0.5
+        },
+        {
+          "item": "magistuarmory:platemail_boots",
+          "probability": 0.5
+        }
+      ]
+    },
+    "2": {
+      "lance_weapon": [
+        {
+          "item": "hundred_years_war:iron_lance",
+          "probability": 0.7
+        },
+        {
+          "item": "hundred_years_war:iron_lance",
+          "probability": 0.3
+        }
+      ],
+      "main_weapon": [
+        {
+          "item": "magistuarmory:iron_shortsword",
+          "probability": 0.4
+        },
+        {
+          "item": "magistuarmory:iron_katzbalger",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:steel_shortsword",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:steel_katzbalger",
+          "probability": 0.1,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "magistuarmory:iron_buckler",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:iron_target",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:steel_buckler",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:steel_target",
+          "probability": 0.2
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:sallet",
+          "probability": 0.25,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:barbute",
+          "probability": 0.25,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:bascinet",
+          "probability": 0.25,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:kettlehat",
+          "probability": 0.25
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:brigandine_chestplate",
+          "probability": 0.4,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:platemail_chestplate",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:chainmail_chestplate",
+          "probability": 0.3
+        }
+      ],
+      "legs": [
+        {
+          "item": "magistuarmory:platemail_leggings",
+          "probability": 0.5,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:chainmail_leggings",
+          "probability": 0.5
+        }
+      ],
+      "feet": [
+        {
+          "item": "magistuarmory:platemail_boots",
+          "probability": 0.5,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:chainmail_boots",
+          "probability": 0.5
+        }
+      ]
+    },
+    "3": {
+      "lance_weapon": [
+        {
+          "item": "hundred_years_war:diamond_lance",
+          "probability": 0.7
+        },
+        {
+          "item": "hundred_years_war:diamond_lance",
+          "probability": 0.3
+        }
+      ],
+      "main_weapon": [
+        {
+          "item": "magistuarmory:diamond_shortsword",
+          "probability": 0.4,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:diamond_katzbalger",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:diamond_shortsword",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:diamond_katzbalger",
+          "probability": 0.1,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 3
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "magistuarmory:diamond_buckler",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:diamond_target",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:diamond_buckler",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:diamond_target",
+          "probability": 0.2
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:sallet",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:armet",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:bascinet",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:grand_bascinet",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:barbute",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:brigandine_chestplate",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:halfarmor_chestplate",
+          "probability": 0.25,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:knight_chestplate",
+          "probability": 0.25,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:crusader_chestplate",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "item": "magistuarmory:knight_leggings",
+          "probability": 0.33,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:crusader_leggings",
+          "probability": 0.33,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:platemail_leggings",
+          "probability": 0.34,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "feet": [
+        {
+          "item": "magistuarmory:knight_boots",
+          "probability": 0.33,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:crusader_boots",
+          "probability": 0.33,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:platemail_boots",
+          "probability": 0.34,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:protection",
+              "level": 2
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

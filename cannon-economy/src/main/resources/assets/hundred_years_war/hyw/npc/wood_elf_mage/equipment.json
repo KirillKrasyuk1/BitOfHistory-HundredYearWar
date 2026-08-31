@@ -1,0 +1,116 @@
+{
+  "levels": {
+    "2": {
+      "main_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "extra_slots": {
+        "spellbook": [
+          {
+            "probability": 1.0,
+            "item_pool": [
+              {
+                "item": "irons_spellbooks:druidic_spell_book",
+                "weight": 5.0
+              },
+              {
+                "item": "irons_spellbooks:gold_spell_book",
+                "weight": 2.0
+              },
+              {
+                "item": "irons_spellbooks:diamond_spell_book",
+                "weight": 2.0
+              }
+            ],
+            "spell_container": {
+              "max_spell_count": 10,
+              "spell_wheel": true,
+              "must_equip": true,
+              "spells": [
+                {
+                  "id": "irons_spellbooks:poison_arrow",
+                  "use_tier_level": true,
+                  "locked": true
+                },
+                {
+                  "id": "irons_spellbooks:firefly_swarm",
+                  "use_tier_level": true,
+                  "locked": true
+                }
+              ],
+              "spell_count_min": 5,
+              "spell_count_max": 7,
+              "spell_pool": [
+                {
+                  "id": "irons_spellbooks:acid_orb",
+                  "weight": 1.4
+                },
+                {
+                  "id": "irons_spellbooks:blight",
+                  "weight": 1.2
+                },
+                {
+                  "id": "irons_spellbooks:root",
+                  "weight": 1.6
+                },
+                {
+                  "id": "irons_spellbooks:poison_breath",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:poison_splash",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:oakskin",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:spider_aspect",
+                  "weight": 0.8
+                },
+                {
+                  "id": "irons_spellbooks:earthquake",
+                  "weight": 0.7
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,18 +1,7 @@
 {
-  "block.cannon_economy.trade_post": "Торговый пост",
-  "item.cannon_economy.trade_post": "Торговый пост",
-  "message.cannon_economy.deposit_added": "Залежь %s создана (id=%s, радиус=%s)",
+  "message.cannon_economy.fertility": "Плодородность: %s/5 (скорость роста ×%s)",
+  "message.cannon_economy.deposit_created": "Залежь %s создана (id=%s, радиус %s чанков). Конвертация началась.",
   "message.cannon_economy.deposit_removed": "Залежь удалена: %s",
   "message.cannon_economy.deposit_not_found": "Залежь не найдена: %s",
-  "message.cannon_economy.unknown_deposit_type": "Неизвестный тип залежи: %s",
-  "message.cannon_economy.post_named": "Торговый пост назван: %s",
-  "message.cannon_economy.no_trade_post": "Встаньте в блок торгового поста",
-  "message.cannon_economy.post_not_found": "Торговый пост не найден: %s",
-  "message.cannon_economy.route_created": "Торговый маршрут создан: %s",
-  "message.cannon_economy.route_removed": "Маршрут удалён: %s",
-  "message.cannon_economy.route_not_found": "Маршрут не найден: %s",
-  "message.cannon_economy.caravan_departed": "Караван отправился по маршруту %s",
-  "message.cannon_economy.caravan_arrived": "Караван прибыл в пункт назначения",
-  "message.cannon_economy.caravan_turned_back": "Караван развернулся (эмбargo или блокировка)",
-  "message.cannon_economy.trade_embargo": "Торговля заблокирована эмбargo на маршруте %s"
+  "message.cannon_economy.unknown_ore": "Неизвестная руда/пресет: %s"
 }

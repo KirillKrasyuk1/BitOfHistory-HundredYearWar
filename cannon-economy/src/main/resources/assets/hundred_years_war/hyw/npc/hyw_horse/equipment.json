@@ -1,0 +1,36 @@
+{
+  "levels": {
+    "0": {
+      "horse_armor": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "horse_armor": [
+        {
+          "item": "minecraft:leather_horse_armor",
+          "probability": 1.0
+        }
+      ]
+    },
+    "2": {
+      "horse_armor": [
+        {
+          "item": "minecraft:iron_horse_armor",
+          "probability": 1.0
+        }
+      ]
+    },
+    "3": {
+      "horse_armor": [
+        {
+          "item": "minecraft:diamond_horse_armor",
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

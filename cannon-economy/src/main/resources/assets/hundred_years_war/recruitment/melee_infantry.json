@@ -1,0 +1,1448 @@
+{
+  "races": {
+    "mercenary": {
+      "translationKey": "recruitment.hundred_years_war.race.mercenary",
+      "categories": {
+        "melee_infantry": [
+          {
+            "id": "militia",
+            "translationKey": "recruitment.hundred_years_war.unit.militia",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.militia_i",
+                "expCost": 12,
+                "timeCostSeconds": 30,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:militia",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.militia_ii",
+                "expCost": 20,
+                "timeCostSeconds": 44,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:militia",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.militia_iii",
+                "expCost": 30,
+                "timeCostSeconds": 58,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:militia",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.militia_iv",
+                "expCost": 42,
+                "timeCostSeconds": 74,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:militia",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "shieldman",
+            "translationKey": "recruitment.hundred_years_war.unit.shieldman",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.shieldman_i",
+                "expCost": 15,
+                "timeCostSeconds": 36,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:shieldman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.shieldman_ii",
+                "expCost": 24,
+                "timeCostSeconds": 52,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:shieldman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.shieldman_iii",
+                "expCost": 34,
+                "timeCostSeconds": 68,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 12
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:shieldman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.shieldman_iv",
+                "expCost": 48,
+                "timeCostSeconds": 86,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 14
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:shieldman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "warrior",
+            "translationKey": "recruitment.hundred_years_war.unit.warrior",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.warrior_i",
+                "expCost": 16,
+                "timeCostSeconds": 38,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:warrior",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.warrior_ii",
+                "expCost": 26,
+                "timeCostSeconds": 54,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:warrior",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.warrior_iii",
+                "expCost": 38,
+                "timeCostSeconds": 70,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:warrior",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.warrior_iv",
+                "expCost": 52,
+                "timeCostSeconds": 88,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:warrior",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "spear_man",
+            "translationKey": "recruitment.hundred_years_war.unit.spear_man",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.spear_man_i",
+                "expCost": 12,
+                "timeCostSeconds": 40,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:spear_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.spear_man_ii",
+                "expCost": 20,
+                "timeCostSeconds": 56,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:spear_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.spear_man_iii",
+                "expCost": 30,
+                "timeCostSeconds": 74,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:spear_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.spear_man_iv",
+                "expCost": 42,
+                "timeCostSeconds": 92,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:spear_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "undead": {
+      "translationKey": "recruitment.hundred_years_war.race.undead",
+      "categories": {
+        "melee_infantry": [
+          {
+            "id": "hyw_zombie",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_zombie",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.hyw_zombie_i",
+                "expCost": 12,
+                "timeCostSeconds": 34,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_zombie",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.hyw_zombie_ii",
+                "expCost": 20,
+                "timeCostSeconds": 46,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_zombie",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.hyw_zombie_iii",
+                "expCost": 30,
+                "timeCostSeconds": 60,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_zombie",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.hyw_zombie_iv",
+                "expCost": 42,
+                "timeCostSeconds": 76,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_zombie",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "hyw_fast_zombie",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_fast_zombie",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.hyw_fast_zombie_i",
+                "expCost": 14,
+                "timeCostSeconds": 36,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_fast_zombie",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.hyw_fast_zombie_ii",
+                "expCost": 22,
+                "timeCostSeconds": 50,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 5
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_fast_zombie",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.hyw_fast_zombie_iii",
+                "expCost": 32,
+                "timeCostSeconds": 64,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 9
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_fast_zombie",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.hyw_fast_zombie_iv",
+                "expCost": 44,
+                "timeCostSeconds": 80,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 11
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 11
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_fast_zombie",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "hyw_skeleton",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_skeleton",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_i",
+                "expCost": 16,
+                "timeCostSeconds": 40,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_ii",
+                "expCost": 24,
+                "timeCostSeconds": 54,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 5
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_iii",
+                "expCost": 34,
+                "timeCostSeconds": 68,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_iv",
+                "expCost": 46,
+                "timeCostSeconds": 84,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "hyw_wither_skeleton",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_wither_skeleton",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.hyw_wither_skeleton_i",
+                "expCost": 24,
+                "timeCostSeconds": 54,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_wither_skeleton",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.hyw_wither_skeleton_ii",
+                "expCost": 34,
+                "timeCostSeconds": 70,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_wither_skeleton",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.hyw_wither_skeleton_iii",
+                "expCost": 48,
+                "timeCostSeconds": 88,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 13
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_wither_skeleton",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.hyw_wither_skeleton_iv",
+                "expCost": 64,
+                "timeCostSeconds": 108,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 16
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 14
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 6
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_wither_skeleton",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bandit": {
+      "translationKey": "recruitment.hundred_years_war.race.bandit",
+      "categories": {
+        "melee_infantry": [
+          {
+            "id": "bandit_soldier",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_soldier",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_soldier",
+                "expCost": 12,
+                "timeCostSeconds": 42,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_soldier",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_soldier_elite",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_soldier_elite",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_soldier_elite",
+                "expCost": 28,
+                "timeCostSeconds": 58,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_soldier_elite",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_shield_axeman",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_shield_axeman",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_shield_axeman",
+                "expCost": 34,
+                "timeCostSeconds": 70,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_shield_axeman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_raider",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_raider",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_raider",
+                "expCost": 38,
+                "timeCostSeconds": 76,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 14
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_raider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_executioner",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_executioner",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_executioner",
+                "expCost": 42,
+                "timeCostSeconds": 84,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 14
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 16
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_executioner",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wood_elf": {
+      "translationKey": "recruitment.hundred_years_war.race.wood_elf",
+      "categories": {
+        "melee_infantry": [
+          {
+            "id": "wood_elf_warrior",
+            "translationKey": "recruitment.hundred_years_war.unit.wood_elf_warrior",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.wood_elf_warrior",
+                "expCost": 48,
+                "timeCostSeconds": 92,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 14
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:wood_elf_warrior",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "desert_raider": {
+      "translationKey": "recruitment.hundred_years_war.race.desert_raider",
+      "categories": {
+        "melee_infantry": [
+          {
+            "id": "desert_raider_soldier",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_soldier",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_soldier",
+                "expCost": 12,
+                "timeCostSeconds": 34,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_soldier",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_shieldman",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_shieldman",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_shieldman",
+                "expCost": 15,
+                "timeCostSeconds": 40,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_shieldman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_spear_man",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_spear_man",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_spear_man",
+                "expCost": 12,
+                "timeCostSeconds": 40,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_spear_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_sand_dancer",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_sand_dancer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_sand_dancer",
+                "expCost": 46,
+                "timeCostSeconds": 44,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_sand_dancer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_assassin",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_assassin",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_assassin",
+                "expCost": 44,
+                "timeCostSeconds": 46,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 11
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_assassin",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_warrior",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_warrior",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_warrior",
+                "expCost": 40,
+                "timeCostSeconds": 48,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_warrior",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_commander",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_commander",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_commander",
+                "expCost": 100,
+                "timeCostSeconds": 60,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 24
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 24
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_commander",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
