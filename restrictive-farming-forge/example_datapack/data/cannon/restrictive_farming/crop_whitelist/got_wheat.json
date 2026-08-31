@@ -1,0 +1,11 @@
+{
+  "block": "minecraft:wheat",
+  "biomes": [
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:river",
+    "minecraft:meadow"
+  ],
+  "growthReduction": 1.0,
+  "isCrop": true
+}
