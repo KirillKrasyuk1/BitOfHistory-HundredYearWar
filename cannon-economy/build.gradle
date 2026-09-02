@@ -46,6 +46,12 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
+processResources {
+    filesMatching('META-INF/mods.toml') {
+        expand 'mod_version': mod_version
+    }
+}
+
 jar {
     manifest {
         attributes([
