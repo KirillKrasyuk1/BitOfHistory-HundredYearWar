@@ -4,10 +4,11 @@
 1. **Плодородность почвы (1–5)** — скорость роста культур
 2. **Залежи руд** — админские месторождения с конвертацией и регенерацией
 3. **HYW баланс** — незерит заменён на алмазы, повышенный расход провизии армии
+4. **Блокировка структур** — Recruits/Village Recruits/HYW не спавнят военные базы в мире
 
 ## Установка
 
-1. JAR: `release/cannon_economy-2.0.3.jar` → `mods/` (клиент + сервер)
+1. JAR: `release/cannon_economy-2.0.4.jar` → `mods/` (клиент + сервер)
 2. Нужен **Hundred Years War** (для переопределения найма и экипировки)
 3. **Не нужны:** Custom Ore Veins, Regional Ore Veins, Restrictive Farming, cannon-datapacks
 4. Запусти мир → появится `config/cannon_economy-common.toml`
@@ -114,6 +115,30 @@ convertBlocksPerTick = 8000
 - **Оружие HYW/Epic Knights:** `netherite_*` → `diamond_*`
 
 Ад и Энд закрыты — элитный tier доступен через алмазы.
+
+---
+
+## 4. Блокировка структур Recruits / HYW
+
+Мод автоматически отключает «военную атмосферу» от аддонов:
+
+| Источник | Что блокируется |
+|----------|-----------------|
+| **Village Recruits** | Башни-спавнеры вместо деревень, небесные деревни (datapack + config) |
+| **Recruits** | Патрули, noble villager, pillager spawn |
+| **Recruits Warium** | Патрули наёмников |
+| **HYW** | Автогенерация ближайших структур (лагеря, форпосты) |
+
+Вместо башен Village Recruits генерируются **обычные ванильные деревни**.
+
+> Уже сгенерированные структуры в старых чанках **не удаляются** — только новые чанки и новые патрули.
+
+### Конфиг
+```toml
+[worldgen]
+blockRecruitsStructures = true
+blockHywNearbyStructures = true
+```
 
 ---
 

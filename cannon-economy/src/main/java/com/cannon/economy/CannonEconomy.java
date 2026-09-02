@@ -5,6 +5,7 @@ import com.cannon.economy.config.EconomyConfig;
 import com.cannon.economy.deposit.OreDepositEngine;
 import com.cannon.economy.farming.FertilitySystem;
 import com.cannon.economy.hyw.HywIntegration;
+import com.cannon.economy.worldgen.StructureSpawnIntegration;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -30,12 +31,16 @@ public class CannonEconomy {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(HywIntegration::applySupplyMultiplier);
-        LOGGER.info("Cannon Economy loaded — fertility, ore deposits, HYW balance.");
+        event.enqueueWork(() -> {
+            HywIntegration.applySupplyMultiplier();
+            StructureSpawnIntegration.apply();
+        });
+        LOGGER.info("Cannon Economy loaded — fertility, ore deposits, HYW balance, structure blocking.");
     }
 
     private void onServerStarted(ServerStartedEvent event) {
         HywIntegration.applySupplyMultiplier();
+        StructureSpawnIntegration.apply();
     }
 
     private void registerCommands(RegisterCommandsEvent event) {

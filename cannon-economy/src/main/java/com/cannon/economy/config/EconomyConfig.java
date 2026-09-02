@@ -30,6 +30,10 @@ public final class EconomyConfig {
     public static final ForgeConfigSpec.DoubleValue SUPPLY_CONSUMPTION_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue DIAMONDS_PER_NETHERITE;
 
+    // Worldgen / ambient structures
+    public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUITS_WORLDGEN;
+    public static final ForgeConfigSpec.BooleanValue BLOCK_HYW_NEARBY_STRUCTURES;
+
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
@@ -95,6 +99,15 @@ public final class EconomyConfig {
         DIAMONDS_PER_NETHERITE = b
                 .comment("Each netherite_ingot in recruitment costs becomes this many extra diamonds (baked into JSON).")
                 .defineInRange("diamondsPerNetherite", 3, 1, 16);
+        b.pop();
+
+        b.comment("Block ambient military structures from Recruits addons and HYW worldgen.").push("worldgen");
+        BLOCK_RECRUITS_WORLDGEN = b
+                .comment("Disable Recruits patrols, Village Recruits tower/sky villages (datapack + config), Warium mercenaries.")
+                .define("blockRecruitsStructures", true);
+        BLOCK_HYW_NEARBY_STRUCTURES = b
+                .comment("Disable HYW auto-generated nearby structures (bandit camps, etc.).")
+                .define("blockHywNearbyStructures", true);
         b.pop();
 
         SPEC = b.build();
