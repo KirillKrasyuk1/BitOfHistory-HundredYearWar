@@ -8,7 +8,7 @@
 
 ## Установка
 
-1. JAR: `release/cannon_economy-2.0.4.jar` → `mods/` (клиент + сервер)
+1. JAR: `release/cannon_economy-2.0.5.jar` → `mods/` (клиент + сервер)
 2. Нужен **Hundred Years War** (для переопределения найма и экипировки)
 3. **Не нужны:** Custom Ore Veins, Regional Ore Veins, Restrictive Farming, cannon-datapacks
 4. Запусти мир → появится `config/cannon_economy-common.toml`

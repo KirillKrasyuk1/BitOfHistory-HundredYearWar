@@ -31,10 +31,7 @@ public class CannonEconomy {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            HywIntegration.applySupplyMultiplier();
-            StructureSpawnIntegration.apply();
-        });
+        event.enqueueWork(HywIntegration::applySupplyMultiplier);
         LOGGER.info("Cannon Economy loaded — fertility, ore deposits, HYW balance, structure blocking.");
     }
 
