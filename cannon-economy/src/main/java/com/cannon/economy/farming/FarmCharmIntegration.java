@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
@@ -21,13 +22,14 @@ public final class FarmCharmIntegration {
     private static Block sprinklerBlock;
     private static Block fertilizedFarmlandBlock;
     private static Block fertilizedSoilBlock;
-    private static boolean resolved;
 
     private FarmCharmIntegration() {}
 
     public static boolean isLoaded() {
         resolve();
-        return sprinklerBlock != null;
+        return sprinklerBlock != null
+                || fertilizedFarmlandBlock != null
+                || fertilizedSoilBlock != null;
     }
 
     public static boolean hasSprinklerNearby(ServerLevel level, BlockPos origin, int radius) {
@@ -70,6 +72,17 @@ public final class FarmCharmIntegration {
         return 0;
     }
 
+    public static int sprinklerFertilityBonus(ServerLevel level, BlockPos origin) {
+        if (!EconomyConfig.FARM_CHARM_SPRINKLER_FERTILITY_BONUS.get()) {
+            return 0;
+        }
+        int radius = EconomyConfig.FARM_CHARM_SPRINKLER_RADIUS.get();
+        if (!hasSprinklerNearby(level, origin, radius)) {
+            return 0;
+        }
+        return EconomyConfig.SPRINKLER_FERTILITY_BONUS.get();
+    }
+
     public static boolean isFertilizedSoil(BlockState soil) {
         resolve();
         return (fertilizedFarmlandBlock != null && soil.is(fertilizedFarmlandBlock))
@@ -77,12 +90,17 @@ public final class FarmCharmIntegration {
     }
 
     private static void resolve() {
-        if (resolved) {
+        if (!ModList.get().isLoaded(MOD_ID)) {
             return;
         }
-        resolved = true;
-        sprinklerBlock = ForgeRegistries.BLOCKS.getValue(WATER_SPRINKLER);
-        fertilizedFarmlandBlock = ForgeRegistries.BLOCKS.getValue(FERTILIZED_FARMLAND);
-        fertilizedSoilBlock = ForgeRegistries.BLOCKS.getValue(FERTILIZED_SOIL);
+        if (sprinklerBlock == null) {
+            sprinklerBlock = ForgeRegistries.BLOCKS.getValue(WATER_SPRINKLER);
+        }
+        if (fertilizedFarmlandBlock == null) {
+            fertilizedFarmlandBlock = ForgeRegistries.BLOCKS.getValue(FERTILIZED_FARMLAND);
+        }
+        if (fertilizedSoilBlock == null) {
+            fertilizedSoilBlock = ForgeRegistries.BLOCKS.getValue(FERTILIZED_SOIL);
+        }
     }
 }

@@ -17,6 +17,8 @@ public final class EconomyConfig {
     public static final ForgeConfigSpec.IntValue FARM_CHARM_SPRINKLER_RADIUS;
     public static final ForgeConfigSpec.BooleanValue FARM_CHARM_FERTILIZED_BONUS;
     public static final ForgeConfigSpec.IntValue FERTILIZED_SOIL_FERTILITY_BONUS;
+    public static final ForgeConfigSpec.BooleanValue FARM_CHARM_SPRINKLER_FERTILITY_BONUS;
+    public static final ForgeConfigSpec.IntValue SPRINKLER_FERTILITY_BONUS;
 
     // Deposits
     public static final ForgeConfigSpec.IntValue DEFAULT_BLOCK_RADIUS;
@@ -69,6 +71,12 @@ public final class EconomyConfig {
         FERTILIZED_SOIL_FERTILITY_BONUS = b
                 .comment("Extra fertility levels on fertilized soil (stacks with biome, capped at 5).")
                 .defineInRange("fertilizedSoilFertilityBonus", 1, 0, 2);
+        FARM_CHARM_SPRINKLER_FERTILITY_BONUS = b
+                .comment("Raise displayed fertility near Farm & Charm water sprinklers (in addition to irrigation).")
+                .define("farmCharmSprinklerFertilityBonus", true);
+        SPRINKLER_FERTILITY_BONUS = b
+                .comment("Extra fertility levels within sprinkler range (stacks with biome, capped at 5).")
+                .defineInRange("sprinklerFertilityBonus", 1, 0, 2);
         b.pop();
 
         b.comment("Admin ore deposits: fixed-position veins with regeneration.").push("deposits");

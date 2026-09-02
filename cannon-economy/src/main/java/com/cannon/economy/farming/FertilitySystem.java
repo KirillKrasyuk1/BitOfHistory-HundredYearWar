@@ -39,22 +39,28 @@ public final class FertilitySystem {
             return new FertilityResult(3, 1.0f, true, 3);
         }
 
+        BlockPos soilPos = pos;
         BlockState soil = level.getBlockState(pos);
         if (soil.getBlock() instanceof CropBlock || soil.is(net.minecraft.tags.BlockTags.CROPS)) {
-            soil = level.getBlockState(pos.below());
+            soilPos = pos.below();
+            soil = level.getBlockState(soilPos);
         }
 
-        Holder<net.minecraft.world.level.biome.Biome> biome = level.getBiome(pos);
-        int biomeBase = computeBiomeBase(level, pos, biome);
-        boolean irrigated = hasIrrigation(level, pos, soil);
-        int bonus = FarmCharmIntegration.fertilityBonus(soil);
+        Holder<net.minecraft.world.level.biome.Biome> biome = level.getBiome(soilPos);
+        int biomeBase = computeBiomeBase(level, soilPos, biome);
+        boolean irrigated = hasIrrigation(level, soilPos, soil);
+        int bonus = FarmCharmIntegration.fertilityBonus(soil)
+                + FarmCharmIntegration.sprinklerFertilityBonus(level, soilPos);
 
-        boolean river = isRiverBiome(biome) || hasRiverBiomeNearby(level, pos);
+        boolean river = isRiverBiome(biome) || hasRiverBiomeNearby(level, soilPos);
         if (river) {
-            float mult = isAridBiome(biome)
-                    ? growthMultiplier(biomeBase) * 2.0f
-                    : growthMultiplier(5);
-            return new FertilityResult(5, mult, irrigated, biomeBase);
+            boolean aridRiver = isAridBiome(biome) || hasAridBiomeNearby(level, soilPos);
+            int riverLevel = EconomyConfig.RIVER_FERTILITY.get();
+            int display = Mth.clamp(riverLevel + bonus, 1, 5);
+            float mult = aridRiver
+                    ? growthMultiplier(3) * 2.0f
+                    : growthMultiplier(riverLevel);
+            return new FertilityResult(display, mult, irrigated, biomeBase);
         }
 
         int display = Mth.clamp(biomeBase + bonus, 1, 5);
@@ -133,6 +139,23 @@ public final class FertilitySystem {
                 }
                 cursor.set(origin.getX() + dx, origin.getY(), origin.getZ() + dz);
                 if (isRiverBiome(level.getBiome(cursor))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasAridBiomeNearby(ServerLevel level, BlockPos origin) {
+        int radius = EconomyConfig.RIVER_FLOODPLAIN_RADIUS.get();
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dz = -radius; dz <= radius; dz++) {
+                if (dx * dx + dz * dz > radius * radius) {
+                    continue;
+                }
+                cursor.set(origin.getX() + dx, origin.getY(), origin.getZ() + dz);
+                if (isAridBiome(level.getBiome(cursor))) {
                     return true;
                 }
             }
@@ -279,7 +302,7 @@ public final class FertilitySystem {
         event.getEntity().displayClientMessage(line1, true);
         event.getEntity().displayClientMessage(line2, true);
         if (isRiverBiome(level.getBiome(pos)) || hasRiverBiomeNearby(level, pos)) {
-            if (isAridBiome(level.getBiome(pos))) {
+            if (isAridBiome(level.getBiome(pos)) || hasAridBiomeNearby(level, pos)) {
                 event.getEntity().displayClientMessage(
                         Component.translatable("message.cannon_economy.river_arid_bonus"), true);
             }

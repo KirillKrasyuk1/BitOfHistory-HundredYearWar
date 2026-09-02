@@ -2,7 +2,7 @@
   "message.cannon_economy.fertility": "Плодородность: %s/5 (скорость роста ×%s)",
   "message.cannon_economy.no_water": "Сухая почва — нужна речная вода, озеро или дождеватель",
   "message.cannon_economy.not_irrigated": "Орошение: нет (рост остановлен)",
-  "message.cannon_economy.river_arid_bonus": "Река: ×2 от базовой скорости биома",
+  "message.cannon_economy.river_arid_bonus": "Река: ×2 от уровня 3/5 (скорость ×2.00)",
   "message.cannon_economy.irrigated": "Орошение: есть",
   "message.cannon_economy.farm_charm_hint": "Farm & Charm: удобрённая почва и дождеватель улучшают урожай",
   "message.cannon_economy.deposit_created": "Залежь %s: id=%s, радиус=%s, %%=%s, глубина=%s, реген=%ss. Каждый вскопанный блок руды восстанавливается отдельно через указанное время.",

@@ -8,7 +8,7 @@
 
 ## Установка
 
-1. JAR: `release/cannon_economy-2.0.5.jar` → `mods/` (клиент + сервер)
+1. JAR: `release/cannon_economy-2.0.6.jar` → `mods/` (клиент + сервер)
 2. Нужен **Hundred Years War** (для переопределения найма и экипировки)
 3. **Не нужны:** Custom Ore Veins, Regional Ore Veins, Restrictive Farming, cannon-datapacks
 4. Запусти мир → появится `config/cannon_economy-common.toml`
@@ -23,13 +23,13 @@
 | **2** | То же регионы | ×0.75 |
 | **3** | Прочие биомы | ×1.0 |
 | **4** | Равнины у природных водоёмов | ×1.25 |
-| **5** | **Все реки** (в UI всегда 5/5) | ×1.5; у реки в пустыне/саванне — ×2 от базы биома |
+| **5** | **Все реки** (в UI всегда 5/5) | ×1.5; у реки в пустыне/саванне — ×2 от уровня 3/5 (итого ×2.00) |
 
 ### Орошение
 - **Постановка блоков не ограничена** — растения просто не растут на сухой земле
 - **Природная вода** (озёра, реки при генерации) и дождеватель = орошение
 - **Вода из ведра игрока не даёт бафф** плодородности
-- Farm & Charm: дождеватель и удобрённая почва работают как орошение
+- Farm & Charm: дождеватель даёт орошение **и +1 к плодородности** в радиусе; удобрённая почва — +1
 
 ### Как проверить
 - Мотыгой ПКМ по земле/грядке — подсказка «Плодородность: N/5»
@@ -47,6 +47,8 @@ cellSize = 8
 showFertilityOnHoe = true
 farmCharmSprinklerCountsAsWater = true
 farmCharmSprinklerRadius = 8
+farmCharmSprinklerFertilityBonus = true
+sprinklerFertilityBonus = 1
 farmCharmFertilizedBonus = true
 fertilizedSoilFertilityBonus = 1
 ```
