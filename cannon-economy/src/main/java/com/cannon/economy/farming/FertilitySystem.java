@@ -4,25 +4,19 @@ import com.cannon.economy.CannonEconomy;
 import com.cannon.economy.config.EconomyConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -30,56 +24,79 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * Soil fertility (1–5) controls crop growth speed.
- * Most land is poor; arid biomes need irrigation; river floodplains give strict 2× (Nile-like).
- * Compatible with [Let's Do] Farm &amp; Charm sprinklers and fertilized soil.
+ * Soil fertility (1–5) controls crop growth speed. No block placement restrictions —
+ * crops simply won't grow on dry (non-irrigated) soil.
  */
 @Mod.EventBusSubscriber(modid = CannonEconomy.MOD_ID)
 public final class FertilitySystem {
 
+    public record FertilityResult(int displayLevel, float growthMultiplier, boolean irrigated, int biomeBase) {}
+
     private FertilitySystem() {}
 
-    public static int getFertility(ServerLevel level, BlockPos pos) {
+    public static FertilityResult evaluate(ServerLevel level, BlockPos pos) {
         if (!EconomyConfig.ENABLE_FERTILITY.get()) {
-            return 3;
+            return new FertilityResult(3, 1.0f, true, 3);
         }
-        int base = computeBaseFertility(level, pos);
+
         BlockState soil = level.getBlockState(pos);
         if (soil.getBlock() instanceof CropBlock || soil.is(net.minecraft.tags.BlockTags.CROPS)) {
             soil = level.getBlockState(pos.below());
         }
+
+        Holder<net.minecraft.world.level.biome.Biome> biome = level.getBiome(pos);
+        int biomeBase = computeBiomeBase(level, pos, biome);
+        boolean irrigated = hasIrrigation(level, pos, soil);
         int bonus = FarmCharmIntegration.fertilityBonus(soil);
-        return Mth.clamp(base + bonus, 1, 5);
+
+        boolean river = isRiverBiome(biome) || hasRiverBiomeNearby(level, pos);
+        if (river) {
+            float mult = isAridBiome(biome)
+                    ? growthMultiplier(biomeBase) * 2.0f
+                    : growthMultiplier(5);
+            return new FertilityResult(5, mult, irrigated, biomeBase);
+        }
+
+        int display = Mth.clamp(biomeBase + bonus, 1, 5);
+        return new FertilityResult(display, growthMultiplier(display), irrigated, biomeBase);
+    }
+
+    public static int getFertility(ServerLevel level, BlockPos pos) {
+        return evaluate(level, pos).displayLevel();
     }
 
     public static float growthMultiplier(int fertility) {
         return switch (fertility) {
-            case 1 -> 0.5f;
-            case 2 -> 2f / 3f;
+            case 1 -> 0.25f;
+            case 2 -> 0.75f;
             case 3 -> 1.0f;
-            case 4 -> 1.5f;
-            case 5 -> 2.0f;
+            case 4 -> 1.25f;
+            case 5 -> 1.5f;
             default -> 1.0f;
         };
     }
 
-    public static boolean hasIrrigation(ServerLevel level, BlockPos cropPos) {
-        if (!EconomyConfig.REQUIRE_WATER_FOR_CROPS.get()) {
-            return true;
-        }
-        BlockPos soilPos = cropPos;
-        BlockState soil = level.getBlockState(soilPos);
-        if (soil.getBlock() instanceof CropBlock || soil.is(net.minecraft.tags.BlockTags.CROPS)) {
-            soilPos = cropPos.below();
-            soil = level.getBlockState(soilPos);
-        }
+    /** Sprinkler, fertilized soil, or natural (world-gen) water — not player-placed buckets. */
+    public static boolean hasIrrigation(ServerLevel level, BlockPos cropPos, BlockState soil) {
         if (FarmCharmIntegration.isFertilizedSoil(soil)) {
             return true;
         }
-        return hasWaterNearby(level, soilPos);
+        int sprinklerRadius = EconomyConfig.FARM_CHARM_SPRINKLER_RADIUS.get();
+        if (FarmCharmIntegration.hasSprinklerNearby(level, cropPos, sprinklerRadius)) {
+            return true;
+        }
+        return NaturalWaterTracker.hasNaturalWaterNearby(level, cropPos);
     }
 
-    private static int computeBaseFertility(ServerLevel level, BlockPos pos) {
+    private static boolean hasIrrigation(ServerLevel level, BlockPos cropPos) {
+        BlockState soil = level.getBlockState(cropPos);
+        if (soil.getBlock() instanceof CropBlock || soil.is(net.minecraft.tags.BlockTags.CROPS)) {
+            soil = level.getBlockState(cropPos.below());
+        }
+        return hasIrrigation(level, cropPos, soil);
+    }
+
+    private static int computeBiomeBase(ServerLevel level, BlockPos pos, Holder<net.minecraft.world.level.biome.Biome> biome) {
         int cell = EconomyConfig.FERTILITY_CELL_SIZE.get();
         int cx = Math.floorDiv(pos.getX(), cell);
         int cz = Math.floorDiv(pos.getZ(), cell);
@@ -89,62 +106,21 @@ public final class FertilitySystem {
                 ^ 0xC4FE07111L;
         RandomSource random = RandomSource.create(seed);
 
-        Holder<net.minecraft.world.level.biome.Biome> biome = level.getBiome(pos);
-        boolean nearWater = hasWaterNearby(level, pos);
-        boolean riverBiome = isRiverBiome(biome);
-        boolean nearRiver = riverBiome || hasRiverBiomeNearby(level, pos);
-
-        if (riverBiome || (nearRiver && nearWater)) {
-            return EconomyConfig.RIVER_FERTILITY.get();
-        }
+        boolean nearNaturalWater = NaturalWaterTracker.hasNaturalWaterNearby(level, pos);
 
         if (isAridBiome(biome)) {
-            if (nearWater) {
-                return EconomyConfig.RIVER_FERTILITY.get();
-            }
             return Mth.clamp(1 + random.nextInt(2), 1, 2);
         }
-
         if (isPoorBiome(biome)) {
             return Mth.clamp(1 + random.nextInt(2), 1, 2);
         }
-
         if (isRichBiome(biome)) {
-            if (nearWater) {
+            if (nearNaturalWater) {
                 return Mth.clamp(3 + random.nextInt(3), 3, 5);
             }
             return Mth.clamp(2 + random.nextInt(2), 2, 3);
         }
-
         return Mth.clamp(2 + random.nextInt(2), 2, 3);
-    }
-
-    private static boolean hasWaterNearby(ServerLevel level, BlockPos origin) {
-        int waterRadius = EconomyConfig.WATER_RADIUS.get();
-        if (hasFluidWaterNearby(level, origin, waterRadius)) {
-            return true;
-        }
-        int sprinklerRadius = EconomyConfig.FARM_CHARM_SPRINKLER_RADIUS.get();
-        return FarmCharmIntegration.hasSprinklerNearby(level, origin, sprinklerRadius);
-    }
-
-    private static boolean hasFluidWaterNearby(ServerLevel level, BlockPos origin, int radius) {
-        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
-        for (int dx = -radius; dx <= radius; dx++) {
-            for (int dy = -1; dy <= 1; dy++) {
-                for (int dz = -radius; dz <= radius; dz++) {
-                    if (dx * dx + dz * dz > radius * radius) {
-                        continue;
-                    }
-                    cursor.set(origin.getX() + dx, origin.getY() + dy, origin.getZ() + dz);
-                    FluidState fluid = level.getFluidState(cursor);
-                    if (fluid.is(FluidTags.WATER) && fluid.isSource()) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     private static boolean hasRiverBiomeNearby(ServerLevel level, BlockPos origin) {
@@ -217,88 +193,6 @@ public final class FertilitySystem {
         return path.contains("plains") || path.contains("meadow") || path.contains("prairie");
     }
 
-    private static boolean isPlantableCrop(Block block) {
-        if (block instanceof CropBlock || block instanceof BushBlock) {
-            return true;
-        }
-        if (block instanceof BonemealableBlock) {
-            return true;
-        }
-        BlockState defaultState = block.defaultBlockState();
-        return defaultState.is(net.minecraft.tags.BlockTags.CROPS);
-    }
-
-    private enum PlantDenyReason {
-        NONE,
-        NO_WATER,
-        INFERTILE
-    }
-
-    private static PlantDenyReason validatePlanting(ServerLevel level, BlockPos cropPos) {
-        if (!EconomyConfig.ENABLE_FERTILITY.get()) {
-            return PlantDenyReason.NONE;
-        }
-        if (!hasIrrigation(level, cropPos)) {
-            return PlantDenyReason.NO_WATER;
-        }
-        if (getFertility(level, cropPos) <= 1) {
-            return PlantDenyReason.INFERTILE;
-        }
-        return PlantDenyReason.NONE;
-    }
-
-    private static Component denyMessage(PlantDenyReason reason) {
-        return switch (reason) {
-            case NO_WATER -> Component.translatable("message.cannon_economy.no_water");
-            case INFERTILE -> Component.translatable("message.cannon_economy.cannot_plant");
-            default -> Component.empty();
-        };
-    }
-
-    @SubscribeEvent
-    public static void onCropPlace(BlockEvent.EntityPlaceEvent event) {
-        if (!EconomyConfig.ENABLE_FERTILITY.get() || event.getLevel().isClientSide()) {
-            return;
-        }
-        BlockState state = event.getPlacedBlock();
-        if (!isPlantableCrop(state.getBlock())) {
-            return;
-        }
-        ServerLevel level = (ServerLevel) event.getLevel();
-        BlockPos cropPos = event.getPos();
-        PlantDenyReason reason = validatePlanting(level, cropPos);
-        if (reason != PlantDenyReason.NONE) {
-            event.setCanceled(true);
-            if (event.getEntity() != null) {
-                event.getEntity().sendSystemMessage(denyMessage(reason));
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onSeedUse(PlayerInteractEvent.RightClickBlock event) {
-        if (!EconomyConfig.ENABLE_FERTILITY.get() || event.getLevel().isClientSide()) {
-            return;
-        }
-        ItemStack stack = event.getItemStack();
-        if (!(stack.getItem() instanceof BlockItem blockItem)) {
-            return;
-        }
-        if (!isPlantableCrop(blockItem.getBlock())) {
-            return;
-        }
-        ServerLevel level = (ServerLevel) event.getLevel();
-        BlockPos cropPos = event.getPos().above();
-        PlantDenyReason reason = validatePlanting(level, cropPos);
-        if (reason != PlantDenyReason.NONE) {
-            event.setCanceled(true);
-            event.setCancellationResult(net.minecraft.world.InteractionResult.FAIL);
-            if (event.getEntity() != null) {
-                event.getEntity().displayClientMessage(denyMessage(reason), true);
-            }
-        }
-    }
-
     @SubscribeEvent
     public static void onCropGrow(BlockEvent.CropGrowEvent.Pre event) {
         if (!EconomyConfig.ENABLE_FERTILITY.get() || event.getLevel().isClientSide()) {
@@ -306,9 +200,20 @@ public final class FertilitySystem {
         }
         ServerLevel level = (ServerLevel) event.getLevel();
         BlockPos pos = event.getPos();
-        int fertility = getFertility(level, pos);
-        float mult = growthMultiplier(fertility);
+        FertilityResult fertility = evaluate(level, pos);
+
+        if (!fertility.irrigated()) {
+            event.setResult(Event.Result.DENY);
+            return;
+        }
+
+        float mult = fertility.growthMultiplier();
         RandomSource random = level.getRandom();
+
+        if (mult <= 0f) {
+            event.setResult(Event.Result.DENY);
+            return;
+        }
 
         if (mult < 1.0f) {
             if (random.nextFloat() > mult) {
@@ -323,10 +228,6 @@ public final class FertilitySystem {
         }
     }
 
-    /**
-     * Schedules extra random ticks instead of jumping multiple ages in one tick
-     * (which skips visual growth stages).
-     */
     private static void scheduleExtraGrowthTick(
             ServerLevel level, BlockPos pos, float extraChance, RandomSource random) {
         if (extraChance <= 0f) {
@@ -367,15 +268,22 @@ public final class FertilitySystem {
                 return;
             }
         }
-        int fertility = getFertility(level, pos);
-        float mult = growthMultiplier(fertility);
-        boolean irrigated = hasIrrigation(level, pos);
-        Component line1 = Component.translatable("message.cannon_economy.fertility", fertility, String.format("%.2f", mult));
-        Component line2 = irrigated
+        FertilityResult fertility = evaluate(level, pos);
+        Component line1 = Component.translatable(
+                "message.cannon_economy.fertility",
+                fertility.displayLevel(),
+                String.format("%.2f", fertility.growthMultiplier()));
+        Component line2 = fertility.irrigated()
                 ? Component.translatable("message.cannon_economy.irrigated")
                 : Component.translatable("message.cannon_economy.not_irrigated");
         event.getEntity().displayClientMessage(line1, true);
         event.getEntity().displayClientMessage(line2, true);
+        if (isRiverBiome(level.getBiome(pos)) || hasRiverBiomeNearby(level, pos)) {
+            if (isAridBiome(level.getBiome(pos))) {
+                event.getEntity().displayClientMessage(
+                        Component.translatable("message.cannon_economy.river_arid_bonus"), true);
+            }
+        }
         if (FarmCharmIntegration.isLoaded()) {
             event.getEntity().displayClientMessage(Component.translatable("message.cannon_economy.farm_charm_hint"), true);
         }

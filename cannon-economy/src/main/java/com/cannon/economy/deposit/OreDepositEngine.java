@@ -15,15 +15,11 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class OreDepositEngine {
-    private static final Map<Long, Long> MINED_AT = new HashMap<>();
 
     @SubscribeEvent
     public void onBreak(BlockEvent.BreakEvent event) {
@@ -31,14 +27,17 @@ public class OreDepositEngine {
             return;
         }
         ServerLevel level = (ServerLevel) event.getLevel();
-        OreDeposit deposit = OreDepositSavedData.get(level).atBlock(event.getPos(), level.dimension()).orElse(null);
-        if (deposit == null) {
+        BlockPos pos = event.getPos();
+        OreDepositSavedData data = OreDepositSavedData.get(level);
+        OreDeposit deposit = data.atBlock(pos, level.dimension()).orElse(null);
+        if (deposit == null || !deposit.conversionDone) {
             return;
         }
-        long key = event.getPos().asLong();
-        if (deposit.veinPositions.contains(key) || isTargetOre(event.getState(), deposit)) {
-            MINED_AT.put(key, level.getGameTime());
+        if (!isTargetOre(event.getState(), deposit) || !deposit.veinPositions.contains(pos.asLong())) {
+            return;
         }
+        long regenAt = level.getGameTime() + deposit.regenIntervalTicks();
+        data.scheduleRegen(new PendingOreRegen(deposit.id, pos.immutable(), regenAt));
     }
 
     @SubscribeEvent
@@ -48,24 +47,56 @@ public class OreDepositEngine {
         }
         ServerLevel level = (ServerLevel) event.level;
         long now = level.getGameTime();
-        purgeMined(now);
+        OreDepositSavedData data = OreDepositSavedData.get(level);
 
         int budget = EconomyConfig.CONVERT_BLOCKS_PER_TICK.get();
-
-        for (OreDeposit deposit : OreDepositSavedData.get(level).all()) {
+        for (OreDeposit deposit : data.all()) {
             if (!deposit.dimension.equals(level.dimension())) {
                 continue;
             }
             if (!deposit.conversionDone) {
                 budget = runConversion(level, deposit, budget);
-                continue;
             }
-            if (now - deposit.lastRegenTick < deposit.regenIntervalTicks()) {
-                continue;
-            }
-            runRegen(level, deposit, EconomyConfig.ORES_PER_REGEN.get());
-            OreDepositSavedData.get(level).update(deposit.withLastRegenTick(now));
         }
+
+        processPendingRegen(level, data, now);
+    }
+
+    private void processPendingRegen(ServerLevel level, OreDepositSavedData data, long now) {
+        if (data.pendingRegen().isEmpty()) {
+            return;
+        }
+        List<PendingOreRegen> remaining = new ArrayList<>();
+        int restored = 0;
+        int limit = EconomyConfig.ORES_PER_REGEN.get();
+
+        for (PendingOreRegen pending : data.pendingRegen()) {
+            if (now < pending.regenAtTick) {
+                remaining.add(pending);
+                continue;
+            }
+            if (restored >= limit) {
+                remaining.add(pending);
+                continue;
+            }
+            OreDeposit deposit = data.byId(pending.depositId).orElse(null);
+            if (deposit == null || !deposit.conversionDone) {
+                continue;
+            }
+            BlockPos pos = pending.pos;
+            BlockState state = level.getBlockState(pos);
+            if (isTargetOre(state, deposit)) {
+                continue;
+            }
+            if (!state.isAir() && !isReplaceableStone(state)) {
+                remaining.add(pending);
+                continue;
+            }
+            level.setBlock(pos, pickOreState(deposit, pos.getY()), Block.UPDATE_ALL);
+            restored++;
+        }
+
+        data.setPendingRegen(remaining);
     }
 
     private int runConversion(ServerLevel level, OreDeposit deposit, int budget) {
@@ -112,7 +143,7 @@ public class OreDepositEngine {
         if (updated.conversionIndex >= total) {
             updated = updated.withConversionDone(true);
             CannonEconomy.LOGGER.info(
-                    "Ore deposit {} ready: {} vein blocks in r={} depth={} @ {}",
+                    "Ore deposit {} ready: {} ore blocks in r={} depth={} @ {}",
                     updated.id, updated.veinPositions.size(), updated.blockRadius, updated.depth, updated.center);
         }
         OreDepositSavedData.get(level).update(updated);
@@ -122,9 +153,6 @@ public class OreDepositEngine {
     private static void finishConversion(ServerLevel level, OreDeposit deposit) {
         OreDeposit done = deposit.withConversionDone(true);
         OreDepositSavedData.get(level).update(done);
-        CannonEconomy.LOGGER.info(
-                "Ore deposit {} ready: {} vein blocks @ {}",
-                done.id, done.veinPositions.size(), done.center);
     }
 
     private static BlockPos indexToPos(OreDeposit deposit, int index, int diameter, int minY) {
@@ -142,51 +170,6 @@ public class OreDepositEngine {
     private static float rollChance(BlockPos pos, RandomSource seed) {
         RandomSource random = RandomSource.create(seed.nextLong() ^ pos.asLong());
         return random.nextFloat();
-    }
-
-    private void runRegen(ServerLevel level, OreDeposit deposit, int maxPlacements) {
-        if (deposit.veinPositions.isEmpty()) {
-            return;
-        }
-        long now = level.getGameTime();
-        List<Long> candidates = new ArrayList<>();
-        for (long packed : deposit.veinPositions) {
-            BlockPos pos = BlockPos.of(packed);
-            if (!deposit.containsBlock(pos, level.dimension())) {
-                continue;
-            }
-            BlockState state = level.getBlockState(pos);
-            if (isTargetOre(state, deposit)) {
-                continue;
-            }
-            if (!isReplaceableStone(state)) {
-                continue;
-            }
-            Long minedAt = MINED_AT.get(packed);
-            if (minedAt != null && now - minedAt < deposit.regenIntervalTicks()) {
-                continue;
-            }
-            candidates.add(packed);
-        }
-
-        if (candidates.isEmpty()) {
-            return;
-        }
-
-        RandomSource random = level.getRandom();
-        int placed = 0;
-        int attempts = Math.min(maxPlacements * 4, candidates.size());
-        while (placed < maxPlacements && attempts-- > 0) {
-            long packed = candidates.get(random.nextInt(candidates.size()));
-            BlockPos pos = BlockPos.of(packed);
-            BlockState state = level.getBlockState(pos);
-            if (isTargetOre(state, deposit) || !isReplaceableStone(state)) {
-                continue;
-            }
-            level.setBlock(pos, pickOreState(deposit, pos.getY()), Block.UPDATE_ALL);
-            MINED_AT.remove(packed);
-            placed++;
-        }
     }
 
     private static BlockState pickOreState(OreDeposit deposit, int y) {
@@ -214,15 +197,5 @@ public class OreDepositEngine {
     private static boolean isReplaceableStone(BlockState state) {
         return state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
                 || state.is(BlockTags.STONE_ORE_REPLACEABLES);
-    }
-
-    private static void purgeMined(long now) {
-        Iterator<Map.Entry<Long, Long>> it = MINED_AT.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Long, Long> entry = it.next();
-            if (now - entry.getValue() > 24000L * 60L) {
-                it.remove();
-            }
-        }
     }
 }

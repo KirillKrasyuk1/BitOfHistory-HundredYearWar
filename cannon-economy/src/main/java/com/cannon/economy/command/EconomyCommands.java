@@ -1,6 +1,8 @@
 package com.cannon.economy.command;
 
 import com.cannon.economy.config.EconomyConfig;
+import com.cannon.economy.farming.FertilitySystem;
+import com.cannon.economy.farming.FertilitySystem.FertilityResult;
 import com.cannon.economy.deposit.OreDeposit;
 import com.cannon.economy.deposit.OreDepositSavedData;
 import com.cannon.economy.deposit.OrePresets;
@@ -152,9 +154,11 @@ public final class EconomyCommands {
     private static int showFertility(CommandSourceStack src) {
         ServerLevel level = src.getLevel();
         BlockPos pos = BlockPos.containing(src.getPosition());
-        int f = com.cannon.economy.farming.FertilitySystem.getFertility(level, pos);
-        float mult = com.cannon.economy.farming.FertilitySystem.growthMultiplier(f);
-        src.sendSuccess(() -> Component.translatable("message.cannon_economy.fertility", f, String.format("%.2f", mult)), false);
+        FertilityResult fertility = FertilitySystem.evaluate(level, pos);
+        src.sendSuccess(() -> Component.translatable(
+                "message.cannon_economy.fertility",
+                fertility.displayLevel(),
+                String.format("%.2f", fertility.growthMultiplier())), false);
         return 1;
     }
 }

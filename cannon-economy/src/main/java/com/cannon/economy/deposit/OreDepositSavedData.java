@@ -1,5 +1,6 @@
 package com.cannon.economy.deposit;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class OreDepositSavedData extends SavedData {
     private static final String DATA_NAME = "cannon_economy_ore_deposits";
     private final List<OreDeposit> deposits = new ArrayList<>();
+    private final List<PendingOreRegen> pendingRegen = new ArrayList<>();
 
     public static OreDepositSavedData get(ServerLevel level) {
         return level.getDataStorage().computeIfAbsent(OreDepositSavedData::load, OreDepositSavedData::new, DATA_NAME);
@@ -27,6 +29,9 @@ public class OreDepositSavedData extends SavedData {
         for (Tag entry : list) {
             data.deposits.add(OreDeposit.load((CompoundTag) entry));
         }
+        if (tag.contains("PendingRegen", Tag.TAG_LIST)) {
+            data.pendingRegen.addAll(PendingOreRegen.loadAll(tag.getList("PendingRegen", Tag.TAG_COMPOUND)));
+        }
         return data;
     }
 
@@ -37,6 +42,7 @@ public class OreDepositSavedData extends SavedData {
             list.add(d.save());
         }
         tag.put("Deposits", list);
+        tag.put("PendingRegen", PendingOreRegen.saveAll(pendingRegen));
         return tag;
     }
 
@@ -70,5 +76,31 @@ public class OreDepositSavedData extends SavedData {
 
     public Optional<OreDeposit> atBlock(net.minecraft.core.BlockPos pos, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dim) {
         return deposits.stream().filter(d -> d.containsBlock(pos, dim)).findFirst();
+    }
+
+    public Optional<OreDeposit> byId(UUID id) {
+        return deposits.stream().filter(d -> d.id.equals(id)).findFirst();
+    }
+
+    public void scheduleRegen(PendingOreRegen entry) {
+        pendingRegen.removeIf(p -> p.pos.equals(entry.pos));
+        pendingRegen.add(entry);
+        setDirty();
+    }
+
+    public List<PendingOreRegen> pendingRegen() {
+        return List.copyOf(pendingRegen);
+    }
+
+    public void removePending(BlockPos pos) {
+        if (pendingRegen.removeIf(p -> p.pos.equals(pos))) {
+            setDirty();
+        }
+    }
+
+    public void setPendingRegen(List<PendingOreRegen> entries) {
+        pendingRegen.clear();
+        pendingRegen.addAll(entries);
+        setDirty();
     }
 }

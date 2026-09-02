@@ -42,7 +42,7 @@ public final class EconomyConfig {
                 .comment("Show fertility when right-clicking farmland/dirt with a hoe.")
                 .define("showFertilityOnHoe", true);
         REQUIRE_WATER_FOR_CROPS = b
-                .comment("Crops can only be planted within waterRadius of water (or a Farm & Charm sprinkler).")
+                .comment("Deprecated — kept for config compat. Growth on dry soil is always blocked when fertility is enabled.")
                 .define("requireWaterForCrops", true);
         WATER_RADIUS = b
                 .comment("Max horizontal distance to a water source block for planting/growing.")
