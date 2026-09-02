@@ -1,5 +1,10 @@
 {
   "message.cannon_economy.fertility": "Плодородность: %s/5 (скорость роста ×%s)",
+  "message.cannon_economy.no_water": "Нужна вода или дождеватель в пределах 4 блоков",
+  "message.cannon_economy.cannot_plant": "Почва слишком бедная для посадки (1/5)",
+  "message.cannon_economy.irrigated": "Орошение: есть",
+  "message.cannon_economy.not_irrigated": "Орошение: нет (нужна вода в 4 блоках)",
+  "message.cannon_economy.farm_charm_hint": "Farm & Charm: удобрённая почва и дождеватель улучшают урожай",
   "message.cannon_economy.deposit_created": "Залежь %s создана (id=%s, радиус %s чанков). Конвертация началась.",
   "message.cannon_economy.deposit_removed": "Залежь удалена: %s",
   "message.cannon_economy.deposit_not_found": "Залежь не найдена: %s",

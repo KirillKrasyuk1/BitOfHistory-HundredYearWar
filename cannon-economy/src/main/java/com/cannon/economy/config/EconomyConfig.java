@@ -9,6 +9,14 @@ public final class EconomyConfig {
     public static final ForgeConfigSpec.BooleanValue ENABLE_FERTILITY;
     public static final ForgeConfigSpec.IntValue FERTILITY_CELL_SIZE;
     public static final ForgeConfigSpec.BooleanValue SHOW_FERTILITY_ON_HOE;
+    public static final ForgeConfigSpec.BooleanValue REQUIRE_WATER_FOR_CROPS;
+    public static final ForgeConfigSpec.IntValue WATER_RADIUS;
+    public static final ForgeConfigSpec.IntValue RIVER_FLOODPLAIN_RADIUS;
+    public static final ForgeConfigSpec.IntValue RIVER_FERTILITY;
+    public static final ForgeConfigSpec.BooleanValue FARM_CHARM_SPRINKLER_COUNTS_AS_WATER;
+    public static final ForgeConfigSpec.IntValue FARM_CHARM_SPRINKLER_RADIUS;
+    public static final ForgeConfigSpec.BooleanValue FARM_CHARM_FERTILIZED_BONUS;
+    public static final ForgeConfigSpec.IntValue FERTILIZED_SOIL_FERTILITY_BONUS;
 
     // Deposits
     public static final ForgeConfigSpec.IntValue DEFAULT_CHUNK_RADIUS;
@@ -35,6 +43,30 @@ public final class EconomyConfig {
         SHOW_FERTILITY_ON_HOE = b
                 .comment("Show fertility when right-clicking farmland/dirt with a hoe.")
                 .define("showFertilityOnHoe", true);
+        REQUIRE_WATER_FOR_CROPS = b
+                .comment("Crops can only be planted within waterRadius of water (or a Farm & Charm sprinkler).")
+                .define("requireWaterForCrops", true);
+        WATER_RADIUS = b
+                .comment("Max horizontal distance to a water source block for planting/growing.")
+                .defineInRange("waterRadius", 4, 1, 16);
+        RIVER_FLOODPLAIN_RADIUS = b
+                .comment("Blocks around a position to detect river biomes for Nile-like 2× floodplains.")
+                .defineInRange("riverFloodplainRadius", 8, 2, 32);
+        RIVER_FERTILITY = b
+                .comment("Fertility level near rivers (5 = 2× growth).")
+                .defineInRange("riverFertility", 5, 1, 5);
+        FARM_CHARM_SPRINKLER_COUNTS_AS_WATER = b
+                .comment("Treat Farm & Charm water sprinklers as irrigation (optional mod).")
+                .define("farmCharmSprinklerCountsAsWater", true);
+        FARM_CHARM_SPRINKLER_RADIUS = b
+                .comment("Horizontal range to detect Farm & Charm sprinklers (mod default is 8).")
+                .defineInRange("farmCharmSprinklerRadius", 8, 1, 32);
+        FARM_CHARM_FERTILIZED_BONUS = b
+                .comment("Add a fertility bonus on Farm & Charm fertilized soil/farmland.")
+                .define("farmCharmFertilizedBonus", true);
+        FERTILIZED_SOIL_FERTILITY_BONUS = b
+                .comment("Extra fertility levels on fertilized soil (stacks with biome, capped at 5).")
+                .defineInRange("fertilizedSoilFertilityBonus", 1, 0, 2);
         b.pop();
 
         b.comment("Admin ore deposits: replace + regenerate ores in a chunk radius.").push("deposits");
