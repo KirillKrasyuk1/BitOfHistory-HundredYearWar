@@ -19,13 +19,11 @@ public final class EconomyConfig {
     public static final ForgeConfigSpec.IntValue FERTILIZED_SOIL_FERTILITY_BONUS;
 
     // Deposits
-    public static final ForgeConfigSpec.IntValue DEFAULT_CHUNK_RADIUS;
-    public static final ForgeConfigSpec.IntValue ORE_MIN_Y;
-    public static final ForgeConfigSpec.IntValue ORE_MAX_Y;
-    public static final ForgeConfigSpec.IntValue REGEN_INTERVAL_TICKS;
+    public static final ForgeConfigSpec.IntValue DEFAULT_BLOCK_RADIUS;
+    public static final ForgeConfigSpec.IntValue DEFAULT_REPLACE_PERCENT;
+    public static final ForgeConfigSpec.IntValue DEFAULT_DEPTH;
+    public static final ForgeConfigSpec.IntValue DEFAULT_REGEN_SECONDS;
     public static final ForgeConfigSpec.IntValue ORES_PER_REGEN;
-    public static final ForgeConfigSpec.IntValue MINED_COOLDOWN_TICKS;
-    public static final ForgeConfigSpec.DoubleValue TARGET_ORE_RATIO;
     public static final ForgeConfigSpec.IntValue CONVERT_BLOCKS_PER_TICK;
 
     // HYW
@@ -69,24 +67,24 @@ public final class EconomyConfig {
                 .defineInRange("fertilizedSoilFertilityBonus", 1, 0, 2);
         b.pop();
 
-        b.comment("Admin ore deposits: replace + regenerate ores in a chunk radius.").push("deposits");
-        DEFAULT_CHUNK_RADIUS = b.defineInRange("defaultChunkRadius", 5, 1, 32);
-        ORE_MIN_Y = b.defineInRange("oreMinY", -64, -64, 320);
-        ORE_MAX_Y = b.defineInRange("oreMaxY", 64, -64, 320);
-        REGEN_INTERVAL_TICKS = b
-                .comment("Ticks between regeneration attempts (200 = 10 seconds).")
-                .defineInRange("regenIntervalTicks", 200, 20, 72000);
+        b.comment("Admin ore deposits: fixed-position veins with regeneration.").push("deposits");
+        DEFAULT_BLOCK_RADIUS = b
+                .comment("Default horizontal vein radius in blocks (XZ).")
+                .defineInRange("defaultBlockRadius", 24, 4, 128);
+        DEFAULT_REPLACE_PERCENT = b
+                .comment("Default percent of stone replaced when laying out a vein.")
+                .defineInRange("defaultReplacePercent", 3, 1, 25);
+        DEFAULT_DEPTH = b
+                .comment("Default vertical thickness of a vein, centered on admin Y.")
+                .defineInRange("defaultDepth", 12, 1, 64);
+        DEFAULT_REGEN_SECONDS = b
+                .comment("Default seconds before mined vein blocks regenerate.")
+                .defineInRange("defaultRegenSeconds", 300, 5, 86400);
         ORES_PER_REGEN = b
-                .comment("Max new ore blocks placed per regen tick per deposit.")
-                .defineInRange("oresPerRegen", 4, 1, 64);
-        MINED_COOLDOWN_TICKS = b
-                .comment("How long a mined position stays blacklisted for regen (12000 = 10 min).")
-                .defineInRange("minedCooldownTicks", 12000, 200, 240000);
-        TARGET_ORE_RATIO = b
-                .comment("Target fraction of stone-like blocks that should be deposit ore (0.02 = 2%).")
-                .defineInRange("targetOreRatio", 0.02, 0.001, 0.2);
+                .comment("Max vein blocks restored per regen tick across each deposit.")
+                .defineInRange("oresPerRegen", 2, 1, 32);
         CONVERT_BLOCKS_PER_TICK = b
-                .comment("Blocks scanned per tick during initial deposit conversion.")
+                .comment("Blocks scanned per tick while laying out a new vein.")
                 .defineInRange("convertBlocksPerTick", 8000, 500, 100000);
         b.pop();
 

@@ -7,7 +7,7 @@
 
 ## Установка
 
-1. JAR: `release/cannon_economy-2.0.1.jar` → `mods/` (клиент + сервер)
+1. JAR: `release/cannon_economy-2.0.2.jar` → `mods/` (клиент + сервер)
 2. Нужен **Hundred Years War** (для переопределения найма и экипировки)
 3. **Не нужны:** Custom Ore Veins, Regional Ore Veins, Restrictive Farming, cannon-datapacks
 4. Запусти мир → появится `config/cannon_economy-common.toml`
@@ -58,18 +58,26 @@ diamondsPerNetherite = 3            # уже учтено в JSON найма
 
 ---
 
-## 2. Залежи руд (регенерирующие)
+## 2. Залежи руд (регенерирующие жилы)
 
-Админ встаёт в центр месторождения:
+Админ встаёт в **центр жилы** (уровень Y = середина по глубине):
 
 ```
-/cannoneconomy deposit create iron 5 Casterly Rock
-/cannoneconomy deposit create gold 3
-/cannoneconomy deposit create minecraft:diamond_ore 5
-/cannoneconomy deposit create silver 5    # Ice and Fire, если мод есть
+/cannoneconomy deposit create gold 32 3 16 600
+/cannoneconomy deposit create gold 32 3 16 600 Casterly Rock
+/cannoneconomy deposit create iron          # значения по умолчанию из конфига
 /cannoneconomy deposit list
 /cannoneconomy deposit remove <uuid>
 ```
+
+### 4 параметра жилы
+
+| Параметр | Пример | Описание |
+|----------|--------|----------|
+| **radius** | `32` | Радиус жилы в **блоках** (горизонтально) |
+| **percent** | `3` | Процент камня, заменяемого на руду при создании |
+| **depth** | `16` | Глубина жилы по Y (толщина, центр = ваша позиция) |
+| **regenSeconds** | `600` | Через сколько секунд вскопанная руда вернётся **на том же месте** |
 
 ### Пресеты
 `iron`, `gold`, `coal`, `copper`, `diamond`, `emerald`, `lapis`, `redstone`, `silver`, `sapphire`
@@ -77,23 +85,22 @@ diamondsPerNetherite = 3            # уже учтено в JSON найма
 Или полный id: `minecraft:iron_ore`, `iceandfire:silver_ore`
 
 ### Что происходит
-1. **Конвертация** — по чанкам в радиусе: существующие руды заменяются на целевую, ~12% камня тоже → жилы
-2. **Добыча** — игроки копают как обычно
-3. **Регенерация** — каждые 10 сек (настраивается) в случайных точках зоны камень → руда. **Недавно вскопанные блоки** (10 мин) не регенерируют — руда появляется в другом месте
+1. **Разметка жилы** — сканируется цилиндр (radius × depth). Выбранные блоки **запоминаются навсегда** — золото всегда в одних и тех же координатах.
+2. **Добыча** — игроки копают как обычно.
+3. **Регенерация** — только на **зафиксированных** позициях жилы, через `regenSeconds` после добычи.
 
-### Конфиг
+### Конфиг (значения по умолчанию для команды без параметров)
 ```toml
 [deposits]
-defaultChunkRadius = 5
-oreMinY = -64
-oreMaxY = 64
-regenIntervalTicks = 200      # 10 сек
-oresPerRegen = 4              # блоков руды за тик регенa
-minedCooldownTicks = 12000    # 10 мин «чёрный список» после добычи
+defaultBlockRadius = 24
+defaultReplacePercent = 3
+defaultDepth = 12
+defaultRegenSeconds = 300
+oresPerRegen = 2
 convertBlocksPerTick = 8000
 ```
 
-> Работает в **уже сгенерированных** чанках — не нужен новый мир.
+> Работает в **уже сгенерированных** чанках — не нужен новый мир. Старые залежи (chunk-radius) подхватятся с миграцией, но лучше пересоздать.
 
 ---
 
@@ -112,9 +119,9 @@ convertBlocksPerTick = 8000
 ## Быстрый старт админа
 
 ```
-# 1. Месторождения
-/cannoneconomy deposit create iron 5 Casterly Rock
-/cannoneconomy deposit create gold 5 Lannisport
+# 1. Месторождения (радиус в блоках, % , глубина, реген в секундах)
+/cannoneconomy deposit create iron 32 3 16 600 Casterly Rock
+/cannoneconomy deposit create gold 24 2 12 900 Lannisport
 
 # 2. Проверка плодородия у реки на равнинах
 /cannoneconomy fertility

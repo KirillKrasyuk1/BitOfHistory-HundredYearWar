@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 public final class EconomyCommands {
@@ -22,21 +23,40 @@ public final class EconomyCommands {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         var root = Commands.literal("cannoneconomy").requires(src -> src.hasPermission(2));
 
+        var create = Commands.literal("create")
+                .then(Commands.argument("ore", StringArgumentType.word())
+                        .executes(ctx -> createDeposit(
+                                ctx.getSource(),
+                                StringArgumentType.getString(ctx, "ore"),
+                                EconomyConfig.DEFAULT_BLOCK_RADIUS.get(),
+                                EconomyConfig.DEFAULT_REPLACE_PERCENT.get(),
+                                EconomyConfig.DEFAULT_DEPTH.get(),
+                                EconomyConfig.DEFAULT_REGEN_SECONDS.get(),
+                                ""))
+                        .then(Commands.argument("radius", IntegerArgumentType.integer(4, 128))
+                                .then(Commands.argument("percent", IntegerArgumentType.integer(1, 25))
+                                        .then(Commands.argument("depth", IntegerArgumentType.integer(1, 64))
+                                                .then(Commands.argument("regenSeconds", IntegerArgumentType.integer(5, 86400))
+                                                        .executes(ctx -> createDeposit(
+                                                                ctx.getSource(),
+                                                                StringArgumentType.getString(ctx, "ore"),
+                                                                IntegerArgumentType.getInteger(ctx, "radius"),
+                                                                IntegerArgumentType.getInteger(ctx, "percent"),
+                                                                IntegerArgumentType.getInteger(ctx, "depth"),
+                                                                IntegerArgumentType.getInteger(ctx, "regenSeconds"),
+                                                                ""))
+                                                        .then(Commands.argument("label", StringArgumentType.greedyString())
+                                                                .executes(ctx -> createDeposit(
+                                                                        ctx.getSource(),
+                                                                        StringArgumentType.getString(ctx, "ore"),
+                                                                        IntegerArgumentType.getInteger(ctx, "radius"),
+                                                                        IntegerArgumentType.getInteger(ctx, "percent"),
+                                                                        IntegerArgumentType.getInteger(ctx, "depth"),
+                                                                        IntegerArgumentType.getInteger(ctx, "regenSeconds"),
+                                                                        StringArgumentType.getString(ctx, "label")))))))));
+
         root.then(Commands.literal("deposit")
-                .then(Commands.literal("create")
-                        .then(Commands.argument("ore", StringArgumentType.word())
-                                .executes(ctx -> createDeposit(ctx.getSource(),
-                                        StringArgumentType.getString(ctx, "ore"),
-                                        EconomyConfig.DEFAULT_CHUNK_RADIUS.get(), ""))
-                                .then(Commands.argument("chunkRadius", IntegerArgumentType.integer(1, 32))
-                                        .executes(ctx -> createDeposit(ctx.getSource(),
-                                                StringArgumentType.getString(ctx, "ore"),
-                                                IntegerArgumentType.getInteger(ctx, "chunkRadius"), ""))
-                                        .then(Commands.argument("label", StringArgumentType.greedyString())
-                                                .executes(ctx -> createDeposit(ctx.getSource(),
-                                                        StringArgumentType.getString(ctx, "ore"),
-                                                        IntegerArgumentType.getInteger(ctx, "chunkRadius"),
-                                                        StringArgumentType.getString(ctx, "label")))))))
+                .then(create)
                 .then(Commands.literal("remove")
                         .then(Commands.argument("id", StringArgumentType.string())
                                 .executes(ctx -> removeDeposit(ctx.getSource(),
@@ -50,7 +70,14 @@ public final class EconomyCommands {
         dispatcher.register(root);
     }
 
-    private static int createDeposit(CommandSourceStack src, String oreId, int chunkRadius, String label) {
+    private static int createDeposit(
+            CommandSourceStack src,
+            String oreId,
+            int radius,
+            int percent,
+            int depth,
+            int regenSeconds,
+            String label) {
         var pair = OrePresets.resolve(oreId);
         if (pair.isEmpty()) {
             src.sendFailure(Component.translatable("message.cannon_economy.unknown_ore", oreId));
@@ -60,11 +87,29 @@ public final class EconomyCommands {
         BlockPos pos = BlockPos.containing(src.getPosition());
         ResourceLocation[] blocks = pair.get();
         OreDeposit deposit = new OreDeposit(
-                UUID.randomUUID(), pos, level.dimension(), blocks[0], blocks[1],
-                chunkRadius, label, false, 0, level.getGameTime());
+                UUID.randomUUID(),
+                pos,
+                level.dimension(),
+                blocks[0],
+                blocks[1],
+                radius,
+                percent,
+                depth,
+                regenSeconds,
+                label,
+                new HashSet<>(),
+                false,
+                0,
+                level.getGameTime());
         OreDepositSavedData.get(level).add(deposit);
-        src.sendSuccess(() -> Component.translatable("message.cannon_economy.deposit_created",
-                blocks[0], deposit.id, chunkRadius), true);
+        src.sendSuccess(() -> Component.translatable(
+                "message.cannon_economy.deposit_created",
+                blocks[0],
+                deposit.id,
+                radius,
+                percent,
+                depth,
+                regenSeconds), true);
         return 1;
     }
 
@@ -86,9 +131,20 @@ public final class EconomyCommands {
 
     private static int listDeposits(CommandSourceStack src) {
         for (OreDeposit d : OreDepositSavedData.get(src.getLevel()).all()) {
-            src.sendSuccess(() -> Component.literal(String.format("%s %s r=%d chunks @ %d,%d done=%s %s",
-                    d.id, d.oreBlockId, d.chunkRadius, d.center.getX(), d.center.getZ(),
-                    d.conversionDone, d.label)), false);
+            src.sendSuccess(() -> Component.translatable(
+                    "message.cannon_economy.deposit_list_entry",
+                    d.id,
+                    d.oreBlockId,
+                    d.blockRadius,
+                    d.replacePercent,
+                    d.depth,
+                    d.regenIntervalSeconds,
+                    d.veinPositions.size(),
+                    d.center.getX(),
+                    d.center.getY(),
+                    d.center.getZ(),
+                    d.conversionDone,
+                    d.label), false);
         }
         return 1;
     }

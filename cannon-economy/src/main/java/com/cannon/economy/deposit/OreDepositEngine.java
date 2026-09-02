@@ -4,25 +4,26 @@ import com.cannon.economy.CannonEconomy;
 import com.cannon.economy.config.EconomyConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class OreDepositEngine {
-    private static final Map<Long, Long> MINED_COOLDOWN = new HashMap<>();
+    private static final Map<Long, Long> MINED_AT = new HashMap<>();
 
     @SubscribeEvent
     public void onBreak(BlockEvent.BreakEvent event) {
@@ -34,11 +35,9 @@ public class OreDepositEngine {
         if (deposit == null) {
             return;
         }
-        BlockState state = event.getState();
-        if (isTargetOre(state, deposit) || isReplaceableStone(state)) {
-            long key = event.getPos().asLong();
-            long expire = level.getGameTime() + EconomyConfig.MINED_COOLDOWN_TICKS.get();
-            MINED_COOLDOWN.put(key, expire);
+        long key = event.getPos().asLong();
+        if (deposit.veinPositions.contains(key) || isTargetOre(event.getState(), deposit)) {
+            MINED_AT.put(key, level.getGameTime());
         }
     }
 
@@ -49,10 +48,9 @@ public class OreDepositEngine {
         }
         ServerLevel level = (ServerLevel) event.level;
         long now = level.getGameTime();
-        purgeCooldown(now);
+        purgeMined(now);
 
         int budget = EconomyConfig.CONVERT_BLOCKS_PER_TICK.get();
-        int placed = 0;
 
         for (OreDeposit deposit : OreDepositSavedData.get(level).all()) {
             if (!deposit.dimension.equals(level.dimension())) {
@@ -62,85 +60,133 @@ public class OreDepositEngine {
                 budget = runConversion(level, deposit, budget);
                 continue;
             }
-            if (now - deposit.lastRegenTick < EconomyConfig.REGEN_INTERVAL_TICKS.get()) {
+            if (now - deposit.lastRegenTick < deposit.regenIntervalTicks()) {
                 continue;
             }
-            placed += runRegen(level, deposit, EconomyConfig.ORES_PER_REGEN.get());
+            runRegen(level, deposit, EconomyConfig.ORES_PER_REGEN.get());
             OreDepositSavedData.get(level).update(deposit.withLastRegenTick(now));
         }
     }
 
     private int runConversion(ServerLevel level, OreDeposit deposit, int budget) {
-        int side = deposit.chunkRadius * 2 + 1;
-        int totalChunks = side * side;
-        if (deposit.conversionChunkIndex >= totalChunks) {
-            OreDepositSavedData.get(level).update(deposit.withConversionDone(true));
-            CannonEconomy.LOGGER.info("Ore deposit {} conversion complete at {}", deposit.id, deposit.center);
+        int total = deposit.volumeBlockCount();
+        if (deposit.conversionIndex >= total) {
+            finishConversion(level, deposit);
             return budget;
         }
 
-        int centerCx = deposit.center.getX() >> 4;
-        int centerCz = deposit.center.getZ() >> 4;
-        int minY = EconomyConfig.ORE_MIN_Y.get();
-        int maxY = EconomyConfig.ORE_MAX_Y.get();
-        RandomSource random = RandomSource.create(deposit.id.getMostSignificantBits() ^ level.getSeed() ^ deposit.conversionChunkIndex);
+        int diameter = deposit.blockRadius * 2 + 1;
+        int minY = deposit.minY();
+        Set<Long> positions = new HashSet<>(deposit.veinPositions);
+        RandomSource random = RandomSource.create(deposit.id.getMostSignificantBits() ^ deposit.id.getLeastSignificantBits() ^ level.getSeed());
 
-        int idx = deposit.conversionChunkIndex;
-        int dcx = (idx % side) - deposit.chunkRadius;
-        int dcz = (idx / side) - deposit.chunkRadius;
-        LevelChunk chunk = level.getChunk(centerCx + dcx, centerCz + dcz);
+        while (budget > 0 && deposit.conversionIndex < total) {
+            BlockPos pos = indexToPos(deposit, deposit.conversionIndex, diameter, minY);
+            deposit.conversionIndex++;
+            budget--;
 
-        for (int x = 0; x < 16 && budget > 0; x++) {
-            for (int z = 0; z < 16 && budget > 0; z++) {
-                for (int y = minY; y <= maxY && budget > 0; y++) {
-                    budget--;
-                    BlockPos pos = new BlockPos(chunk.getPos().getMinBlockX() + x, y, chunk.getPos().getMinBlockZ() + z);
-                    BlockState state = level.getBlockState(pos);
-                    if (isOreBlock(state) || (isReplaceableStone(state) && random.nextFloat() < 0.12f)) {
-                        level.setBlock(pos, pickOreState(deposit, y), Block.UPDATE_ALL);
-                    }
-                }
+            if (!deposit.containsBlock(pos, level.dimension())) {
+                continue;
+            }
+
+            BlockState state = level.getBlockState(pos);
+            long packed = pos.asLong();
+            if (isOreBlock(state)) {
+                level.setBlock(pos, pickOreState(deposit, pos.getY()), Block.UPDATE_ALL);
+                positions.add(packed);
+                continue;
+            }
+
+            if (!isReplaceableStone(state)) {
+                continue;
+            }
+
+            float chance = rollChance(pos, random);
+            if (chance < deposit.replacePercent / 100.0f) {
+                level.setBlock(pos, pickOreState(deposit, pos.getY()), Block.UPDATE_ALL);
+                positions.add(packed);
             }
         }
 
-        OreDeposit updated = deposit.withConversionChunkIndex(deposit.conversionChunkIndex + 1);
-        if (updated.conversionChunkIndex >= totalChunks) {
+        OreDeposit updated = deposit.withVeinPositions(positions).withConversionIndex(deposit.conversionIndex);
+        if (updated.conversionIndex >= total) {
             updated = updated.withConversionDone(true);
-            CannonEconomy.LOGGER.info("Ore deposit {} conversion complete at {}", deposit.id, deposit.center);
+            CannonEconomy.LOGGER.info(
+                    "Ore deposit {} ready: {} vein blocks in r={} depth={} @ {}",
+                    updated.id, updated.veinPositions.size(), updated.blockRadius, updated.depth, updated.center);
         }
         OreDepositSavedData.get(level).update(updated);
         return budget;
     }
 
-    private int runRegen(ServerLevel level, OreDeposit deposit, int maxPlacements) {
-        int minY = EconomyConfig.ORE_MIN_Y.get();
-        int maxY = EconomyConfig.ORE_MAX_Y.get();
-        RandomSource random = level.getRandom();
-        int placed = 0;
-        int attempts = maxPlacements * 8;
+    private static void finishConversion(ServerLevel level, OreDeposit deposit) {
+        OreDeposit done = deposit.withConversionDone(true);
+        OreDepositSavedData.get(level).update(done);
+        CannonEconomy.LOGGER.info(
+                "Ore deposit {} ready: {} vein blocks @ {}",
+                done.id, done.veinPositions.size(), done.center);
+    }
 
-        while (placed < maxPlacements && attempts-- > 0) {
-            int cx = (deposit.center.getX() >> 4) + random.nextInt(deposit.chunkRadius * 2 + 1) - deposit.chunkRadius;
-            int cz = (deposit.center.getZ() >> 4) + random.nextInt(deposit.chunkRadius * 2 + 1) - deposit.chunkRadius;
-            if (!deposit.containsChunk(cx, cz, level.dimension())) {
-                continue;
-            }
-            LevelChunk chunk = level.getChunk(cx, cz);
-            int x = chunk.getPos().getMinBlockX() + random.nextInt(16);
-            int z = chunk.getPos().getMinBlockZ() + random.nextInt(16);
-            int y = minY + random.nextInt(Math.max(1, maxY - minY + 1));
-            BlockPos pos = new BlockPos(x, y, z);
-            if (isOnCooldown(level.getGameTime(), pos)) {
+    private static BlockPos indexToPos(OreDeposit deposit, int index, int diameter, int minY) {
+        int layerVolume = diameter * diameter;
+        int yOffset = index / layerVolume;
+        int remainder = index % layerVolume;
+        int xOffset = remainder % diameter;
+        int zOffset = remainder / diameter;
+        int x = deposit.center.getX() - deposit.blockRadius + xOffset;
+        int z = deposit.center.getZ() - deposit.blockRadius + zOffset;
+        int y = minY + yOffset;
+        return new BlockPos(x, y, z);
+    }
+
+    private static float rollChance(BlockPos pos, RandomSource seed) {
+        RandomSource random = RandomSource.create(seed.nextLong() ^ pos.asLong());
+        return random.nextFloat();
+    }
+
+    private void runRegen(ServerLevel level, OreDeposit deposit, int maxPlacements) {
+        if (deposit.veinPositions.isEmpty()) {
+            return;
+        }
+        long now = level.getGameTime();
+        List<Long> candidates = new ArrayList<>();
+        for (long packed : deposit.veinPositions) {
+            BlockPos pos = BlockPos.of(packed);
+            if (!deposit.containsBlock(pos, level.dimension())) {
                 continue;
             }
             BlockState state = level.getBlockState(pos);
+            if (isTargetOre(state, deposit)) {
+                continue;
+            }
             if (!isReplaceableStone(state)) {
                 continue;
             }
-            level.setBlock(pos, pickOreState(deposit, y), Block.UPDATE_ALL);
+            Long minedAt = MINED_AT.get(packed);
+            if (minedAt != null && now - minedAt < deposit.regenIntervalTicks()) {
+                continue;
+            }
+            candidates.add(packed);
+        }
+
+        if (candidates.isEmpty()) {
+            return;
+        }
+
+        RandomSource random = level.getRandom();
+        int placed = 0;
+        int attempts = Math.min(maxPlacements * 4, candidates.size());
+        while (placed < maxPlacements && attempts-- > 0) {
+            long packed = candidates.get(random.nextInt(candidates.size()));
+            BlockPos pos = BlockPos.of(packed);
+            BlockState state = level.getBlockState(pos);
+            if (isTargetOre(state, deposit) || !isReplaceableStone(state)) {
+                continue;
+            }
+            level.setBlock(pos, pickOreState(deposit, pos.getY()), Block.UPDATE_ALL);
+            MINED_AT.remove(packed);
             placed++;
         }
-        return placed;
     }
 
     private static BlockState pickOreState(OreDeposit deposit, int y) {
@@ -170,15 +216,11 @@ public class OreDepositEngine {
                 || state.is(BlockTags.STONE_ORE_REPLACEABLES);
     }
 
-    private static boolean isOnCooldown(long now, BlockPos pos) {
-        Long expire = MINED_COOLDOWN.get(pos.asLong());
-        return expire != null && expire > now;
-    }
-
-    private static void purgeCooldown(long now) {
-        Iterator<Map.Entry<Long, Long>> it = MINED_COOLDOWN.entrySet().iterator();
+    private static void purgeMined(long now) {
+        Iterator<Map.Entry<Long, Long>> it = MINED_AT.entrySet().iterator();
         while (it.hasNext()) {
-            if (it.next().getValue() <= now) {
+            Map.Entry<Long, Long> entry = it.next();
+            if (now - entry.getValue() > 24000L * 60L) {
                 it.remove();
             }
         }

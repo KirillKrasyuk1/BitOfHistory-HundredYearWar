@@ -5,7 +5,8 @@
   "message.cannon_economy.irrigated": "Irrigation: yes",
   "message.cannon_economy.not_irrigated": "Irrigation: no (need water within 4 blocks)",
   "message.cannon_economy.farm_charm_hint": "Farm & Charm: fertilized soil and sprinklers improve yields",
-  "message.cannon_economy.deposit_created": "Deposit %s created (id=%s, radius %s chunks). Conversion started.",
+  "message.cannon_economy.deposit_created": "Deposit %s: id=%s, radius=%s, percent=%s, depth=%s, regen=%ss. Vein positions are fixed — ore returns on the same blocks.",
+  "message.cannon_economy.deposit_list_entry": "%s %s r=%s %%=%s depth=%s regen=%ss blocks=%s @ %s,%s,%s done=%s %s",
   "message.cannon_economy.deposit_removed": "Deposit removed: %s",
   "message.cannon_economy.deposit_not_found": "Deposit not found: %s",
   "message.cannon_economy.unknown_ore": "Unknown ore/preset: %s"
