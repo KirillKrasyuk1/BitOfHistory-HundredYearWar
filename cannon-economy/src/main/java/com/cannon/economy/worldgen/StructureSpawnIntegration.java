@@ -18,6 +18,9 @@ public final class StructureSpawnIntegration {
             disableVillageRecruitsExpansion();
             disableWariumMercenaries();
         }
+        if (EconomyConfig.OVERRIDE_RECRUITS_CLAIMS.get()) {
+            overrideRecruitsClaimPricing();
+        }
         if (EconomyConfig.BLOCK_HYW_NEARBY_STRUCTURES.get()) {
             disableHywNearbyStructures();
         }
@@ -84,6 +87,29 @@ public final class StructureSpawnIntegration {
             CannonEconomy.LOGGER.info("Recruits Warium mercenary patrol spawns disabled");
         } catch (ReflectiveOperationException e) {
             CannonEconomy.LOGGER.warn("Could not disable Recruits Warium spawns: {}", e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void overrideRecruitsClaimPricing() {
+        if (!ModList.get().isLoaded("recruits")) {
+            return;
+        }
+        try {
+            Class<?> cfg = Class.forName("com.talhanation.recruits.config.RecruitsServerConfig");
+            ForgeConfigSpec.ConfigValue<String> currency =
+                    (ForgeConfigSpec.ConfigValue<String>) cfg.getField("RecruitCurrency").get(null);
+            currency.set(EconomyConfig.RECRUITS_CURRENCY.get());
+
+            setInt(cfg, "ClaimingCost", EconomyConfig.RECRUITS_CLAIMING_COST.get());
+            setInt(cfg, "ChunkCost", EconomyConfig.RECRUITS_CHUNK_COST.get());
+
+            CannonEconomy.LOGGER.info("Recruits claim pricing: currency={}, territory={}, chunk={}",
+                    EconomyConfig.RECRUITS_CURRENCY.get(),
+                    EconomyConfig.RECRUITS_CLAIMING_COST.get(),
+                    EconomyConfig.RECRUITS_CHUNK_COST.get());
+        } catch (ReflectiveOperationException e) {
+            CannonEconomy.LOGGER.warn("Could not override Recruits claim pricing: {}", e.getMessage());
         }
     }
 

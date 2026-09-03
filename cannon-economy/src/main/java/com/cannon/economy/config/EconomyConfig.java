@@ -32,6 +32,12 @@ public final class EconomyConfig {
     public static final ForgeConfigSpec.DoubleValue SUPPLY_CONSUMPTION_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue DIAMONDS_PER_NETHERITE;
 
+    // Recruits claim pricing
+    public static final ForgeConfigSpec.BooleanValue OVERRIDE_RECRUITS_CLAIMS;
+    public static final ForgeConfigSpec.ConfigValue<String> RECRUITS_CURRENCY;
+    public static final ForgeConfigSpec.IntValue RECRUITS_CLAIMING_COST;
+    public static final ForgeConfigSpec.IntValue RECRUITS_CHUNK_COST;
+
     // Worldgen / ambient structures
     public static final ForgeConfigSpec.BooleanValue BLOCK_RECRUITS_WORLDGEN;
     public static final ForgeConfigSpec.BooleanValue BLOCK_HYW_NEARBY_STRUCTURES;
@@ -107,6 +113,21 @@ public final class EconomyConfig {
         DIAMONDS_PER_NETHERITE = b
                 .comment("Each netherite_ingot in recruitment costs becomes this many extra diamonds (baked into JSON).")
                 .defineInRange("diamondsPerNetherite", 3, 1, 16);
+        b.pop();
+
+        b.comment("Override Recruits claim pricing and currency.").push("claims");
+        OVERRIDE_RECRUITS_CLAIMS = b
+                .comment("Apply custom claim currency and costs to Recruits on server start.")
+                .define("overrideRecruitsClaims", true);
+        RECRUITS_CURRENCY = b
+                .comment("Item id used as currency for Recruits hiring and claims.")
+                .define("recruitsCurrency", "minecraft:gold_ingot");
+        RECRUITS_CLAIMING_COST = b
+                .comment("Cost in currency items to claim a 5×5 chunk territory.")
+                .defineInRange("claimingCost", 10, 0, 1453);
+        RECRUITS_CHUNK_COST = b
+                .comment("Cost in currency items to expand a claim by one chunk (0 = free).")
+                .defineInRange("chunkCost", 0, 0, 1453);
         b.pop();
 
         b.comment("Block ambient military structures from Recruits addons and HYW worldgen.").push("worldgen");
