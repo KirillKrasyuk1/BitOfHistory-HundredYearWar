@@ -1,0 +1,131 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "builder": "tacz_gun",
+          "probability": 1.0,
+          "gun_pool": [
+            {
+              "id": "tacz:glock_17",
+              "weight": 1.0,
+              "ammo_count": 17,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            },
+            {
+              "id": "tacz:deagle",
+              "weight": 1.0,
+              "ammo_count": 7,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            },
+            {
+              "id": "tacz:cz75",
+              "weight": 1.0,
+              "ammo_count": 16,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:ai_awp",
+              "weight": 1.0,
+              "ammo_count": 5,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI",
+              "attachments": {
+                "scope": "tacz:scope_mk5hd"
+              }
+            },
+            {
+              "id": "tacz:m1014",
+              "weight": 1.0,
+              "ammo_count": 6,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            },
+            {
+              "id": "tacz:ump45",
+              "weight": 1.0,
+              "ammo_count": 25,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:hk_mp5a5",
+              "weight": 1.0,
+              "ammo_count": 30,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:p90",
+              "weight": 1.0,
+              "ammo_count": 50,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:m249",
+              "weight": 1.0,
+              "ammo_count": 75,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:ak47",
+              "weight": 3.0,
+              "ammo_count": 30,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:uzi",
+              "weight": 2.0,
+              "ammo_count": 20,
+              "ammo_in_barrel": true,
+              "fire_mode": "AUTO"
+            },
+            {
+              "id": "tacz:m870",
+              "weight": 2.0,
+              "ammo_count": 5,
+              "ammo_in_barrel": true,
+              "fire_mode": "SEMI"
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

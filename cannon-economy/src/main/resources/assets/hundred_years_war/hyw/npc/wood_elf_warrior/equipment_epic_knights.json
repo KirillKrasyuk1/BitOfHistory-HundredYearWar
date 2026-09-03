@@ -1,0 +1,42 @@
+{
+  "levels": {
+    "2": {
+      "main_hand": [
+        {
+          "item": "hundred_years_war:wooden_pike",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "minecraft:shield",
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

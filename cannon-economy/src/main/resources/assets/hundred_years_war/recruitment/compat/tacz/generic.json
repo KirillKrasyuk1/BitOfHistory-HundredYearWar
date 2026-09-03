@@ -1,0 +1,155 @@
+{
+  "races": {
+    "tacz": {
+      "translationKey": "recruitment.hundred_years_war.race.tacz",
+      "categories": {
+        "generic": [
+          {
+            "id": "tacz_security_guard",
+            "translationKey": "recruitment.hundred_years_war.unit.tacz_security_guard",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.tacz_security_guard",
+                "expCost": 18,
+                "timeCostSeconds": 46,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:tacz_security_guard",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "tacz_mercenary",
+            "translationKey": "recruitment.hundred_years_war.unit.tacz_mercenary",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.tacz_mercenary",
+                "expCost": 44,
+                "timeCostSeconds": 96,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:tacz_mercenary",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "tacz_ct",
+            "translationKey": "recruitment.hundred_years_war.unit.tacz_ct",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.tacz_ct",
+                "expCost": 32,
+                "timeCostSeconds": 72,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:tacz_ct",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "tacz_t",
+            "translationKey": "recruitment.hundred_years_war.unit.tacz_t",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.tacz_t",
+                "expCost": 32,
+                "timeCostSeconds": 72,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:tacz_t",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

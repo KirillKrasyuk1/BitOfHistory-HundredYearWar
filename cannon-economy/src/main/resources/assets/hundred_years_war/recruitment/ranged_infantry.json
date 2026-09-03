@@ -1,0 +1,859 @@
+{
+  "races": {
+    "mercenary": {
+      "translationKey": "recruitment.hundred_years_war.race.mercenary",
+      "categories": {
+        "ranged_infantry": [
+          {
+            "id": "archer",
+            "translationKey": "recruitment.hundred_years_war.unit.archer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.archer_i",
+                "expCost": 14,
+                "timeCostSeconds": 38,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.archer_ii",
+                "expCost": 22,
+                "timeCostSeconds": 52,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.archer_iii",
+                "expCost": 32,
+                "timeCostSeconds": 66,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.archer_iv",
+                "expCost": 44,
+                "timeCostSeconds": 82,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 11
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "crossbow_man",
+            "translationKey": "recruitment.hundred_years_war.unit.crossbow_man",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.crossbow_man_i",
+                "expCost": 12,
+                "timeCostSeconds": 42,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:crossbowman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.crossbow_man_ii",
+                "expCost": 20,
+                "timeCostSeconds": 56,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:crossbowman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.crossbow_man_iii",
+                "expCost": 30,
+                "timeCostSeconds": 72,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:crossbowman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.crossbow_man_iv",
+                "expCost": 42,
+                "timeCostSeconds": 90,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:crossbowman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "handgonne_man",
+            "translationKey": "recruitment.hundred_years_war.unit.handgonne_man",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.handgonne_man_i",
+                "expCost": 24,
+                "timeCostSeconds": 58,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:handgonne_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.handgonne_man_ii",
+                "expCost": 34,
+                "timeCostSeconds": 74,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:handgonne_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "matchlock_man",
+            "translationKey": "recruitment.hundred_years_war.unit.matchlock_man",
+            "levels": [
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.matchlock_man_iii",
+                "expCost": 46,
+                "timeCostSeconds": 88,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:matchlock_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.matchlock_man_iv",
+                "expCost": 60,
+                "timeCostSeconds": 106,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 13
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:matchlock_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "undead": {
+      "translationKey": "recruitment.hundred_years_war.race.undead",
+      "categories": {
+        "ranged_infantry": [
+          {
+            "id": "hyw_skeleton_archer",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_skeleton_archer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_archer_i",
+                "expCost": 18,
+                "timeCostSeconds": 44,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_archer_ii",
+                "expCost": 26,
+                "timeCostSeconds": 58,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 5
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_archer_iii",
+                "expCost": 36,
+                "timeCostSeconds": 72,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 7
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_archer_iv",
+                "expCost": 50,
+                "timeCostSeconds": 88,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 13
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bandit": {
+      "translationKey": "recruitment.hundred_years_war.race.bandit",
+      "categories": {
+        "ranged_infantry": [
+          {
+            "id": "bandit_archer",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_archer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_archer",
+                "expCost": 14,
+                "timeCostSeconds": 40,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_crossbowman",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_crossbowman",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_crossbowman",
+                "expCost": 12,
+                "timeCostSeconds": 50,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_crossbowman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_handgonne_man",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_handgonne_man",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_handgonne_man",
+                "expCost": 28,
+                "timeCostSeconds": 62,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_handgonne_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_matchlock_man",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_matchlock_man",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_matchlock_man",
+                "expCost": 36,
+                "timeCostSeconds": 78,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 11
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_matchlock_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "bandit_knife_thrower",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_knife_thrower",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_knife_thrower",
+                "expCost": 40,
+                "timeCostSeconds": 42,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_knife_thrower",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wood_elf": {
+      "translationKey": "recruitment.hundred_years_war.race.wood_elf",
+      "categories": {
+        "ranged_infantry": [
+          {
+            "id": "wood_elf_archer",
+            "translationKey": "recruitment.hundred_years_war.unit.wood_elf_archer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.wood_elf_archer",
+                "expCost": 40,
+                "timeCostSeconds": 84,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:wood_elf_archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "desert_raider": {
+      "translationKey": "recruitment.hundred_years_war.race.desert_raider",
+      "categories": {
+        "ranged_infantry": [
+          {
+            "id": "desert_raider_archer",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_archer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_archer",
+                "expCost": 14,
+                "timeCostSeconds": 34,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_archer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_crossbowman",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_crossbowman",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_crossbowman",
+                "expCost": 12,
+                "timeCostSeconds": 42,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_crossbowman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_handgonne_man",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_handgonne_man",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_handgonne_man",
+                "expCost": 24,
+                "timeCostSeconds": 48,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_handgonne_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_matchlock_man",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_matchlock_man",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_matchlock_man",
+                "expCost": 32,
+                "timeCostSeconds": 54,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_matchlock_man",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

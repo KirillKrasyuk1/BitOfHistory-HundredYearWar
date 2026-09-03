@@ -1,0 +1,221 @@
+{
+  "races": {
+    "mercenary": {
+      "translationKey": "recruitment.hundred_years_war.race.mercenary",
+      "categories": {
+        "special": [
+          {
+            "id": "iron_mage",
+            "translationKey": "recruitment.hundred_years_war.unit.iron_mage",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.iron_mage",
+                "expCost": 42,
+                "timeCostSeconds": 94,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:iron_mage",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "undead": {
+      "translationKey": "recruitment.hundred_years_war.race.undead",
+      "categories": {
+        "special": [
+          {
+            "id": "hyw_skeleton_mage",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_skeleton_mage",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.hyw_skeleton_mage",
+                "expCost": 38,
+                "timeCostSeconds": 88,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_mage",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "hyw_wither_skeleton_mage",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_wither_skeleton_mage",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.hyw_wither_skeleton_mage",
+                "expCost": 52,
+                "timeCostSeconds": 102,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_wither_skeleton_mage",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bandit": {
+      "translationKey": "recruitment.hundred_years_war.race.bandit",
+      "categories": {
+        "special": [
+          {
+            "id": "bandit_mage",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_mage",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_mage",
+                "expCost": 40,
+                "timeCostSeconds": 90,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_mage",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wood_elf": {
+      "translationKey": "recruitment.hundred_years_war.race.wood_elf",
+      "categories": {
+        "special": [
+          {
+            "id": "wood_elf_mage",
+            "translationKey": "recruitment.hundred_years_war.unit.wood_elf_mage",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.wood_elf_mage",
+                "expCost": 52,
+                "timeCostSeconds": 98,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 14
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 4
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:wood_elf_mage",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

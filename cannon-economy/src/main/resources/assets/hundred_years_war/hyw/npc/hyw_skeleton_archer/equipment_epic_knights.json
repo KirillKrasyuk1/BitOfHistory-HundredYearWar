@@ -1,0 +1,414 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 1.0
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 1.0
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "minecraft:iron_sword",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:rustedbarbute",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:rustedgreathelm",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:rustednorman_helmet",
+          "probability": 0.2
+        },
+        {
+          "item": null,
+          "probability": 0.2
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:rustedhalfarmor_chestplate",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:rustedcrusader_chestplate",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:rustedchainmail_chestplate",
+          "probability": 0.2
+        },
+        {
+          "item": null,
+          "probability": 0.2
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "main_hand": [
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 1.0
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 1.0
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:rustedbarbute",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:rustedgreathelm",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:rustedchainmail_helmet",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:rustedkettlehat",
+          "probability": 0.25
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:rustedhalfarmor_chestplate",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:rustedcrusader_chestplate",
+          "probability": 0.3
+        },
+        {
+          "item": "magistuarmory:rustedchainmail_chestplate",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:gambeson_chestplate",
+          "probability": 0.2
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "2": {
+      "main_hand": [
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 0.7,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 0.7,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:rustedbarbute",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:rustedgreathelm",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:barbute",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:sallet",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:bascinet",
+          "probability": 0.2
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:rustedhalfarmor_chestplate",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:rustedcrusader_chestplate",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:halfarmor_chestplate",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:platemail_chestplate",
+          "probability": 0.25
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "3": {
+      "main_hand": [
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 0.7,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 2
+            },
+            {
+              "enchantment": "minecraft:flame",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 3
+            },
+            {
+              "enchantment": "minecraft:flame",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "ranged_weapon": [
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 0.7,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 2
+            },
+            {
+              "enchantment": "minecraft:flame",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "item": "magistuarmory:longbow",
+          "probability": 0.3,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:power",
+              "level": 3
+            },
+            {
+              "enchantment": "minecraft:flame",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "melee_weapon": [
+        {
+          "item": "minecraft:diamond_sword",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 3
+            },
+            {
+              "enchantment": "minecraft:fire_aspect",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "magistuarmory:armet",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:sallet",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:bascinet",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:barbute",
+          "probability": 0.2
+        },
+        {
+          "item": "magistuarmory:greathelm",
+          "probability": 0.2
+        }
+      ],
+      "chest": [
+        {
+          "item": "magistuarmory:knight_chestplate",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:crusader_chestplate",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:halfarmor_chestplate",
+          "probability": 0.25
+        },
+        {
+          "item": "magistuarmory:gothic_chestplate",
+          "probability": 0.25
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

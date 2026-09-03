@@ -1,0 +1,108 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "extra_slots": {
+        "spellbook": [
+          {
+            "probability": 1.0,
+            "item_pool": [
+              {
+                "item": "irons_spellbooks:rotten_spell_book",
+                "weight": 4.0
+              },
+              {
+                "item": "irons_spellbooks:ice_spell_book",
+                "weight": 3.0
+              },
+              {
+                "item": "irons_spellbooks:iron_spell_book",
+                "weight": 2.0
+              }
+            ],
+            "spell_container": {
+              "max_spell_count": 8,
+              "spell_wheel": true,
+              "must_equip": true,
+              "spells": [
+                {
+                  "id": "irons_spellbooks:icicle",
+                  "use_tier_level": true,
+                  "locked": true
+                },
+                {
+                  "id": "irons_spellbooks:chain_lightning",
+                  "use_tier_level": true,
+                  "locked": true
+                }
+              ],
+              "spell_count_min": 4,
+              "spell_count_max": 6,
+              "spell_pool": [
+                {
+                  "id": "irons_spellbooks:frostbite",
+                  "weight": 1.5
+                },
+                {
+                  "id": "irons_spellbooks:ray_of_frost",
+                  "weight": 1.4
+                },
+                {
+                  "id": "irons_spellbooks:cone_of_cold",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:snowball",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:lightning_bolt",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:electrocute",
+                  "weight": 1.0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

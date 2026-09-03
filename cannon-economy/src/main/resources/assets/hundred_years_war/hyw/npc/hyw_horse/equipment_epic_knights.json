@@ -1,0 +1,44 @@
+{
+  "levels": {
+    "0": {
+      "horse_armor": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "horse_armor": [
+        {
+          "item": "magistuarmory:chainmail_horse_armor",
+          "probability": 0.8
+        },
+        {
+          "item": "magistuarmory:barding",
+          "probability": 0.2
+        }
+      ]
+    },
+    "2": {
+      "horse_armor": [
+        {
+          "item": "magistuarmory:barding",
+          "probability": 0.8
+        },
+        {
+          "item": "magistuarmory:chainmail_horse_armor",
+          "probability": 0.2
+        }
+      ]
+    },
+    "3": {
+      "horse_armor": [
+        {
+          "item": "magistuarmory:barding",
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

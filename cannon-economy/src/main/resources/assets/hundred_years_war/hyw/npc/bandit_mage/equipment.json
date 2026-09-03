@@ -1,0 +1,112 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "extra_slots": {
+        "spellbook": [
+          {
+            "probability": 1.0,
+            "item_pool": [
+              {
+                "item": "irons_spellbooks:iron_spell_book",
+                "weight": 4.0
+              },
+              {
+                "item": "irons_spellbooks:gold_spell_book",
+                "weight": 3.0
+              },
+              {
+                "item": "irons_spellbooks:evoker_spell_book",
+                "weight": 2.0
+              }
+            ],
+            "spell_container": {
+              "max_spell_count": 8,
+              "spell_wheel": true,
+              "must_equip": true,
+              "spells": [
+                {
+                  "id": "irons_spellbooks:firecracker",
+                  "use_tier_level": true,
+                  "locked": true
+                },
+                {
+                  "id": "irons_spellbooks:fang_strike",
+                  "use_tier_level": true,
+                  "locked": true
+                }
+              ],
+              "spell_count_min": 4,
+              "spell_count_max": 6,
+              "spell_pool": [
+                {
+                  "id": "irons_spellbooks:summon_vex",
+                  "weight": 1.5
+                },
+                {
+                  "id": "irons_spellbooks:fang_ward",
+                  "weight": 1.2
+                },
+                {
+                  "id": "irons_spellbooks:lob_creeper",
+                  "weight": 1.2
+                },
+                {
+                  "id": "irons_spellbooks:chain_creeper",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:spectral_hammer",
+                  "weight": 1.0
+                },
+                {
+                  "id": "irons_spellbooks:arrow_volley",
+                  "weight": 0.8
+                },
+                {
+                  "id": "irons_spellbooks:shield",
+                  "weight": 0.8
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

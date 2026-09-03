@@ -1,0 +1,509 @@
+{
+  "races": {
+    "mercenary": {
+      "translationKey": "recruitment.hundred_years_war.race.mercenary",
+      "categories": {
+        "melee_cavalry": [
+          {
+            "id": "mounted_light_lancer",
+            "translationKey": "recruitment.hundred_years_war.unit.mounted_light_lancer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.mounted_light_lancer_i",
+                "expCost": 34,
+                "timeCostSeconds": 88,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 6
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 6
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mounted_light_lancer_rider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.mounted_light_lancer_ii",
+                "expCost": 48,
+                "timeCostSeconds": 108,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mounted_light_lancer_rider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.mounted_light_lancer_iii",
+                "expCost": 64,
+                "timeCostSeconds": 130,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 11
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 1
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mounted_light_lancer_rider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.mounted_light_lancer_iv",
+                "expCost": 84,
+                "timeCostSeconds": 156,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mounted_light_lancer_rider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "mounted_lancer",
+            "translationKey": "recruitment.hundred_years_war.unit.mounted_lancer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.mounted_lancer_i",
+                "expCost": 38,
+                "timeCostSeconds": 96,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mounted_lancer_rider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.mounted_lancer_ii",
+                "expCost": 54,
+                "timeCostSeconds": 118,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 11
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mounted_lancer_rider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.mounted_lancer_iii",
+                "expCost": 72,
+                "timeCostSeconds": 142,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 11
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 14
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mounted_lancer_rider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.mounted_lancer_iv",
+                "expCost": 94,
+                "timeCostSeconds": 170,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 15
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 15
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:mounted_lancer_rider",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "undead": {
+      "translationKey": "recruitment.hundred_years_war.race.undead",
+      "categories": {
+        "melee_cavalry": [
+          {
+            "id": "hyw_skeleton_light_cavalry",
+            "translationKey": "recruitment.hundred_years_war.unit.hyw_skeleton_light_cavalry",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_light_cavalry_i",
+                "expCost": 38,
+                "timeCostSeconds": 92,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 10
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_light_cavalry",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 2,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_light_cavalry_ii",
+                "expCost": 54,
+                "timeCostSeconds": 114,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 10
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_light_cavalry",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 3,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_light_cavalry_iii",
+                "expCost": 72,
+                "timeCostSeconds": 136,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 15
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 12
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_light_cavalry",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 2
+                  }
+                ],
+                "conditions": []
+              },
+              {
+                "level": 4,
+                "translationKey": "army.hundred_years_war.hyw_skeleton_light_cavalry_iv",
+                "expCost": 94,
+                "timeCostSeconds": 164,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 18
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 14
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:hyw_skeleton_light_cavalry",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 3
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bandit": {
+      "translationKey": "recruitment.hundred_years_war.race.bandit",
+      "categories": {
+        "melee_cavalry": [
+          {
+            "id": "bandit_cavalry",
+            "translationKey": "recruitment.hundred_years_war.unit.bandit_cavalry",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.bandit_cavalry",
+                "expCost": 48,
+                "timeCostSeconds": 98,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 8
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 8
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:bandit_cavalry",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "desert_raider": {
+      "translationKey": "recruitment.hundred_years_war.race.desert_raider",
+      "categories": {
+        "melee_cavalry": [
+          {
+            "id": "desert_raider_camel_lancer",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_camel_lancer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_camel_lancer",
+                "expCost": 54,
+                "timeCostSeconds": 110,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 9
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 11
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_camel_lancer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "desert_raider_heavy_camel_cavalry",
+            "translationKey": "recruitment.hundred_years_war.unit.desert_raider_heavy_camel_cavalry",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "recruitment.hundred_years_war.unit.desert_raider_heavy_camel_cavalry",
+                "expCost": 82,
+                "timeCostSeconds": 70,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 18
+                  },
+                  {
+                    "itemId": "minecraft:iron_ingot",
+                    "count": 20
+                  },
+                  {
+                    "itemId": "minecraft:diamond",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:desert_raider_heavy_camel_cavalry",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 1
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

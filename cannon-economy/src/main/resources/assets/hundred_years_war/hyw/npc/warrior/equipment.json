@@ -1,0 +1,172 @@
+{
+  "levels": {
+    "0": {
+      "main_hand": [
+        {
+          "item": "minecraft:stone_axe",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "main_hand": [
+        {
+          "item": "minecraft:iron_axe",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:chainmail_helmet",
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:chainmail_chestplate",
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:chainmail_leggings",
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:chainmail_boots",
+          "probability": 1.0
+        }
+      ]
+    },
+    "2": {
+      "main_hand": [
+        {
+          "item": "minecraft:iron_axe",
+          "probability": 0.8
+        },
+        {
+          "item": "minecraft:iron_axe",
+          "probability": 0.2,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 1
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:iron_helmet",
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:iron_chestplate",
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:iron_leggings",
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:iron_boots",
+          "probability": 1.0
+        }
+      ]
+    },
+    "3": {
+      "main_hand": [
+        {
+          "item": "minecraft:diamond_axe",
+          "probability": 1.0,
+          "enchantments": [
+            {
+              "enchantment": "minecraft:sharpness",
+              "level": 2
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": "minecraft:diamond_helmet",
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": "minecraft:diamond_chestplate",
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": "minecraft:diamond_leggings",
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": "minecraft:diamond_boots",
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "minecraft:wheat": {
+    "biomes": [
+      "minecraft:plains",
+      "minecraft:sunflower_plains",
+      "minecraft:river",
+      "minecraft:meadow"
+    ],
+    "restrict_placement": true,
+    "growth_reduction_outside": 1.0
+  },
+  "minecraft:carrots": {
+    "biomes": ["minecraft:plains", "minecraft:river", "minecraft:meadow"],
+    "restrict_placement": true,
+    "growth_reduction_outside": 1.0
+  },
+  "minecraft:potatoes": {
+    "biomes": ["minecraft:plains", "minecraft:river", "minecraft:meadow"],
+    "restrict_placement": true,
+    "growth_reduction_outside": 1.0
+  },
+  "minecraft:beetroots": {
+    "biomes": ["minecraft:taiga", "minecraft:old_growth_spruce_taiga", "minecraft:snowy_taiga"],
+    "restrict_placement": true,
+    "growth_reduction_outside": 0.75
+  }
+}

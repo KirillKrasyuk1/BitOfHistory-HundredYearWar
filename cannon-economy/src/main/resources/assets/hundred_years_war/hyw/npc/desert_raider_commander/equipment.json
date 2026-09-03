@@ -1,0 +1,42 @@
+{
+  "levels": {
+    "3": {
+      "main_hand": [
+        {
+          "item": "hundred_years_war:diamond_sickle_sword",
+          "probability": 1.0
+        }
+      ],
+      "off_hand": [
+        {
+          "item": "hundred_years_war:desert_round_shield",
+          "probability": 1.0
+        }
+      ],
+      "head": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "chest": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "legs": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ],
+      "feet": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

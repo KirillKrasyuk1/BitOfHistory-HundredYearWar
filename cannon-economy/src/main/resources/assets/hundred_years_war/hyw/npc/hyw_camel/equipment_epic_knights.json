@@ -1,0 +1,40 @@
+{
+  "levels": {
+    "0": {
+      "horse_armor": [
+        {
+          "item": null,
+          "probability": 1.0
+        }
+      ]
+    },
+    "1": {
+      "horse_armor": [
+        {
+          "item": "hundred_years_war:leather_camel_armor",
+          "probability": 1.0
+        }
+      ]
+    },
+    "2": {
+      "horse_armor": [
+        {
+          "item": "hundred_years_war:iron_camel_armor",
+          "probability": 0.7
+        },
+        {
+          "item": "hundred_years_war:golden_camel_armor",
+          "probability": 0.3
+        }
+      ]
+    },
+    "3": {
+      "horse_armor": [
+        {
+          "item": "hundred_years_war:diamond_camel_armor",
+          "probability": 1.0
+        }
+      ]
+    }
+  }
+}

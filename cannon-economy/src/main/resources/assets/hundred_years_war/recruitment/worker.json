@@ -1,0 +1,214 @@
+{
+  "races": {
+    "mercenary": {
+      "translationKey": "recruitment.hundred_years_war.race.mercenary",
+      "categories": {
+        "worker": [
+          {
+            "id": "lumberjack",
+            "translationKey": "recruitment.hundred_years_war.unit.lumberjack",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.lumberjack_i",
+                "expCost": 8,
+                "timeCostSeconds": 30,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:lumberjack",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "farmer",
+            "translationKey": "recruitment.hundred_years_war.unit.farmer",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.farmer_i",
+                "expCost": 6,
+                "timeCostSeconds": 25,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:farmer",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "breeder",
+            "translationKey": "recruitment.hundred_years_war.unit.breeder",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.breeder_i",
+                "expCost": 10,
+                "timeCostSeconds": 35,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:breeder",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "miner",
+            "translationKey": "recruitment.hundred_years_war.unit.miner",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.miner_i",
+                "expCost": 10,
+                "timeCostSeconds": 35,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 3
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:miner",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "fisher",
+            "translationKey": "recruitment.hundred_years_war.unit.fisher",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.fisher_i",
+                "expCost": 8,
+                "timeCostSeconds": 30,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:fisher",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "porter",
+            "translationKey": "recruitment.hundred_years_war.unit.porter",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.porter_i",
+                "expCost": 10,
+                "timeCostSeconds": 30,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 2
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:porter",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          },
+          {
+            "id": "craftsman",
+            "translationKey": "recruitment.hundred_years_war.unit.craftsman",
+            "levels": [
+              {
+                "level": 1,
+                "translationKey": "army.hundred_years_war.craftsman_i",
+                "expCost": 12,
+                "timeCostSeconds": 40,
+                "itemCosts": [
+                  {
+                    "itemId": "minecraft:gold_ingot",
+                    "count": 4
+                  }
+                ],
+                "units": [
+                  {
+                    "entityType": "hundred_years_war:craftsman",
+                    "countRange": {
+                      "min": 1,
+                      "max": 1
+                    },
+                    "equipmentLevel": 0
+                  }
+                ],
+                "conditions": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
