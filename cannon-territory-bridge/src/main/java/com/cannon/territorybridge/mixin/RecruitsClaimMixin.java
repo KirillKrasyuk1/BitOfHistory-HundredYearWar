@@ -66,7 +66,7 @@ public class RecruitsClaimMixin implements BridgeClaimAccess {
         }
     }
 
-    /** Block claim HP from reaching zero unless ratio rules allow and garrison is actually gone. */
+    /** Block claim HP from reaching zero unless attackers still meet the capture ratio (sticky reserves). */
     @ModifyVariable(method = "setHealth", at = @At("HEAD"), argsOnly = true, remap = false)
     private int cannon$clampZeroHealthWithoutRatio(int health) {
         RecruitsClaim self = (RecruitsClaim) (Object) this;
@@ -82,7 +82,10 @@ public class RecruitsClaimMixin implements BridgeClaimAccess {
         return health;
     }
 
-    /** Transfer ownership only when ratio is met and every committed defender is confirmed dead. */
+    /**
+     * Transfer when HP hit 0 and ratio still holds. Do not require defender NPCs dead or
+     * the defending player to leave the claim — hiding on the claim must not stall capture.
+     */
     @Inject(method = "setSiegeSuccess", at = @At("HEAD"), cancellable = true, remap = false)
     private void cannon$guardInstantCapture(ServerLevel level, CallbackInfo ci) {
         RecruitsClaim self = (RecruitsClaim) (Object) this;

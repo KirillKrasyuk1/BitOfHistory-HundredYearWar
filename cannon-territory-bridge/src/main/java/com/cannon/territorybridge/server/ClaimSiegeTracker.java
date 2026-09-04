@@ -22,8 +22,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Live HYW counts refresh every tick for the overlay.
- * During active capture, defender UUIDs survive chunk-unload until confirmed dead —
- * ratio/completion uses live + reserve, not zero just because the owner walked off.
+ * During active capture, defender UUIDs survive chunk-unload so the 5:1 ratio does not
+ * collapse to "0 defenders" when the owner walks off and garrison chunks unload.
+ * Ownership transfer itself only requires the ratio + drained HP — not killing every NPC,
+ * and not forcing the defending player to leave the claim.
  */
 public final class ClaimSiegeTracker {
     private static final Map<UUID, Commitment> COMMITMENTS = new ConcurrentHashMap<>();
@@ -149,16 +151,12 @@ public final class ClaimSiegeTracker {
         return claim != null && claim.isUnderSiege && claim.getHealth() < claim.getMaxHealth();
     }
 
-    /** Ownership transfer only when every committed defender is confirmed dead (or there never was a garrison). */
+    /**
+     * Ownership transfer when claim HP hits 0: attackers must still meet the capture ratio
+     * (sticky unloaded garrison counts). Defending player presence / surviving NPCs do not block.
+     */
     public static boolean canTransferOwnership(RecruitsClaim claim, ServerLevel level, int attackers, int defendersForRatio) {
-        if (!SiegeBalance.canProgressCapture(attackers, defendersForRatio)) {
-            return false;
-        }
-        Commitment commitment = claim != null ? COMMITMENTS.get(claim.getUUID()) : null;
-        if (commitment == null || !commitment.captureStarted || commitment.captureBaselineDefenders <= 0) {
-            return true;
-        }
-        return allDefendersConfirmedDead(claim, level);
+        return SiegeBalance.canProgressCapture(attackers, defendersForRatio);
     }
 
     public static void onCaptureDamageTick(RecruitsClaim claim, ServerLevel level, int ratioDefenders) {
@@ -166,34 +164,7 @@ public final class ClaimSiegeTracker {
             return;
         }
         Commitment commitment = COMMITMENTS.computeIfAbsent(claim.getUUID(), ignored -> new Commitment());
-        if (commitment.captureStarted) {
-            return;
-        }
         commitment.captureStarted = true;
-        commitment.captureBaselineDefenders = Math.max(ratioDefenders, commitment.defenders.size());
-    }
-
-    public static boolean allDefendersConfirmedDead(RecruitsClaim claim, ServerLevel level) {
-        Commitment commitment = claim != null ? COMMITMENTS.get(claim.getUUID()) : null;
-        if (commitment == null || commitment.defenders.isEmpty()) {
-            return true;
-        }
-        for (UUID entityId : commitment.defenders) {
-            if (CONFIRMED_DEAD.contains(entityId)) {
-                continue;
-            }
-            if (level == null) {
-                return false;
-            }
-            Entity entity = level.getEntity(entityId);
-            if (entity == null) {
-                return false;
-            }
-            if (entity instanceof LivingEntity living && living.isAlive() && !living.isRemoved()) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private static void addClassifiedEntity(
@@ -379,6 +350,5 @@ public final class ClaimSiegeTracker {
         private final Set<UUID> attackers = new HashSet<>();
         private final Set<UUID> defenders = new HashSet<>();
         private boolean captureStarted;
-        private int captureBaselineDefenders;
     }
 }

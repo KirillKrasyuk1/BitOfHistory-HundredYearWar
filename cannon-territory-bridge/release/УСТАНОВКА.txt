@@ -1,28 +1,25 @@
-# Cannon Territory Bridge 1.0.26 — установка
+# Cannon Territory Bridge 1.0.27 — установка
 =========================================
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.26.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.27.jar
 
-2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.26**
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.27**
 
-## Главное изменение (1.0.26)
+## Главное изменение (1.0.27)
 
-Исправление краша при поедании еды / использовании предметов вне клейма.
-Красное уведомление о клейме больше не появляется на яблоках и не валит клиент.
+Осада больше **не зависает**, если защитник остаётся на клейме и прячется.
+Захват завершается, когда HP клейма доходит до 0 при соотношении ≥ 5:1.
+Присутствие игрока-защитника и живые NPC больше не блокируют передачу владения.
+
+Соотношение 5:1 по-прежнему учитывает «липкий» гарнизон (уход с клейма не обнуляет защитников мгновенно).
 
 ## Важно: уже существующий конфиг
 
-Forge **не перезаписывает** старый конфиг. Открой в инстансе Cannon:
-
-`config/cannon_territory_bridge-common.toml`
-
-и поставь:
+`config/cannon_territory_bridge-common.toml`:
 
 ```toml
 captureAdvantageRatio = 5.0
 ```
 
-Без этого в старом мире может остаться 2.0.
-
-В логе: `cannon_territory_bridge 1.0.26`
+В логе: `cannon_territory_bridge 1.0.27`

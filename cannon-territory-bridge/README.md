@@ -4,9 +4,15 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 ## Install
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.26.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.27.jar
 
-Delete all older `cannon_territory_bridge-1.0.x.jar`, verify log: `cannon_territory_bridge 1.0.26`
+Delete all older `cannon_territory_bridge-1.0.x.jar`, verify log: `cannon_territory_bridge 1.0.27`
+
+## v1.0.27
+
+- **Siege capture no longer stalls while the defender hides on the claim.** Ownership transfers when claim HP hits 0 and the 5:1 ratio still holds. Surviving NPCs / defending player presence do not block transfer.
+- Sticky unloaded garrison still counts for the **ratio** (leaving the claim does not instantly zero defenders).
+- After a successful capture, `removeActiveSiege` is always allowed to tear the siege down.
 
 ## v1.0.26
 
@@ -22,10 +28,6 @@ If you already have a world config, edit `config/cannon_territory_bridge-common.
 ```toml
 captureAdvantageRatio = 5.0
 ```
-
-## v1.0.24
-
-- Defender UUID preservation during active capture, live vs ratio counts
 
 ## Build
 

@@ -194,7 +194,10 @@ public abstract class ClaimEventsMixin {
             com.talhanation.recruits.world.RecruitsClaimManager manager,
             RecruitsClaim claim
     ) {
-        if (BridgeClaimHelper.attackerCount(claim) >= SiegeBalance.minAttackersToStart()) {
+        // After successful capture Recruits sets isUnderSiege=false then removeActiveSiege —
+        // always allow teardown then. Only block premature abort while the siege is still active
+        // and bridge attackers remain.
+        if (claim.isUnderSiege && BridgeClaimHelper.attackerCount(claim) >= SiegeBalance.minAttackersToStart()) {
             return;
         }
         manager.removeActiveSiege(claim);
