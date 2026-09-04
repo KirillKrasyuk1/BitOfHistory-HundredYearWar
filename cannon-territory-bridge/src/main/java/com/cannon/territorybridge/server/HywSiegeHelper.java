@@ -1,0 +1,147 @@
+package com.cannon.territorybridge.server;
+
+import com.cannon.territorybridge.CannonTerritoryBridge;
+import com.cannon.territorybridge.config.BridgeConfig;
+import com.talhanation.recruits.FactionEvents;
+import com.talhanation.recruits.world.RecruitsFaction;
+import com.talhanation.recruits.world.RecruitsPlayerInfo;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.scores.Team;
+import ydmsama.hundred_years_war.main.entity.entities.BaseCombatEntity;
+import ydmsama.hundred_years_war.main.entity.entities.HywHorseEntity;
+import ydmsama.hundred_years_war.main.entity.entities.tags.SiegeUnit;
+import ydmsama.hundred_years_war.main.utils.RelationSystem;
+import ydmsama.hundred_years_war.main.utils.VanillaTeamUuidCache;
+
+import java.util.UUID;
+
+/** Resolves Recruits siege faction for HYW units without touching the scoreboard. */
+public final class HywSiegeHelper {
+    private HywSiegeHelper() {}
+
+    /**
+     * Team used by Recruits {@code classifyEntities} / {@code updateParties}.
+     * HYW soldiers must resolve to a Recruits faction scoreboard team — a raw vanilla/HYW team name
+     * that Recruits does not know would otherwise be ignored and the unit would not count.
+     */
+    public static Team resolveSiegeTeam(LivingEntity entity) {
+        if (!entity.isAlive() || entity.isRemoved()) {
+            return null;
+        }
+        if (entity instanceof BaseCombatEntity) {
+            Team fromOwner = resolveOwnerTeam(entity);
+            if (fromOwner != null) {
+                return fromOwner;
+            }
+            Team vanilla = entity.getTeam();
+            if (vanilla != null && isRecruitsFactionTeam(vanilla.getName())) {
+                return vanilla;
+            }
+            return null;
+        }
+        return entity.getTeam();
+    }
+
+    public static Team resolveOwnerTeam(LivingEntity entity) {
+        try {
+            if (!BridgeConfig.SYNC_HYW_TEAMS.get() || !entity.isAlive() || entity.isRemoved()) {
+                return null;
+            }
+            if (!BridgeConfig.COUNT_MOUNTED_HORSES_FOR_SIEGE.get() && entity instanceof HywHorseEntity) {
+                return null;
+            }
+            if (!(entity instanceof BaseCombatEntity hyw)) {
+                return null;
+            }
+            if (hyw instanceof SiegeUnit && !BridgeConfig.COUNT_HYW_SIEGE_WEAPONS.get()) {
+                return null;
+            }
+            if (!(entity.level() instanceof ServerLevel level)) {
+                return null;
+            }
+            UUID ownerId = HywEntityAccess.getOwnerUuid(hyw);
+            if (ownerId == null) {
+                return null;
+            }
+
+            ServerPlayer onlineOwner = level.getServer().getPlayerList().getPlayer(ownerId);
+            if (onlineOwner != null && onlineOwner.getTeam() != null) {
+                return onlineOwner.getTeam();
+            }
+
+            RecruitsFaction faction = findRecruitsFactionForOwner(ownerId);
+            if (faction == null) {
+                faction = findRecruitsFactionByHywTeam(ownerId);
+            }
+            if (faction == null) {
+                return null;
+            }
+            return scoreboardTeamForFaction(level, faction);
+        } catch (Throwable t) {
+            CannonTerritoryBridge.LOGGER.warn(
+                    "HYW siege team lookup failed for {}: {}",
+                    entity.getType(),
+                    t.toString()
+            );
+            return null;
+        }
+    }
+
+    static RecruitsFaction findRecruitsFactionForOwner(UUID ownerId) {
+        if (FactionEvents.recruitsFactionManager == null) {
+            return null;
+        }
+        for (RecruitsFaction faction : FactionEvents.recruitsFactionManager.getFactions()) {
+            if (ownerId.equals(faction.getTeamLeaderUUID())) {
+                return faction;
+            }
+            for (RecruitsPlayerInfo member : faction.getMembers()) {
+                if (ownerId.equals(member.getUUID())) {
+                    return faction;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static RecruitsFaction findRecruitsFactionByHywTeam(UUID ownerId) {
+        if (FactionEvents.recruitsFactionManager == null) {
+            return null;
+        }
+        UUID hywTeamUuid = RelationSystem.getPlayerTeamUUID(ownerId);
+        if (hywTeamUuid == null) {
+            return null;
+        }
+        for (RecruitsFaction faction : FactionEvents.recruitsFactionManager.getFactions()) {
+            if (hywTeamUuid.equals(VanillaTeamUuidCache.get(faction.getStringID()))) {
+                return faction;
+            }
+        }
+        return null;
+    }
+
+    private static Team scoreboardTeamForFaction(ServerLevel level, RecruitsFaction faction) {
+        Team team = level.getScoreboard().getPlayerTeam(faction.getStringID());
+        if (team != null) {
+            return team;
+        }
+        // Some worlds use display name as scoreboard id — try that as a fallback.
+        String displayName = faction.getTeamDisplayName();
+        if (displayName != null && !displayName.isBlank()) {
+            team = level.getScoreboard().getPlayerTeam(displayName);
+            if (team != null) {
+                return team;
+            }
+        }
+        return null;
+    }
+
+    static boolean isRecruitsFactionTeam(String teamName) {
+        if (teamName == null || FactionEvents.recruitsFactionManager == null) {
+            return false;
+        }
+        return FactionEvents.recruitsFactionManager.getFactionByStringID(teamName) != null;
+    }
+}

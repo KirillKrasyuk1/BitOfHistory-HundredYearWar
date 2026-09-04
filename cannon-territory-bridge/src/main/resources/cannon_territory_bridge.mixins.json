@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "package": "com.cannon.territorybridge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "refmap": "cannon_territory_bridge.refmap.json",
+  "mixins": [
+    "ClaimEventsMixin",
+    "CommandEventsMixin",
+    "ConquerorsStaffItemMixin",
+    "BaseScrollItemMixin",
+    "OpenRecruitmentPacketMixin",
+    "RecruitmentDataRequestPacketMixin",
+    "RecruitmentOrderPacketMixin",
+    "RecruitmentOrderManagerMixin",
+    "RecruitsClaimMixin",
+    "RecruitsClaimManagerMixin"
+  ],
+  "client": [
+    "KeyEventsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "message.cannon_territory_bridge.mobilize_denied": "Mobilization is only allowed inside your own claim",
+  "message.cannon_territory_bridge.mobilize_denied_no_claim": "Create a faction claim first",
+  "message.cannon_territory_bridge.mobilize_denied_no_squad": "Create an HYW squad first",
+  "overlay.cannon_territory_bridge.siege_timer": "§c⚔ Capture in: §f~%s",
+  "overlay.cannon_territory_bridge.siege_paused": "§e⚔ Siege: §f%s §7vs §f%s §7| need §f%s",
+  "overlay.cannon_territory_bridge.siege_forces": "§7Forces: §f%s §7vs §f%s §7| to capture: §f%s",
+  "overlay.cannon_territory_bridge.siege_hp": "§7HP: §f%s/%s §7(§f%s%%§7)"
+}

@@ -1,0 +1,9 @@
+{
+  "message.cannon_territory_bridge.mobilize_denied": "Мобилизация возможна только на территории вашего клейма",
+  "message.cannon_territory_bridge.mobilize_denied_no_claim": "Сначала создайте клейм своей фракции",
+  "message.cannon_territory_bridge.mobilize_denied_no_squad": "Сначала создайте отряд в меню HYW",
+  "overlay.cannon_territory_bridge.siege_timer": "§c⚔ До захвата: §f~%s",
+  "overlay.cannon_territory_bridge.siege_paused": "§e⚔ Осада: §f%s §7vs §f%s §7| нужно §f%s",
+  "overlay.cannon_territory_bridge.siege_forces": "§7Силы: §f%s §7vs §f%s §7| для захвата: §f%s",
+  "overlay.cannon_territory_bridge.siege_hp": "§7Прочность: §f%s/%s §7(§f%s%%§7)"
+}

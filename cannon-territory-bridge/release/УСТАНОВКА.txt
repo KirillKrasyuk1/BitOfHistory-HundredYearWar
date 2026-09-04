@@ -1,0 +1,25 @@
+# Cannon Territory Bridge 1.0.27 — установка
+=========================================
+
+1. Скачай:
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.27.jar
+
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.27**
+
+## Главное изменение (1.0.27)
+
+Осада больше **не зависает**, если защитник остаётся на клейме и прячется.
+Захват завершается, когда HP клейма доходит до 0 при соотношении ≥ 5:1.
+Присутствие игрока-защитника и живые NPC больше не блокируют передачу владения.
+
+Соотношение 5:1 по-прежнему учитывает «липкий» гарнизон (уход с клейма не обнуляет защитников мгновенно).
+
+## Важно: уже существующий конфиг
+
+`config/cannon_territory_bridge-common.toml`:
+
+```toml
+captureAdvantageRatio = 5.0
+```
+
+В логе: `cannon_territory_bridge 1.0.27`
