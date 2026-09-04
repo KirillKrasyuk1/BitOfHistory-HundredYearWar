@@ -37,7 +37,11 @@ public final class BridgeServerEvents {
         }
     }
 
-    /** Blocks Conqueror's Staff army spawn when charge completes outside own claim. */
+    /**
+     * After Conqueror's Staff charge completes outside own claim: show deny message.
+     * {@link LivingEntityUseItemEvent.Finish} is not cancelable — spawned units are rejected
+     * by {@link #onHywCombatEntityJoin}. Must ignore food/other items or eating crashes the server.
+     */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onHywStaffUseFinish(LivingEntityUseItemEvent.Finish event) {
         if (event.getEntity().level().isClientSide()) {
@@ -46,11 +50,41 @@ public final class BridgeServerEvents {
         if (!(event.getEntity() instanceof ServerPlayer player)) {
             return;
         }
+        ItemStack stack = event.getItem();
+        if (!HywMobilizationItems.isMobilizationItem(stack)) {
+            return;
+        }
         HywMobilizationGuard.DenyReason reason = HywMobilizationGuard.evaluate(
                 player.getUUID(),
                 player.blockPosition(),
                 player,
                 "staffUseFinish"
+        );
+        if (reason != null) {
+            HywMobilizationGuard.denyMobilization(player, reason);
+            // Finish cannot be canceled; restore the staff/scroll if HYW consumed it.
+            event.setResultStack(stack.copy());
+        }
+    }
+
+    /** Cancels charge start for HYW staff/scroll outside own claim (Start is cancelable). */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onHywStaffUseStart(LivingEntityUseItemEvent.Start event) {
+        if (event.getEntity().level().isClientSide()) {
+            return;
+        }
+        if (!(event.getEntity() instanceof ServerPlayer player)) {
+            return;
+        }
+        ItemStack stack = event.getItem();
+        if (!HywMobilizationItems.isMobilizationItem(stack)) {
+            return;
+        }
+        HywMobilizationGuard.DenyReason reason = HywMobilizationGuard.evaluate(
+                player.getUUID(),
+                player.blockPosition(),
+                player,
+                "staffUseStart"
         );
         if (reason != null) {
             HywMobilizationGuard.denyMobilization(player, reason);

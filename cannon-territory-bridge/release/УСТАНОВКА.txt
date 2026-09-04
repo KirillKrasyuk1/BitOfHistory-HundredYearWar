@@ -1,17 +1,15 @@
-# Cannon Territory Bridge 1.0.25 — установка
+# Cannon Territory Bridge 1.0.26 — установка
 =========================================
 
 1. Скачай:
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.25.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.26.jar
 
-2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.25**
+2. Удали **ВСЕ** `cannon_territory_bridge-1.0.x.jar`, положи **1.0.26**
 
-## Главное изменение (1.0.25)
+## Главное изменение (1.0.26)
 
-**Таймер захвата запускается только при соотношении 5 : 1** (раньше 2 : 1).
-
-Пример: 10 защитников → нужно **50** атакующих, чтобы пошёл отсчёт и падала прочность клейма.
-Меньше 5 : 1 — осада может идти, но таймер стоит.
+Исправление краша при поедании еды / использовании предметов вне клейма.
+Красное уведомление о клейме больше не появляется на яблоках и не валит клиент.
 
 ## Важно: уже существующий конфиг
 
@@ -27,4 +25,4 @@ captureAdvantageRatio = 5.0
 
 Без этого в старом мире может остаться 2.0.
 
-В логе: `cannon_territory_bridge 1.0.25`
+В логе: `cannon_territory_bridge 1.0.26`

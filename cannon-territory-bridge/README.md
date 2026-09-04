@@ -4,9 +4,14 @@ Forge 1.20.1 bridge mod for the **Cannon** modpack.
 
 ## Install
 
-https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.25.jar
+https://raw.githubusercontent.com/KirillKrasyuk1/BitOfHistory-HundredYearWar/cursor/cannon-territory-bridge-5fac/cannon-territory-bridge/release/cannon_territory_bridge-1.0.26.jar
 
-Delete all older `cannon_territory_bridge-1.0.x.jar`, verify log: `cannon_territory_bridge 1.0.25`
+Delete all older `cannon_territory_bridge-1.0.x.jar`, verify log: `cannon_territory_bridge 1.0.26`
+
+## v1.0.26
+
+- **Crash fix:** eating food / finishing any item use no longer crashes. `LivingEntityUseItemEvent.Finish` is not cancelable; the handler now only runs for HYW staff/scrolls and never calls `setCanceled`.
+- Charge start for staff/scroll is canceled via `LivingEntityUseItemEvent.Start` outside own claim.
 
 ## v1.0.25
 
